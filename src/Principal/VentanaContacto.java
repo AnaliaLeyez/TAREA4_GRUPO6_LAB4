@@ -220,17 +220,7 @@ class eBtnMostrar implements ActionListener {
 		// A definir
 		DatosValidados datosValidados = DatosFormularioEj1.validarCampos(nombre, apellido, telefono, fechaNac);
 
-		lblNombreError.setVisible(false);
-		lblNombreError.setText("");
-
-		lblApellidoError.setVisible(false);
-		lblApellidoError.setText("");
-
-		lblTelefonoError.setVisible(false);
-		lblTelefonoError.setText("");
-
-		lblFNacError.setVisible(false);
-		lblFNacError.setText("");
+		ocultarErrores();
 
 		if (datosValidados.isDatosCorrectos()) {
 			datosFormularioEj1 = new DatosFormularioEj1(nombre, apellido, telefono, fechaNac);
@@ -247,29 +237,17 @@ class eBtnMostrar implements ActionListener {
 		} else {
 			System.out.println("tengo chalecoviteh");
 			for (String error : datosValidados.getErrores()) {
-				if (error.toLowerCase().contains("nombre")) {
-					lblNombreError.setVisible(true);
-					lblNombreError.setText(error);
-					nombre.setBackground(Color.red);
-				}
+				if (error.toLowerCase().contains("nombre")) 
+					mostrarError(nombre, lblNombreError, error);
 
-				if (error.toLowerCase().contains("apellido")) {
-					lblApellidoError.setVisible(true);
-					lblApellidoError.setText(error);
-					apellido.setBackground(Color.red);
-				}
+				if (error.toLowerCase().contains("apellido")) 
+					mostrarError(apellido, lblApellidoError, error);
 
-				if (error.toLowerCase().contains("teléfono") || error.toLowerCase().contains("número")) {
-					lblTelefonoError.setVisible(true);
-					lblTelefonoError.setText(error);
-					telefono.setBackground(Color.red);
-				}
+				if (error.toLowerCase().contains("teléfono") || error.toLowerCase().contains("número")) 
+					mostrarError(telefono, lblTelefonoError, error);
 
-				if (error.toLowerCase().contains("fecha")) {
-					lblFNacError.setVisible(true);
-					lblFNacError.setText(error);
-					fechaNac.setBackground(Color.red);
-				}
+				if (error.toLowerCase().contains("fecha"))
+					mostrarError(fechaNac, lblFNacError, error);
 			}
 		}
 	}
@@ -291,5 +269,27 @@ class eBtnMostrar implements ActionListener {
 		this.lblMostrarApellido = lblMostrarApellido;
 		this.lblMostrarTel = lblMostrarTel;
 		this.lblMostrarFecha = lblMostrarFecha;
+	}
+	
+private void ocultarErrores() {
+		
+		lblNombreError.setVisible(false);
+		lblNombreError.setText("");
+
+		lblApellidoError.setVisible(false);
+		lblApellidoError.setText("");
+
+		lblTelefonoError.setVisible(false);
+		lblTelefonoError.setText("");
+
+		lblFNacError.setVisible(false);
+		lblFNacError.setText("");
+	}
+	
+	private void mostrarError(JTextField campo, JLabel label, String error)
+	{
+		campo.setBackground(Color.red);
+		label.setText(error);
+		label.setVisible(true);
 	}
 }
