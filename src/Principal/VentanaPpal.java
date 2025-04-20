@@ -54,8 +54,8 @@ public class VentanaPpal extends JFrame {
 		
 		//Evento de cada botón
 		btnEj1.addActionListener(new eBtn1());
-		btnEj2.addActionListener(new eBtn1());
-		btnEj3.addActionListener(new eBtn1());
+		//btnEj2.addActionListener(new eBtn1());
+		//btnEj3.addActionListener(new eBtn1());
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setBounds(306, 244, 89, 23);

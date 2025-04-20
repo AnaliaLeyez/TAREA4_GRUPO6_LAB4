@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Principal.DatosFormularioEj1.DatosValidados;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class VentanaContacto extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +46,7 @@ public class VentanaContacto extends JFrame {
 	private JLabel lblMostrarFecha;
 
 	public VentanaContacto() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(500, 100, 406, 537);
 		setTitle("Contactos");
 		getContentPane().setLayout(null);
@@ -56,6 +59,12 @@ public class VentanaContacto extends JFrame {
 		getContentPane().add(lblNombre);
 
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtNombre.setBackground(Color.WHITE);
+			}
+		});
 		txtNombre.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		txtNombre.setBackground(Color.white);
 		txtNombre.setBounds(109, 16, 248, 30);
@@ -69,6 +78,12 @@ public class VentanaContacto extends JFrame {
 		getContentPane().add(lblApellido);
 
 		txtApellido = new JTextField();
+		txtApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtApellido.setBackground(Color.WHITE);
+			}
+		});
 		txtApellido.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		txtApellido.setBackground(Color.white);
 		txtApellido.setBounds(109, 70, 248, 30);
@@ -82,6 +97,12 @@ public class VentanaContacto extends JFrame {
 		getContentPane().add(lblTelefono);
 
 		txtTelefono = new JTextField();
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtTelefono.setBackground(Color.WHITE);
+			}
+		});
 		txtTelefono.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		txtTelefono.setBackground(Color.white);
 		txtTelefono.setBounds(109, 122, 248, 30);
@@ -95,6 +116,12 @@ public class VentanaContacto extends JFrame {
 		getContentPane().add(lblFechaNac);
 
 		txtFechaNac = new JTextField();
+		txtFechaNac.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txtFechaNac.setBackground(Color.WHITE);
+			}
+		});
 		txtFechaNac.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		txtFechaNac.setBackground(Color.white);
 		txtFechaNac.setBounds(109, 175, 248, 30);
@@ -180,6 +207,7 @@ public class VentanaContacto extends JFrame {
 	}
 }
 
+
 class eBtnMostrar implements ActionListener {
 
 	private JTextField nombre, apellido, telefono, fechaNac;
@@ -222,25 +250,28 @@ class eBtnMostrar implements ActionListener {
 				if (error.toLowerCase().contains("nombre")) {
 					lblNombreError.setVisible(true);
 					lblNombreError.setText(error);
+					nombre.setBackground(Color.red);
 				}
 
 				if (error.toLowerCase().contains("apellido")) {
 					lblApellidoError.setVisible(true);
 					lblApellidoError.setText(error);
+					apellido.setBackground(Color.red);
 				}
 
 				if (error.toLowerCase().contains("teléfono") || error.toLowerCase().contains("número")) {
 					lblTelefonoError.setVisible(true);
 					lblTelefonoError.setText(error);
+					telefono.setBackground(Color.red);
 				}
 
 				if (error.toLowerCase().contains("fecha")) {
 					lblFNacError.setVisible(true);
 					lblFNacError.setText(error);
+					fechaNac.setBackground(Color.red);
 				}
 			}
 		}
-
 	}
 
 	public eBtnMostrar(JTextField nombre, JTextField apellido, JTextField telefono, JTextField fechaNac,
