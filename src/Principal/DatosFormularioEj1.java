@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import javax.swing.JTextField;
+import validaciones.Validar;
 
 public class DatosFormularioEj1 {
 
@@ -57,22 +58,23 @@ public class DatosFormularioEj1 {
 	public static DatosValidados validarCampos(JTextField nombre, JTextField apellido, JTextField telefono,
 			JTextField fechaNac) {
 		ArrayList<String> errores = new ArrayList<>();
+		
+		Validar validar = new Validar();
 
-		String tel = telefono.getText().trim();
-		String fecha = fechaNac.getText().trim();
-
-		if (nombre.getText().trim().isEmpty())
+		if (validar.campoVacio(nombre))
 			errores.add("El nombre no puede estar vacío");
 
-		if (apellido.getText().trim().isEmpty())
+		if (validar.campoVacio(apellido))
 			errores.add("El apellido no puede estar vacío");
-
 		
-		if (tel.isEmpty()) {
+		if (validar.campoVacio(telefono)) {
 			errores.add("El teléfono no puede estar vacio");
 		}
-
-	    if (fecha.isEmpty()) {
+		else if(validar.contieneLetras(telefono)) {
+			errores.add("El teléfono no puede contener letras");
+		}
+			
+	    if (validar.campoVacio(fechaNac)) {
 	        errores.add("La fecha no puede estar vacía");
 	    } 
 	    //deberia ir una validación de formato de fecha
