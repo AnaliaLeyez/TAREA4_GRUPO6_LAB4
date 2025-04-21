@@ -248,6 +248,9 @@ class eBtnMostrar implements ActionListener {
 
 				if (error.toLowerCase().contains("fecha"))
 					mostrarError(fechaNac, lblFNacError, error);
+				
+				if (error.toLowerCase().contains("dd/MM/yyyy"))
+					mostrarError(fechaNac, lblFNacError, error);
 			}
 		}
 	}

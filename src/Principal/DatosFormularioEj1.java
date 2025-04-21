@@ -48,7 +48,8 @@ public class DatosFormularioEj1 {
 	}
 
 	public String getFechaNac() {
-		return fechaNac;
+		return fechaNac.substring(0, 2) + "-" + fechaNac.substring(2, 4) + "-" + fechaNac.substring(4);
+
 	}
 
 	public void setFechaNac(String fechaNac) {
@@ -77,7 +78,11 @@ public class DatosFormularioEj1 {
 	    if (validar.campoVacio(fechaNac)) {
 	        errores.add("La fecha no puede estar vacía");
 	    } 
-	    //deberia ir una validación de formato de fecha
+	    if(validar.fechaInvalida(fechaNac,"dd/MM/yyyy"))
+	    {
+	    	errores.add("fecha: dd/MM/yyyy sin espacios ni guiones");
+	    }
+	 
 
 		return new DatosValidados(errores.isEmpty(), errores);
 	}

@@ -1,6 +1,10 @@
 package validaciones;
 
 import javax.swing.JTextField;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class Validar {
 	public boolean campoVacio(JTextField txt)
@@ -18,5 +22,27 @@ public class Validar {
 				return true;
 		}
 		return false;
+	}
+	
+	public boolean fechaInvalida(JTextField txt, String formato) {
+	    String auxTxt = txt.getText().trim();
+
+	  
+	    if (!auxTxt.matches("\\d{8}")) {
+	        return true; 
+	    }
+
+	    DateTimeFormatter TipoFecha = DateTimeFormatter.ofPattern(formato);
+
+	    try {
+	        LocalDate fechaTxt = LocalDate.parse(
+	            auxTxt.substring(0, 2) + "/" + auxTxt.substring(2, 4) + "/" + auxTxt.substring(4),
+	            TipoFecha
+	        );
+	        int anioActual = LocalDate.now().getYear();
+	        return fechaTxt.getYear() > anioActual; 
+	    } catch (DateTimeParseException e) {
+	        return true; 
+	    }
 	}
 }
