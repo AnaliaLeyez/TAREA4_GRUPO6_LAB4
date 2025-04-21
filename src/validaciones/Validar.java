@@ -45,4 +45,20 @@ public class Validar {
 	        return true; 
 	    }
 	}
+	
+
+	public boolean contieneNumeros(JTextField txt) {
+	    String texto = txt.getText();
+	    for (int i = 0; i < texto.length(); i++) {
+	        if (Character.isDigit(texto.charAt(i))) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
+	public boolean telefonoInvalido(JTextField txt) {
+	    String numero = txt.getText().trim();
+	    return !numero.matches("\\d{9,10}");
+	}
 }

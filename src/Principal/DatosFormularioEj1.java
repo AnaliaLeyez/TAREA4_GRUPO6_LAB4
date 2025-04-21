@@ -62,17 +62,26 @@ public class DatosFormularioEj1 {
 		
 		Validar validar = new Validar();
 
-		if (validar.campoVacio(nombre))
-			errores.add("El nombre no puede estar vacío");
+		if (validar.campoVacio(nombre)) {
+		    errores.add("El nombre no puede estar vacío");
+		} else if (validar.contieneNumeros(nombre)) {
+		    errores.add("El nombre no puede contener números");
+		}
 
-		if (validar.campoVacio(apellido))
-			errores.add("El apellido no puede estar vacío");
+				
+		if (validar.campoVacio(apellido)) {
+		    errores.add("El apellido no puede estar vacío");
+		} else if (validar.contieneNumeros(apellido)) {
+		    errores.add("El apellido no puede contener números");
+		}
 		
 		if (validar.campoVacio(telefono)) {
 			errores.add("El teléfono no puede estar vacio");
 		}
 		else if(validar.contieneLetras(telefono)) {
 			errores.add("El teléfono no puede contener letras");
+		}else if (validar.telefonoInvalido(telefono)) {
+		    errores.add("El teléfono debe tener entre 9 y 10 dígitos");
 		}
 			
 	    if (validar.campoVacio(fechaNac)) {

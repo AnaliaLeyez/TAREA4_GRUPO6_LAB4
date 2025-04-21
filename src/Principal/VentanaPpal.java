@@ -61,6 +61,15 @@ public class VentanaPpal extends JFrame {
 		btnSalir.setBounds(306, 244, 89, 23);
 		getContentPane().add(btnSalir);
 		
+		
+		btnSalir.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        // cierro la aplicación
+		        System.exit(0); 
+		    }
+		});
+		
 	}
 	
 	public void cambiarVisibilidad(boolean estado)
@@ -86,3 +95,5 @@ class eBtn1 implements ActionListener
 		});
 	}
 }
+
+

@@ -131,6 +131,11 @@ public class VentanaContacto extends JFrame {
 		btnMostrar = new JButton();
 		btnMostrar.setText("Mostrar");
 		btnMostrar.setBounds(264, 236, 89, 30);
+		
+		//agreo un btn volver
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBounds(10, 450, 100, 30);  // Ajusta la posición y tamaño
+		getContentPane().add(btnVolver);
 
 		// Agrego el boton al Panel
 		getContentPane().add(btnMostrar);
@@ -195,13 +200,29 @@ public class VentanaContacto extends JFrame {
 		lblMostrarFecha.setVisible(false);
 		getContentPane().add(lblMostrarFecha);
 
-		// Evento del botón
+		// Evento del botón mostrar
 		btnMostrar.addActionListener(new eBtnMostrar(txtNombre, txtApellido, txtTelefono, txtFechaNac, lblNombreError,
 				lblApellidoError, lblTelefonoError, lblFNacError, lblMostrarNombre, lblMostrarApellido, lblMostrarTel,
 				lblMostrarFecha));
 
+		//Evento del btn volver 
+		btnVolver.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// cierro la ventana actual de contactos
+				dispose();
+				
+				// muestro la ventana principal
+				VentanaPpal ventanaPrincipal = new VentanaPpal();
+				ventanaPrincipal.cambiarVisibilidad(true);
+			}
+		});
 	}
+	
+	
+	
 
+	
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
 	}
