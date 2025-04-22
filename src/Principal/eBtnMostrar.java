@@ -75,7 +75,6 @@ class eBtnMostrar implements ActionListener {
 		
 	}
 		
-		
 	private void ocultarErrores() {
 			
 			lblNombreError.setVisible(false);
@@ -89,7 +88,7 @@ class eBtnMostrar implements ActionListener {
 
 			lblFNacError.setVisible(false);
 			lblFNacError.setText("");
-		}
+	}
 			
 	private void mostrarError(JTextField campo, JLabel label, String error)
 	{
