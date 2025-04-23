@@ -208,10 +208,18 @@ public class VentanaPromedio extends JFrame {
 		lblTpsError.setVisible(false);
 		lblTpsError.setLabelFor(lblTps);
 		
-		// Evento del botón Calcular
-		btnCalcular.addActionListener(new eBtnCalcular(txtNota1, txtNota2, txtNota3,
-		cBoxTps, lblNota1Error, lblNota2Error, lblNota3Error, lblTpsError,
-		lblMostrarNota1, lblMostrarNota2, lblMostrarNota3, lblMostrarTps));
+		// Evento del botón Calcular	
+		 eBtnCalcular eventoCalcular = new eBtnCalcular(txtNota1, txtNota2, txtNota3,
+		 cBoxTps, lblNota1Error, lblNota2Error, lblNota3Error, lblTpsError,
+		 lblMostrarNota1, lblMostrarNota2, lblMostrarNota3, lblMostrarTps);
+
+		// Le pasamos los campos resultado
+		eventoCalcular.setCamposResultado(txtPromedio, txtCondicion);
+
+		// Asociamos el evento al botón
+		btnCalcular.addActionListener(eventoCalcular);
+		
+		
 		
 		JButton btnNuevo = new JButton("NUEVO");
 		btnNuevo.setBounds(349, 117, 129, 43);
@@ -227,43 +235,120 @@ public class VentanaPromedio extends JFrame {
 	}
 }
 
+
 class eBtnCalcular implements ActionListener {
+    private JTextField txtNota1, txtNota2, txtNota3;
+    private JComboBox<String> cBoxTps;
+    private JLabel lblNota1Error, lblNota2Error, lblNota3Error, lblTpsError;
+    private JTextField txtPromedio, txtCondicion;
 
-	/*
-	 * private JTextField Nota1, Nota2, Nota3; private JComboBox<String> cBoxTps;
-	 * private JLabel lblNota1Error, lblNota2Error, lblNota3Error, lblTpsError;
-	 * private JLabel lblMostrarNota1, lblMostrarNota2, lblMostrarNota3,
-	 * lblMostrarTps; private DatosFormularioEj1 datosFormularioEj1;
-	 */
+    public eBtnCalcular(JTextField txtNota1, JTextField txtNota2, JTextField txtNota3,
+            JComboBox<String> cBoxTps,
+            JLabel lblNota1Error, JLabel lblNota2Error, JLabel lblNota3Error, JLabel lblTpsError,
+            JLabel lblMostrarNota1, JLabel lblMostrarNota2, JLabel lblMostrarNota3, JLabel lblMostrarTps) {
+        this.txtNota1 = txtNota1;
+        this.txtNota2 = txtNota2;
+        this.txtNota3 = txtNota3;
+        this.cBoxTps = cBoxTps;
+        this.lblNota1Error = lblNota1Error;
+        this.lblNota2Error = lblNota2Error;
+        this.lblNota3Error = lblNota3Error;
+        this.lblTpsError = lblTpsError;
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		//completar
-	}
+    public void setCamposResultado(JTextField txtPromedio, JTextField txtCondicion) {
+        this.txtPromedio = txtPromedio;
+        this.txtCondicion = txtCondicion;
+    }
 
-	public eBtnCalcular(JTextField txtNota1, JTextField txtNota2, JTextField txtNota3, JComboBox<String> cBoxTps,
-			JLabel lblNota1Error, JLabel lblNota2Error, JLabel lblNota3Error, JLabel lblTpsError,
-			JLabel lblMostrarNota1, JLabel lblMostrarNota2, JLabel lblMostrarNota3, JLabel lblMostrarTps) {
-		/*
-		 * this.Nota1 = txtNota1;
-		 * 
-		 * this.lblNota1Error = lblNota1Error;
-		 * 
-		 * this.lblMostrarNota1 = lblMostrarNota1;
-		 */
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        ocultarErrores();
 
-	/*
-	 * private void ocultarErrores() {
-	 * 
-	 * lblNota1Error.setVisible(false); lblNota1Error.setText("");
-	 * 
-	 * }
-	 */
+        boolean tieneErrores = false;
+        float nota1 = 0, nota2 = 0, nota3 = 0;
 
-	/*
-	 * private void mostrarError(JTextField campo, JLabel label, String error) {
-	 * campo.setBackground(Color.red); label.setText(error); label.setVisible(true);
-	 * }
-	 */
+        try {
+            nota1 = validarNota(txtNota1, lblNota1Error);
+         
+        } catch (Exception ex) {
+            tieneErrores = true;
+        }
+
+        try {
+            nota2 = validarNota(txtNota2, lblNota2Error);
+        } catch (Exception ex) {
+            tieneErrores = true;
+        }
+
+        
+        try {
+            nota3 = validarNota(txtNota3, lblNota3Error);
+        } catch (Exception ex) {
+            tieneErrores = true;
+        }
+
+        if (tieneErrores) {
+            return; 
+        }
+
+        String tp = (String) cBoxTps.getSelectedItem();
+
+        float promedio = (nota1 + nota2 + nota3) / 3;
+        String condicion;
+
+        if (tp.equals("Desaprobado") || nota1 < 6 || nota2 < 6 || nota3 < 6) {
+            condicion = "Libre";
+        } else if (nota1 >= 8 && nota2 >= 8 && nota3 >= 8) {
+            condicion = "Promocionado";
+        } else {
+            condicion = "Regular";
+        }
+
+        txtPromedio.setText(String.format("%.2f", promedio));
+        txtCondicion.setText(condicion);
+    }
+    
+    
+    private float validarNota(JTextField campo, JLabel errorLabel) throws FueraDeRangoException, NumberFormatException {
+    	try {
+        float valor = Float.parseFloat(campo.getText());
+        if (valor < 1 || valor > 10) {
+            mostrarError(campo, errorLabel, "Debe estar entre 1 y 10");
+            throw new FueraDeRangoException("Nota fuera de rango");
+        }
+        return valor;
+    	} catch (NumberFormatException e) {
+            mostrarError(campo, errorLabel, "Ingrese un número válido");
+            throw new NumberFormatException(); 
+        }
+    }
+    
+    private boolean esNumeroValido(String texto) {
+        return texto.matches("\\d+(\\.\\d+)?");
+    }
+
+   
+    
+    private void ocultarErrores() {
+        lblNota1Error.setVisible(false);
+        lblNota2Error.setVisible(false);
+        lblNota3Error.setVisible(false);
+
+        txtNota1.setBackground(Color.WHITE);
+        txtNota2.setBackground(Color.WHITE);
+        txtNota3.setBackground(Color.WHITE);
+    }
+    
+    
+    private void mostrarError(JTextField campo, JLabel label, String error) {
+        campo.setBackground(Color.PINK);
+        label.setText(error);
+        label.setVisible(true);
+    }
 }
+
+
+
+	
+
