@@ -14,6 +14,7 @@ public class VentanaPpal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JButton btnEj1, btnEj2, btnEj3;
 	private final String grupo = "GRUPO NRO: 6";
+	private boolean isVentanaHijaActiva = false;
 
 	public VentanaPpal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,16 +34,19 @@ public class VentanaPpal extends JFrame {
 		btnEj1 = new JButton();
 		btnEj1.setText("Ejercicio 1");
 		btnEj1.setBounds(106, 63, 140, 30);
+		btnEj1.setEnabled(!isVentanaHijaActiva);
 
 		// Configuro Botón EJ 2
 		btnEj2 = new JButton();
 		btnEj2.setText("Ejercicio 2");
 		btnEj2.setBounds(106, 117, 140, 30);
+		btnEj2.setEnabled(!isVentanaHijaActiva);
 
 		// Configuro Botón EJ 3
 		btnEj3 = new JButton();
 		btnEj3.setText("Ejercicio 3");
 		btnEj3.setBounds(106, 168, 140, 30);
+		btnEj3.setEnabled(!isVentanaHijaActiva);
 
 		// Agrego los botones al Panel
 		getContentPane().add(btnEj1);
@@ -50,8 +54,8 @@ public class VentanaPpal extends JFrame {
 		getContentPane().add(btnEj3);
 
 		// Evento de cada botón
-		btnEj1.addActionListener(new eBtn1());
-		btnEj2.addActionListener(new eBtn2());
+		btnEj1.addActionListener(new eBtn1(this));
+		btnEj2.addActionListener(new eBtn2(this));
 		// btnEj3.addActionListener(new eBtn1());
 
 		JButton btnSalir = new JButton("Salir");
@@ -71,15 +75,35 @@ public class VentanaPpal extends JFrame {
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
 	}
+
+	public boolean isVentanaHijaActiva() {
+		return isVentanaHijaActiva;
+	}
+
+	public void setVentanaHijaActiva(boolean isVentanaHijaActiva) {
+		this.isVentanaHijaActiva = isVentanaHijaActiva;
+		this.btnEj1.setEnabled(!isVentanaHijaActiva);
+		this.btnEj2.setEnabled(!isVentanaHijaActiva);
+		this.btnEj3.setEnabled(!isVentanaHijaActiva);
+
+	}
+
 }
 
 class eBtn1 implements ActionListener {
+
+	private VentanaPpal padre;
+
+	public eBtn1(VentanaPpal padre) {
+		this.padre = padre;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaContacto frame = new VentanaContacto();
+					VentanaContacto frame = new VentanaContacto(padre);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,14 +113,18 @@ class eBtn1 implements ActionListener {
 	}
 }
 
-
 class eBtn2 implements ActionListener {
+	private VentanaPpal padre;
+	
+	public eBtn2(VentanaPpal padre) {
+		this.padre = padre;
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPromedio frame = new VentanaPromedio();
+					VentanaPromedio frame = new VentanaPromedio(padre);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -19,13 +19,18 @@ import javax.swing.JDesktopPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextPane;
+
+import interfaces.VentanaConPadre;
+import utilidades.CerrarVentanaActionListener;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 
-public class VentanaPromedio extends JFrame {
+public class VentanaPromedio extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
+	private VentanaPpal padre;
 
 	// Defino los TextField
 	private JTextField txtNota1, txtNota2,txtNota3;
@@ -47,7 +52,11 @@ public class VentanaPromedio extends JFrame {
 	private JTextField txtCondicion;
 	private JPanel JPNotasDelEstudiante;
 
-	public VentanaPromedio() {
+	public VentanaPromedio(VentanaPpal padre) {
+		
+		this.padre = padre;
+		padre.setVentanaHijaActiva(true);
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(500, 100, 502, 537);
 		setTitle("Promedio");
@@ -217,9 +226,7 @@ public class VentanaPromedio extends JFrame {
 		eventoCalcular.setCamposResultado(txtPromedio, txtCondicion);
 
 		// Asociamos el evento al botón
-		btnCalcular.addActionListener(eventoCalcular);
-		
-		
+		btnCalcular.addActionListener(eventoCalcular);		
 		
 		JButton btnNuevo = new JButton("NUEVO");
 		btnNuevo.setBounds(349, 117, 129, 43);
@@ -227,11 +234,17 @@ public class VentanaPromedio extends JFrame {
 		
 		JButton btnSalir = new JButton("SALIR");
 		btnSalir.setBounds(349, 165, 129, 43);
+		btnSalir.addActionListener(new CerrarVentanaActionListener(this));
 		getContentPane().add(btnSalir);
 	}
 
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
+	}
+
+	@Override
+	public VentanaPpal getPadre() {
+		return this.padre;
 	}
 }
 

@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import Principal.DatosFormularioEj1.DatosValidados;
+import interfaces.VentanaConPadre;
+import utilidades.CerrarVentanaActionListener;
 import utilidades.FormatoLabel;
 import validaciones.Validar;
 import validaciones.TipoErrores;
@@ -19,15 +21,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 
-public class VentanaContacto extends JFrame {
+public class VentanaContacto extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
+	private VentanaPpal padre;
 
 	// Defino los TextField
 	private JTextField txtNombre = new JTextField();;
 	private JTextField txtApellido = new JTextField();;
 	private JTextField txtTelefono = new JTextField();;
-	private JTextField txtFechaNac = new JTextField();;	
-
+	private JTextField txtFechaNac = new JTextField();;
 
 	// Defino los Label
 	private JLabel lblNombre = new JLabel();
@@ -49,37 +51,44 @@ public class VentanaContacto extends JFrame {
 	private JLabel lblMostrarApellido = new JLabel();
 	private JLabel lblMostrarTel = new JLabel();
 	private JLabel lblMostrarFecha = new JLabel();
-	
+
 	private JLabel lblNombreError;
 	private JLabel lblApellidoError;
+
 	private JLabel lblTelefonoError;
 	private JLabel lblFNacError;
 
-	public VentanaContacto() {
+	public VentanaContacto(VentanaPpal padre) {
+
+		this.padre = padre;
+
+		padre.setVentanaHijaActiva(true);
+		System.out.println("Pasó por acá. padre.vAbierta: " + padre.isVentanaHijaActiva());
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(500, 100, 406, 537);
 		setTitle("Contactos");
 		getContentPane().setLayout(null);
-		
-		// Clase para manejar los formatos básicos de lbl 
+
+		// Clase para manejar los formatos básicos de lbl
 		FormatoLabel modeloLabel = new FormatoLabel();
-		
-		setearTxt(txtNombre, new int[] {109, 16, 248, 30});
-		setearTxt(txtApellido, new int[] {109, 70, 248, 30});
-		setearTxt(txtTelefono, new int[] {109, 122, 248, 30});
-		setearTxt(txtFechaNac, new int[] {109, 175, 248, 30});
-		
-		setLabel(lblNombre, Nombre,  new int[] {10, 11, 89, 41}, true);
-		setLabel(lblApellido, Apellido, new int[] {10, 65, 89, 41}, true);
-		setLabel(lblTelefono, Telefono, new int[] {10, 117, 89, 41}, true);
-		setLabel(lblFechaNac, FechaNac, new int[] {10, 164, 89, 41}, true);
-		
+
+		setearTxt(txtNombre, new int[] { 109, 16, 248, 30 });
+		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
+		setearTxt(txtTelefono, new int[] { 109, 122, 248, 30 });
+		setearTxt(txtFechaNac, new int[] { 109, 175, 248, 30 });
+
+		setLabel(lblNombre, Nombre, new int[] { 10, 11, 89, 41 }, true);
+		setLabel(lblApellido, Apellido, new int[] { 10, 65, 89, 41 }, true);
+		setLabel(lblTelefono, Telefono, new int[] { 10, 117, 89, 41 }, true);
+		setLabel(lblFechaNac, FechaNac, new int[] { 10, 164, 89, 41 }, true);
+
 		// Label para mostrar los datos
-		setLabel(lblMostrarNombre, "" , new int[] {20, 325, 266, 14}, false);
-		setLabel(lblMostrarApellido, "" , new int[] {20, 350, 266, 14}, false);
-		setLabel(lblMostrarTel, "" , new int[] {20, 375, 266, 14}, false);
-		setLabel(lblMostrarFecha, "" , new int[] {20, 400, 266, 14}, false);
-		
+		setLabel(lblMostrarNombre, "", new int[] { 20, 325, 266, 14 }, false);
+		setLabel(lblMostrarApellido, "", new int[] { 20, 350, 266, 14 }, false);
+		setLabel(lblMostrarTel, "", new int[] { 20, 375, 266, 14 }, false);
+		setLabel(lblMostrarFecha, "", new int[] { 20, 400, 266, 14 }, false);
+
 		// Configuro Botón Mostrar
 		btnMostrar = new JButton();
 		btnMostrar.setText("Mostrar");
@@ -100,37 +109,35 @@ public class VentanaContacto extends JFrame {
 		getContentPane().add(lblDatosIng);
 
 		// Labels para errores.
-		lblNombreError = modeloLabel.crearLabelError(txtNombre, new int[] {109, 45, 250, 14});
+		lblNombreError = modeloLabel.crearLabelError(txtNombre, new int[] { 109, 45, 250, 14 });
 		getContentPane().add(lblNombreError);
-		lblApellidoError = modeloLabel.crearLabelError(txtApellido, new int[] {109, 97, 250, 14});
+		lblApellidoError = modeloLabel.crearLabelError(txtApellido, new int[] { 109, 97, 250, 14 });
 		getContentPane().add(lblApellidoError);
-		lblTelefonoError = modeloLabel.crearLabelError(txtTelefono, new int[] {109, 152, 250, 14});
+		lblTelefonoError = modeloLabel.crearLabelError(txtTelefono, new int[] { 109, 152, 250, 14 });
 		getContentPane().add(lblTelefonoError);
-		lblFNacError = modeloLabel.crearLabelError(txtFechaNac, new int[] {109, 205, 250, 14});
+		lblFNacError = modeloLabel.crearLabelError(txtFechaNac, new int[] { 109, 205, 250, 14 });
 		getContentPane().add(lblFNacError);
-		
 
 		btnMostrar.addActionListener(new eBtnMostrar(this));
 
-		// Evento del btn volver
-		btnVolver.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// cierro la ventana actual de contactos
-				dispose();
+		btnVolver.addActionListener(new CerrarVentanaActionListener(this));
 
-				// muestro la ventana principal
-				VentanaPpal ventanaPrincipal = new VentanaPpal();
-				ventanaPrincipal.cambiarVisibilidad(true);
-			}
-		});	
-	 
+		// Asi estaba Antes, revisar:
+		/*
+		 * btnVolver.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent e) { // cierro la ventana
+		 * actual de contactos dispose();
+		 * 
+		 * // muestro la ventana principal VentanaPpal ventanaPrincipal = new
+		 * VentanaPpal(); ventanaPrincipal.cambiarVisibilidad(true); } });
+		 */
 	}
 
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
 	}
-		
+
 	public boolean hayErrorEnCampos() {
 		Validar validar = new Validar();
 		TipoErrores tipoError = new TipoErrores();
@@ -169,49 +176,49 @@ public class VentanaContacto extends JFrame {
 			setError(lblFNacError, tipoError.getMSJ_FORMATO_DATE());
 			existeError = true;
 		}
-		
+
 		return existeError;
 	}
-	
+
 	public void mostrarDatosContacto() {
-		
+
 		lblMostrarNombre.setText("Nombre:   " + txtNombre.getText());
 		lblMostrarApellido.setText("Apellido: " + txtApellido.getText());
 		lblMostrarTel.setText("Teléfono: " + txtTelefono.getText());
 		lblMostrarFecha.setText("Fecha nac.: " + txtFechaNac.getText());
-		
+
 		lblMostrarNombre.setVisible(true);
 		lblMostrarApellido.setVisible(true);
 		lblMostrarTel.setVisible(true);
 		lblMostrarFecha.setVisible(true);
-		
+
 		limpiarCampos();
 	}
-	
+
 	public void limpiarCampos() {
 		txtNombre.setText("");
 		txtApellido.setText("");
 		txtTelefono.setText("");
 		txtFechaNac.setText("");
 	}
-	
+
 	public void ocultarErrores() {
 		ocultarLabel(lblNombreError);
 		ocultarLabel(lblApellidoError);
 		ocultarLabel(lblTelefonoError);
 		ocultarLabel(lblFNacError);
 	}
-	
+
 	private void setError(JLabel label, String msjError) {
 		label.setText(msjError);
 		label.setVisible(true);
 	}
-	
+
 	private void ocultarLabel(JLabel label) {
 		label.setVisible(false);
 		label.setText("");
 	}
-	
+
 	private void setearTxt(JTextField txt, int[] bounds) {
 		addEventoKeyTyped(txt);
 		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -219,9 +226,8 @@ public class VentanaContacto extends JFrame {
 		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		getContentPane().add(txt);
 	}
-	
-	private void addEventoKeyTyped(JTextField txt)
-	{
+
+	private void addEventoKeyTyped(JTextField txt) {
 		txt.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -229,25 +235,34 @@ public class VentanaContacto extends JFrame {
 			}
 		});
 	}
-	
+
 	private void setLabel(JLabel label, String valor, int bounds[], boolean visible) {
 		label.setText(valor);
 		label.setBackground(this.getBackground());
 		label.setForeground(Color.BLACK);
-		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3] );
+		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		label.setVisible(visible);
 		getContentPane().add(label);
 	}
+	//Para manejar el bloqueo de botones del principal
+	public VentanaPpal getPadre() {
+		return padre;
+	}
+
+	public void setPadre(VentanaPpal padre) {
+		this.padre = padre;
+	}
+
 }
 
 class eBtnMostrar implements ActionListener {
 
 	private VentanaContacto ventana;
-	
-public eBtnMostrar(VentanaContacto ventana) {
-	this.ventana = ventana;
+
+	public eBtnMostrar(VentanaContacto ventana) {
+		this.ventana = ventana;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
@@ -255,6 +270,6 @@ public eBtnMostrar(VentanaContacto ventana) {
 
 		if (!(ventana.hayErrorEnCampos()))
 			ventana.mostrarDatosContacto();
-			
+
 	}
 }
