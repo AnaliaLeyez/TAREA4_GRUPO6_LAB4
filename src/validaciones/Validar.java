@@ -53,4 +53,23 @@ public class Validar {
 		String numero = txt.getText().trim();
 		return !numero.matches("\\d{9,10}");
 	}
+	
+	public static boolean esDecimalValido(String texto) {
+		
+	     if (texto == null || texto.trim().isEmpty()) return false;
+	     
+	     try {
+	    	 Double.parseDouble(texto);
+	    	 return true;
+	     } catch (NumberFormatException e) {
+	    	 return false;
+	     }
+	}
+
+	public static boolean estaEnRango(String texto, double minimo, double maximo) {
+	    if (!esDecimalValido(texto)) return false;
+	    	double valor = Double.parseDouble(texto);
+	        return valor >= minimo && valor <= maximo;
+	}
+	
 }

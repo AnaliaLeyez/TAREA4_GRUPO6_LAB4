@@ -5,15 +5,19 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
 import Principal.DatosFormularioEj1.DatosValidados;
 import utilidades.FormatoLabel;
 import validaciones.Validar;
 import validaciones.TipoErrores;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 
 public class VentanaContacto extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +26,8 @@ public class VentanaContacto extends JFrame {
 	private JTextField txtNombre = new JTextField();;
 	private JTextField txtApellido = new JTextField();;
 	private JTextField txtTelefono = new JTextField();;
-	private JTextField txtFechaNac = new JTextField();;
+	private JTextField txtFechaNac = new JTextField();;	
+
 
 	// Defino los Label
 	private JLabel lblNombre = new JLabel();
@@ -63,7 +68,7 @@ public class VentanaContacto extends JFrame {
 		setearTxt(txtApellido, new int[] {109, 70, 248, 30});
 		setearTxt(txtTelefono, new int[] {109, 122, 248, 30});
 		setearTxt(txtFechaNac, new int[] {109, 175, 248, 30});
-
+		
 		setLabel(lblNombre, Nombre,  new int[] {10, 11, 89, 41}, true);
 		setLabel(lblApellido, Apellido, new int[] {10, 65, 89, 41}, true);
 		setLabel(lblTelefono, Telefono, new int[] {10, 117, 89, 41}, true);
@@ -118,7 +123,8 @@ public class VentanaContacto extends JFrame {
 				VentanaPpal ventanaPrincipal = new VentanaPpal();
 				ventanaPrincipal.cambiarVisibilidad(true);
 			}
-		});
+		});	
+	 
 	}
 
 	public void cambiarVisibilidad(boolean estado) {
@@ -178,6 +184,15 @@ public class VentanaContacto extends JFrame {
 		lblMostrarApellido.setVisible(true);
 		lblMostrarTel.setVisible(true);
 		lblMostrarFecha.setVisible(true);
+		
+		limpiarCampos();
+	}
+	
+	public void limpiarCampos() {
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtTelefono.setText("");
+		txtFechaNac.setText("");
 	}
 	
 	public void ocultarErrores() {
@@ -240,5 +255,6 @@ public eBtnMostrar(VentanaContacto ventana) {
 
 		if (!(ventana.hayErrorEnCampos()))
 			ventana.mostrarDatosContacto();
+			
 	}
 }
