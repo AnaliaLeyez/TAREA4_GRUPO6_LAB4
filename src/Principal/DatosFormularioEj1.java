@@ -54,39 +54,35 @@ public class DatosFormularioEj1 {
 	public static DatosValidados validarCampos(JTextField nombre, JTextField apellido, JTextField telefono,
 			JTextField fechaNac) {
 		ArrayList<String> errores = new ArrayList<>();
-		
+
 		Validar validar = new Validar();
 
 		if (validar.campoVacio(nombre)) {
-		    errores.add("El nombre no puede estar vacío");
+			errores.add("El nombre no puede estar vacío");
 		} else if (validar.contieneNumeros(nombre)) {
-		    errores.add("El nombre no puede contener números");
+			errores.add("El nombre no puede contener números");
 		}
 
-				
 		if (validar.campoVacio(apellido)) {
-		    errores.add("El apellido no puede estar vacío");
+			errores.add("El apellido no puede estar vacío");
 		} else if (validar.contieneNumeros(apellido)) {
-		    errores.add("El apellido no puede contener números");
+			errores.add("El apellido no puede contener números");
 		}
-		
+
 		if (validar.campoVacio(telefono)) {
 			errores.add("El teléfono no puede estar vacio");
-		}
-		else if(validar.contieneLetras(telefono)) {
+		} else if (validar.contieneLetras(telefono)) {
 			errores.add("El teléfono no puede contener letras");
-		}else if (validar.telefonoInvalido(telefono)) {
-		    errores.add("El teléfono debe tener entre 9 y 10 dígitos");
+		} else if (validar.telefonoInvalido(telefono)) {
+			errores.add("El teléfono debe tener entre 9 y 10 dígitos");
 		}
-			
-	    if (validar.campoVacio(fechaNac)) {
-	        errores.add("La fecha no puede estar vacía");
-	    } 
-	    if(validar.fechaInvalida(fechaNac,"dd/MM/yyyy"))
-	    {
-	    	errores.add("fecha: dd/MM/yyyy sin espacios ni guiones");
-	    }
-	 
+
+		if (validar.campoVacio(fechaNac)) {
+			errores.add("La fecha no puede estar vacía");
+		}
+		if (validar.fechaInvalida(fechaNac, "dd/MM/yyyy")) {
+			errores.add("fecha: dd/MM/yyyy sin espacios ni guiones");
+		}
 
 		return new DatosValidados(errores.isEmpty(), errores);
 	}

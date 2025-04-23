@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
+import Principal.DatosFormularioEj1.DatosValidados;
+import utilidades.FormatoLabel;
+import validaciones.Validar;
+import validaciones.TipoErrores;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -17,17 +19,17 @@ public class VentanaContacto extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// Defino los TextField
-	private JTextField txtNombre;
-	private JTextField txtApellido;
-	private JTextField txtTelefono;
-	private JTextField txtFechaNac;
+	private JTextField txtNombre = new JTextField();;
+	private JTextField txtApellido = new JTextField();;
+	private JTextField txtTelefono = new JTextField();;
+	private JTextField txtFechaNac = new JTextField();;
 
 	// Defino los Label
-	private JLabel lblNombre;
-	private JLabel lblApellido;
-	private JLabel lblTelefono;
-	private JLabel lblFechaNac;
-	private JLabel lblDatosIng;
+	private JLabel lblNombre = new JLabel();
+	private JLabel lblApellido = new JLabel();
+	private JLabel lblTelefono = new JLabel();
+	private JLabel lblFechaNac = new JLabel();
+	private JLabel lblDatosIng = new JLabel();
 
 	// Defino los textos constantes
 	private final String Nombre = "Nombre:";
@@ -38,101 +40,49 @@ public class VentanaContacto extends JFrame {
 
 	// BOTON mostrar
 	private JButton btnMostrar;
-	private JLabel lblMostrarNombre;
-	private JLabel lblMostrarApellido;
-	private JLabel lblMostrarTel;
-	private JLabel lblMostrarFecha;
+	private JLabel lblMostrarNombre = new JLabel();
+	private JLabel lblMostrarApellido = new JLabel();
+	private JLabel lblMostrarTel = new JLabel();
+	private JLabel lblMostrarFecha = new JLabel();
+	
+	private JLabel lblNombreError;
+	private JLabel lblApellidoError;
+	private JLabel lblTelefonoError;
+	private JLabel lblFNacError;
 
 	public VentanaContacto() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(500, 100, 406, 537);
 		setTitle("Contactos");
 		getContentPane().setLayout(null);
+		
+		// Clase para manejar los formatos básicos de lbl 
+		FormatoLabel modeloLabel = new FormatoLabel();
+		
+		setearTxt(txtNombre, new int[] {109, 16, 248, 30});
+		setearTxt(txtApellido, new int[] {109, 70, 248, 30});
+		setearTxt(txtTelefono, new int[] {109, 122, 248, 30});
+		setearTxt(txtFechaNac, new int[] {109, 175, 248, 30});
 
-		// Nombre Label y TextField
-		lblNombre = new JLabel(Nombre);
-		lblNombre.setBounds(10, 11, 89, 41);
-		lblNombre.setBackground(this.getBackground());
-		lblNombre.setForeground(Color.BLACK);
-		getContentPane().add(lblNombre);
-
-		txtNombre = new JTextField();
-		txtNombre.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				txtNombre.setBackground(Color.WHITE);
-			}
-		});
-		txtNombre.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtNombre.setBackground(Color.white);
-		txtNombre.setBounds(109, 16, 248, 30);
-		getContentPane().add(txtNombre);
-
-		// APELLIDO label y TextField
-		lblApellido = new JLabel(Apellido);
-		lblApellido.setBounds(10, 65, 89, 41);
-		lblApellido.setBackground(this.getBackground());
-		lblApellido.setForeground(Color.BLACK);
-		getContentPane().add(lblApellido);
-
-		txtApellido = new JTextField();
-		txtApellido.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				txtApellido.setBackground(Color.WHITE);
-			}
-		});
-		txtApellido.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtApellido.setBackground(Color.white);
-		txtApellido.setBounds(109, 70, 248, 30);
-		getContentPane().add(txtApellido);
-
-		// TELÉFONO label y TextField
-		lblTelefono = new JLabel(Telefono);
-		lblTelefono.setBounds(10, 117, 89, 41);
-		lblTelefono.setBackground(this.getBackground());
-		lblTelefono.setForeground(Color.BLACK);
-		getContentPane().add(lblTelefono);
-
-		txtTelefono = new JTextField();
-		txtTelefono.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				txtTelefono.setBackground(Color.WHITE);
-			}
-		});
-		txtTelefono.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtTelefono.setBackground(Color.white);
-		txtTelefono.setBounds(109, 122, 248, 30);
-		getContentPane().add(txtTelefono);
-
-		// FECHA NAC label y TextField
-		lblFechaNac = new JLabel(FechaNac);
-		lblFechaNac.setBounds(10, 164, 89, 41);
-		lblFechaNac.setBackground(this.getBackground());
-		lblFechaNac.setForeground(Color.BLACK);
-		getContentPane().add(lblFechaNac);
-
-		txtFechaNac = new JTextField();
-		txtFechaNac.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				txtFechaNac.setBackground(Color.WHITE);
-			}
-		});
-		txtFechaNac.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtFechaNac.setBackground(Color.white);
-		txtFechaNac.setBounds(109, 175, 248, 30);
-		getContentPane().add(txtFechaNac);
-
+		setLabel(lblNombre, Nombre,  new int[] {10, 11, 89, 41}, true);
+		setLabel(lblApellido, Apellido, new int[] {10, 65, 89, 41}, true);
+		setLabel(lblTelefono, Telefono, new int[] {10, 117, 89, 41}, true);
+		setLabel(lblFechaNac, FechaNac, new int[] {10, 164, 89, 41}, true);
+		
+		// Label para mostrar los datos
+		setLabel(lblMostrarNombre, "" , new int[] {20, 325, 266, 14}, false);
+		setLabel(lblMostrarApellido, "" , new int[] {20, 350, 266, 14}, false);
+		setLabel(lblMostrarTel, "" , new int[] {20, 375, 266, 14}, false);
+		setLabel(lblMostrarFecha, "" , new int[] {20, 400, 266, 14}, false);
+		
 		// Configuro Botón Mostrar
 		btnMostrar = new JButton();
 		btnMostrar.setText("Mostrar");
 		btnMostrar.setBounds(264, 236, 89, 30);
-		
-		//agreo un btn volver
+
+		// agreo un btn volver
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 450, 100, 30);  // Ajusta la posición y tamaño
+		btnVolver.setBounds(10, 450, 100, 30); // Ajusta la posición y tamaño
 		getContentPane().add(btnVolver);
 
 		// Agrego el boton al Panel
@@ -141,85 +91,154 @@ public class VentanaContacto extends JFrame {
 		// Datos Ingresados label
 		lblDatosIng = new JLabel(DatosIng);
 		lblDatosIng.setBounds(10, 261, 183, 41);
-		lblDatosIng.setBackground(this.getBackground());
 		lblDatosIng.setFont(new Font("Lucida Sans Unicode", Font.BOLD, 11));
-		lblDatosIng.setForeground(Color.BLACK);
 		getContentPane().add(lblDatosIng);
 
 		// Labels para errores.
-		JLabel lblNombreError = new JLabel("Error");
-		lblNombreError.setForeground(new Color(255, 0, 0));
-		lblNombreError.setLabelFor(txtNombre);
-		lblNombreError.setBounds(109, 45, 250, 14);
-		lblNombreError.setVisible(false);
+		lblNombreError = modeloLabel.crearLabelError(txtNombre, new int[] {109, 45, 250, 14});
 		getContentPane().add(lblNombreError);
-
-		JLabel lblApellidoError = new JLabel("Error");
-		lblApellidoError.setLabelFor(lblApellido);
-		lblApellidoError.setEnabled(true);
-		lblApellidoError.setForeground(Color.RED);
-		lblApellidoError.setBounds(109, 97, 250, 14);
-		lblApellidoError.setVisible(false);
+		lblApellidoError = modeloLabel.crearLabelError(txtApellido, new int[] {109, 97, 250, 14});
 		getContentPane().add(lblApellidoError);
-
-		JLabel lblTelefonoError = new JLabel("Error");
-		lblTelefonoError.setLabelFor(lblTelefono);
-		lblTelefonoError.setEnabled(true);
-		lblTelefonoError.setForeground(Color.RED);
-		lblTelefonoError.setBounds(109, 152, 250, 14);
-		lblTelefonoError.setVisible(false);
+		lblTelefonoError = modeloLabel.crearLabelError(txtTelefono, new int[] {109, 152, 250, 14});
 		getContentPane().add(lblTelefonoError);
-
-		JLabel lblFNacError = new JLabel("Error");
-		lblFNacError.setLabelFor(lblFechaNac);
-		lblFNacError.setEnabled(true);
-		lblFNacError.setForeground(Color.RED);
-		lblFNacError.setBounds(109, 205, 250, 14);
-		lblFNacError.setVisible(false);
+		lblFNacError = modeloLabel.crearLabelError(txtFechaNac, new int[] {109, 205, 250, 14});
 		getContentPane().add(lblFNacError);
+		
 
-		lblMostrarNombre = new JLabel("New label");
-		lblMostrarNombre.setBounds(20, 325, 266, 14);
-		lblMostrarNombre.setVisible(false);
-		getContentPane().add(lblMostrarNombre);
+		btnMostrar.addActionListener(new eBtnMostrar(this));
 
-		lblMostrarApellido = new JLabel("New label");
-		lblMostrarApellido.setBounds(20, 350, 266, 14);
-		lblMostrarApellido.setVisible(false);
-		getContentPane().add(lblMostrarApellido);
-
-		lblMostrarTel = new JLabel("New label");
-		lblMostrarTel.setBounds(20, 375, 266, 14);
-		lblMostrarTel.setVisible(false);
-		getContentPane().add(lblMostrarTel);
-
-		lblMostrarFecha = new JLabel("New label");
-		lblMostrarFecha.setBounds(20, 400, 266, 14);
-		lblMostrarFecha.setVisible(false);
-		getContentPane().add(lblMostrarFecha);
-
-		// Evento del botón mostrar
-		btnMostrar.addActionListener(new eBtnMostrar(txtNombre, txtApellido, txtTelefono, txtFechaNac, lblNombreError,
-				lblApellidoError, lblTelefonoError, lblFNacError, lblMostrarNombre, lblMostrarApellido, lblMostrarTel,
-				lblMostrarFecha));
-
-		//Evento del btn volver 
+		// Evento del btn volver
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// cierro la ventana actual de contactos
 				dispose();
-				
+
 				// muestro la ventana principal
 				VentanaPpal ventanaPrincipal = new VentanaPpal();
 				ventanaPrincipal.cambiarVisibilidad(true);
 			}
 		});
 	}
-		
+
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
 	}
+		
+	public boolean hayErrorEnCampos() {
+		Validar validar = new Validar();
+		TipoErrores tipoError = new TipoErrores();
+		boolean existeError = false;
+
+		if (validar.campoVacio(txtNombre)) {
+			setError(lblNombreError, tipoError.getMSJ_CAMPO_VACIO());
+			existeError = true;
+		} else if (validar.contieneNumeros(txtNombre)) {
+			setError(lblNombreError, tipoError.getMSJ_CONTIENE_NRO());
+			existeError = true;
+		}
+
+		if (validar.campoVacio(txtApellido)) {
+			setError(lblApellidoError, tipoError.getMSJ_CAMPO_VACIO());
+		} else if (validar.contieneNumeros(txtApellido)) {
+			setError(lblApellidoError, tipoError.getMSJ_CONTIENE_NRO());
+		}
+
+		if (validar.campoVacio(txtTelefono)) {
+			setError(lblTelefonoError, tipoError.getMSJ_CAMPO_VACIO());
+			existeError = true;
+		} else if (validar.contieneLetras(txtTelefono)) {
+			setError(lblTelefonoError, tipoError.getMSJ_CONTIENE_LETRAS());
+			existeError = true;
+		} else if (validar.telefonoInvalido(txtTelefono)) {
+			setError(lblTelefonoError, tipoError.getMSJ_TEL_LONGITUD_INCORRECTA());
+			existeError = true;
+		}
+
+		if (validar.campoVacio(txtFechaNac)) {
+			setError(lblFNacError, tipoError.getMSJ_CAMPO_VACIO());
+			existeError = true;
+		}
+		if (validar.fechaInvalida(txtFechaNac, "dd/MM/yyyy")) {
+			setError(lblFNacError, tipoError.getMSJ_FORMATO_DATE());
+			existeError = true;
+		}
+		
+		return existeError;
+	}
+	
+	public void mostrarDatosContacto() {
+		
+		lblMostrarNombre.setText("Nombre:   " + txtNombre.getText());
+		lblMostrarApellido.setText("Apellido: " + txtApellido.getText());
+		lblMostrarTel.setText("Teléfono: " + txtTelefono.getText());
+		lblMostrarFecha.setText("Fecha nac.: " + txtFechaNac.getText());
+		
+		lblMostrarNombre.setVisible(true);
+		lblMostrarApellido.setVisible(true);
+		lblMostrarTel.setVisible(true);
+		lblMostrarFecha.setVisible(true);
+	}
+	
+	public void ocultarErrores() {
+		ocultarLabel(lblNombreError);
+		ocultarLabel(lblApellidoError);
+		ocultarLabel(lblTelefonoError);
+		ocultarLabel(lblFNacError);
+	}
+	
+	private void setError(JLabel label, String msjError) {
+		label.setText(msjError);
+		label.setVisible(true);
+	}
+	
+	private void ocultarLabel(JLabel label) {
+		label.setVisible(false);
+		label.setText("");
+	}
+	
+	private void setearTxt(JTextField txt, int[] bounds) {
+		addEventoKeyTyped(txt);
+		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		txt.setBackground(Color.white);
+		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		getContentPane().add(txt);
+	}
+	
+	private void addEventoKeyTyped(JTextField txt)
+	{
+		txt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txt.setBackground(Color.WHITE);
+			}
+		});
+	}
+	
+	private void setLabel(JLabel label, String valor, int bounds[], boolean visible) {
+		label.setText(valor);
+		label.setBackground(this.getBackground());
+		label.setForeground(Color.BLACK);
+		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3] );
+		label.setVisible(visible);
+		getContentPane().add(label);
+	}
 }
 
+class eBtnMostrar implements ActionListener {
 
+	private VentanaContacto ventana;
+	
+public eBtnMostrar(VentanaContacto ventana) {
+	this.ventana = ventana;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+
+		ventana.ocultarErrores();
+
+		if (!(ventana.hayErrorEnCampos()))
+			ventana.mostrarDatosContacto();
+	}
+}
