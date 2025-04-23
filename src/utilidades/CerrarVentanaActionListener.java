@@ -13,15 +13,11 @@ public class CerrarVentanaActionListener implements ActionListener {
 
 	VentanaConPadre ventana;
 
-	public CerrarVentanaActionListener(VentanaContacto ventana) {
+	public CerrarVentanaActionListener(VentanaConPadre ventana) {
 		this.ventana = ventana;
 
 	}
 	
-	public CerrarVentanaActionListener(VentanaPromedio ventana) {
-		this.ventana = ventana;
-
-	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
