@@ -5,13 +5,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
-
-import Principal.DatosFormularioEj1.DatosValidados;
 import interfaces.VentanaConPadre;
 import utilidades.CerrarVentanaActionListener;
 import utilidades.FormatoLabel;
@@ -19,7 +15,6 @@ import validaciones.Validar;
 import validaciones.TipoErrores;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.ParseException;
 
 public class VentanaContacto extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
@@ -65,7 +60,7 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		padre.setVentanaHijaActiva(true);
 		System.out.println("Pasó por acá. padre.vAbierta: " + padre.isVentanaHijaActiva());
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(500, 100, 406, 537);
 		setTitle("Contactos");
 		getContentPane().setLayout(null);
