@@ -38,6 +38,7 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 
 	// Defino los Label
 	private JLabel lblNota1,lblNota2,lblNota3, lblTps;
+	private JLabel lblNota1Error, lblNota2Error, lblNota3Error;
 
 	// Defino los textos constantes
 	private final String Nota1 = "Nota 1:";
@@ -94,11 +95,13 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		 
 		 txtPromedio = new JTextField();
 		 txtPromedio.setBounds(108, 45, 96, 20);
+		 txtPromedio.setEditable(false);
 		 JPPromedioDelEstudiante.add(txtPromedio);
 		 txtPromedio.setColumns(10);
 		 
 		 txtCondicion = new JTextField();
 		 txtCondicion.setBounds(108, 86, 96, 20);
+		 txtCondicion.setEditable(false);
 		 JPPromedioDelEstudiante.add(txtCondicion);
 		 txtCondicion.setColumns(10);
 		 
@@ -148,14 +151,14 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		 				 				 
 		 				 				 		
 		// Labels para errores.
-		JLabel lblNota1Error = new JLabel("Error");
+		lblNota1Error = new JLabel("Error");
 		lblNota1Error.setBounds(109, 68, 160, 14);
 		JPNotasDelEstudiante.add(lblNota1Error);
 		lblNota1Error.setForeground(new Color(255, 0, 0));
 		lblNota1Error.setVisible(false);
 		lblNota1Error.setLabelFor(txtNota1);
 		 				 				 				 
-		JLabel lblNota2Error = new JLabel("Error");
+		lblNota2Error = new JLabel("Error");
 		lblNota2Error.setBounds(109, 120, 160, 14);
 		JPNotasDelEstudiante.add(lblNota2Error);
 		lblNota2Error.setEnabled(true);
@@ -175,7 +178,7 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		txtNota3.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
 		txtNota3.setBackground(Color.white);
 		 				 				 				 				 		 
-		JLabel lblNota3Error = new JLabel("Error");
+		lblNota3Error = new JLabel("Error");
 		lblNota3Error.setBounds(109, 172, 160, 14);
 		JPNotasDelEstudiante.add(lblNota3Error);
 		lblNota3Error.setEnabled(true);
@@ -236,6 +239,13 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		btnSalir.setBounds(349, 165, 129, 43);
 		btnSalir.addActionListener(new CerrarVentanaActionListener(this));
 		getContentPane().add(btnSalir);
+		
+		btnNuevo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limpiarCampos();
+			}
+		});
 	}
 
 	public void cambiarVisibilidad(boolean estado) {
@@ -246,6 +256,26 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 	public VentanaPpal getPadre() {
 		return this.padre;
 	}
+	
+	private void limpiarCampos() {
+		ocultarErrores();
+		
+		this.txtNota1.setText("");
+		this.txtNota2.setText("");
+		this.txtNota3.setText("");
+		this.txtCondicion.setText("");
+		this.txtPromedio.setText("");
+	}
+	
+	 private void ocultarErrores() {
+	        lblNota1Error.setVisible(false);
+	        lblNota2Error.setVisible(false);
+	        lblNota3Error.setVisible(false);
+
+	        txtNota1.setBackground(Color.WHITE);
+	        txtNota2.setBackground(Color.WHITE);
+	        txtNota3.setBackground(Color.WHITE);
+	    }
 }
 
 
@@ -340,8 +370,6 @@ class eBtnCalcular implements ActionListener {
     private boolean esNumeroValido(String texto) {
         return texto.matches("\\d+(\\.\\d+)?");
     }
-
-   
     
     private void ocultarErrores() {
         lblNota1Error.setVisible(false);
