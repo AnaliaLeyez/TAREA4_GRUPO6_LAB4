@@ -15,6 +15,8 @@ import validaciones.Validar;
 import validaciones.TipoErrores;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VentanaContacto extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
@@ -61,6 +63,15 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		System.out.println("Pasó por acá. padre.vAbierta: " + padre.isVentanaHijaActiva());
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                padre.setVentanaHijaActiva(false);
+                dispose();
+            }
+        });
+		
 		setBounds(500, 100, 406, 537);
 		setTitle("Contactos");
 		getContentPane().setLayout(null);

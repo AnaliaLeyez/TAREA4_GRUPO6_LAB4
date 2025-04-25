@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -57,8 +59,17 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		
 		this.padre = padre;
 		padre.setVentanaHijaActiva(true);
+			
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                padre.setVentanaHijaActiva(false);
+                dispose();
+            }
+        });
+		
 		setBounds(500, 100, 502, 537);
 		setTitle("Promedio");
 		
