@@ -27,7 +27,7 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		padre.setVentanaHijaActiva(true);
 
 		setTitle("Selección Múltiple");
-		setBounds(500, 100, 520, 400);
+		setBounds(500, 100, 436, 304);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -44,13 +44,13 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		
 		JPanel panelSO = new JPanel();
 		panelSO.setLayout(null);
-		panelSO.setBounds(20, 20, 450, 50); 
+		panelSO.setBounds(20, 20, 381, 58); 
 		panelSO.setBorder(new LineBorder(Color.BLACK, 2));
 		getContentPane().add(panelSO);
 
 		JLabel lblSO = new JLabel("Elije un sistema operativo:");
 		lblSO.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblSO.setBounds(10, 20, 160, 20); 
+		lblSO.setBounds(10, 17, 160, 20); 
 		panelSO.add(lblSO);
 
 		rbWindows = new JRadioButton("Windows");
@@ -65,34 +65,13 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		grupoSO.add(rbMac);
 		grupoSO.add(rbLinux);
 
-		rbWindows.setBounds(180, 20, 80, 20);
-		rbMac.setBounds(260, 20, 60, 20);
-		rbLinux.setBounds(320, 20, 60, 20);
+		rbWindows.setBounds(180, 17, 80, 20);
+		rbMac.setBounds(260, 17, 60, 20);
+		rbLinux.setBounds(317, 17, 60, 20);
 
 		panelSO.add(rbWindows);
 		panelSO.add(rbMac);
 		panelSO.add(rbLinux);
-
-		//especialidades falta agrega borde y acomodarlo
-		JLabel lblEsp = new JLabel("Especialidades que te interesan:");
-		lblEsp.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblEsp.setBounds(20, 110, 163, 20);
-		getContentPane().add(lblEsp);
-
-		cbDesarrollo = new JCheckBox("Desarrollo");
-		cbDesarrollo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		cbDiseno = new JCheckBox("Diseño");
-		cbDiseno.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		cbAdmin = new JCheckBox("Administración");
-		cbAdmin.setFont(new Font("Tahoma", Font.PLAIN, 13));
-
-		cbDesarrollo.setBounds(230, 110, 150, 20);
-		cbDiseno.setBounds(230, 135, 150, 20);
-		cbAdmin.setBounds(230, 160, 150, 20);
-
-		getContentPane().add(cbDesarrollo);
-		getContentPane().add(cbDiseno);
-		getContentPane().add(cbAdmin);
 		
 		//Aca iria cantidad de horas en el computador
 		
@@ -100,28 +79,47 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		
 		//btn volver
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 310, 100, 30);
+		btnVolver.setBounds(20, 228, 100, 30);
 		getContentPane().add(btnVolver);
 		btnVolver.addActionListener(new CerrarVentanaActionListener(this));
 		
 		//btn aceptar
 		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(390, 310, 100, 30); // Esquina inferior derecha
+		btnAceptar.setBounds(301, 228, 100, 30); // Esquina inferior derecha
 		getContentPane().add(btnAceptar);
 		
 		jpanelEspecialidad = new JPanel();
 		jpanelEspecialidad.setLayout(null);
-		jpanelEspecialidad.setBounds(20, 89, 446, 134);
+		jpanelEspecialidad.setBounds(20, 89, 381, 86);
 		jpanelEspecialidad.setBorder(new LineBorder(Color.BLACK, 2));
 		getContentPane().add(jpanelEspecialidad);
 		
+				//especialidades falta agrega borde y acomodarlo
+				JLabel lblEsp = new JLabel("Elije una especialidad:");
+				lblEsp.setBounds(10, 32, 136, 20);
+				jpanelEspecialidad.add(lblEsp);
+				lblEsp.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				cbAdmin = new JCheckBox("Diseño Gráfico");
+				cbAdmin.setBounds(221, 57, 150, 20);
+				jpanelEspecialidad.add(cbAdmin);
+				cbAdmin.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				cbDiseno = new JCheckBox("Administración");
+				cbDiseno.setBounds(221, 32, 150, 20);
+				jpanelEspecialidad.add(cbDiseno);
+				cbDiseno.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				
+						cbDesarrollo = new JCheckBox("Programación");
+						cbDesarrollo.setBounds(221, 7, 150, 20);
+						jpanelEspecialidad.add(cbDesarrollo);
+						cbDesarrollo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
 		JLabel lblNewLabel = new JLabel("Cantidad de horas en el computador:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel.setBounds(21, 249, 221, 14);
+		lblNewLabel.setBounds(20, 188, 221, 14);
 		getContentPane().add(lblNewLabel);
 		
 		txtCantHsPC = new JTextField();
-		txtCantHsPC.setBounds(259, 247, 86, 20);
+		txtCantHsPC.setBounds(258, 186, 86, 20);
 		getContentPane().add(txtCantHsPC);
 		txtCantHsPC.setColumns(10);
 	}
