@@ -8,16 +8,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.*;
-
 import interfaces.VentanaConPadre;
 import utilidades.CerrarVentanaActionListener;
-
-import javax.swing.JLayeredPane;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-
 
 public class VentanaPromedio extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
@@ -365,10 +358,6 @@ class eBtnCalcular implements ActionListener {
             mostrarError(campo, errorLabel, "Ingrese un número válido");
             throw new NumberFormatException(); 
         }
-    }
-    
-    private boolean esNumeroValido(String texto) {
-        return texto.matches("\\d+(\\.\\d+)?");
     }
     
     private void ocultarErrores() {

@@ -1,5 +1,4 @@
 package utilidades;
-import Principal.VentanaContacto;
 import Principal.VentanaPromedio;
 import interfaces.VentanaConPadre;
 

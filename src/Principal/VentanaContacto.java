@@ -60,7 +60,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		this.padre = padre;
 
 		padre.setVentanaHijaActiva(true);
-		System.out.println("Pasó por acá. padre.vAbierta: " + padre.isVentanaHijaActiva());
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
@@ -127,17 +126,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		btnMostrar.addActionListener(new eBtnMostrar(this));
 
 		btnVolver.addActionListener(new CerrarVentanaActionListener(this));
-
-		// Asi estaba Antes, revisar:
-		/*
-		 * btnVolver.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { // cierro la ventana
-		 * actual de contactos dispose();
-		 * 
-		 * // muestro la ventana principal VentanaPpal ventanaPrincipal = new
-		 * VentanaPpal(); ventanaPrincipal.cambiarVisibilidad(true); } });
-		 */
 	}
 
 	public void cambiarVisibilidad(boolean estado) {

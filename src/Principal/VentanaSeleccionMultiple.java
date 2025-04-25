@@ -3,10 +3,8 @@ package Principal;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import interfaces.VentanaConPadre;
 import utilidades.CerrarVentanaActionListener;
 import java.awt.Font;
@@ -18,7 +16,6 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 
 	private JRadioButton rbWindows, rbMac, rbLinux;
 	private JCheckBox cbDesarrollo, cbDiseno, cbAdmin;
-	private JTextField txtHoras;
 	private JPanel jpanelEspecialidad;
 	private JTextField txtCantHsPC;
 
@@ -74,8 +71,6 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		panelSO.add(rbLinux);
 		
 		//Aca iria cantidad de horas en el computador
-		
-
 		
 		//btn volver
 		JButton btnVolver = new JButton("Volver");
