@@ -56,7 +56,7 @@ public class VentanaPpal extends JFrame {
 		// Evento de cada botón
 		btnEj1.addActionListener(new eBtn1(this));
 		btnEj2.addActionListener(new eBtn2(this));
-		// btnEj3.addActionListener(new eBtn1());
+		btnEj3.addActionListener(new eBtn3(this));
 
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setBounds(306, 244, 89, 23);
@@ -131,5 +131,27 @@ class eBtn2 implements ActionListener {
 				}
 			}
 		});
+		}
+	}
+		
+		class eBtn3 implements ActionListener {
+			private VentanaPpal padre;
+			
+			public eBtn3(VentanaPpal padre) {
+				this.padre = padre;
+			}
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							VentanaSeleccionMultiple frame = new VentanaSeleccionMultiple(padre);
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 	}
 }
