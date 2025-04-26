@@ -21,6 +21,7 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 	private JCheckBox cbDesarrollo, cbDiseno, cbAdmin;
 	private JPanel jpanelEspecialidad;
 	private JTextField txtCantHsPC;
+	private JLabel lblErrorHoras;
 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
 		this.padre = padre;
@@ -84,9 +85,22 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		btnAceptar.setBounds(301, 228, 100, 30); // Esquina inferior derecha
 		getContentPane().add(btnAceptar);
 		
-		//evento btn Aceptar
+		txtCantHsPC = new JTextField();
+		txtCantHsPC.setBounds(258, 186, 86, 20);
+		getContentPane().add(txtCantHsPC);
+		txtCantHsPC.setColumns(10);
 		
-		btnAceptar.addActionListener(new eBtnAceptar(this.getPadre())); // Pasamos el padre a eBtnAceptar
+		lblErrorHoras = new JLabel();
+		lblErrorHoras.setForeground(Color.RED);
+		lblErrorHoras.setBounds(258, 206, 143, 14);
+		getContentPane().add(lblErrorHoras);
+		
+		//evento btn Aceptar
+		//Paso por setter los jlabel de errorHoras y jTextField de Horas
+		eBtnAceptar eventoAceptar= new eBtnAceptar(this.getPadre());// Pasamos el padre a eBtnAceptar
+		eventoAceptar.setCantHoras(txtCantHsPC);
+		eventoAceptar.setLblErrorHs(lblErrorHoras);
+		btnAceptar.addActionListener(eventoAceptar); 
 		
 		jpanelEspecialidad = new JPanel();
 		jpanelEspecialidad.setLayout(null);
@@ -118,19 +132,14 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		lblNewLabel.setBounds(20, 188, 221, 14);
 		getContentPane().add(lblNewLabel);
 		
-		txtCantHsPC = new JTextField();
-		txtCantHsPC.setBounds(258, 186, 86, 20);
-		getContentPane().add(txtCantHsPC);
-		txtCantHsPC.setColumns(10);
-	}
 
+	}
 	
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
 	}
 	public String obtenerOpcionesSeleccionadas() {
-	    StringBuilder opciones = new StringBuilder();
-	    
+	    StringBuilder opciones = new StringBuilder();	    
 	    // Sistema Operativo
 	    if (rbWindows.isSelected()) {
 	        opciones.append("Windows");
@@ -170,26 +179,55 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 
 class eBtnAceptar implements ActionListener {
     private VentanaPpal padre;
+    private JLabel lblErrorHs;
+    private JTextField CantHoras;
 
     public eBtnAceptar(VentanaPpal padre) {
         this.padre = padre;
-    }
+    }     
 
-    @Override
-    public void actionPerformed(ActionEvent arg0) {
+    public JLabel getLblErrorHs() {
+		return lblErrorHs;
+	}
+
+	public void setLblErrorHs(JLabel lblErrorHs) {
+		this.lblErrorHs = lblErrorHs;
+	}
+
+	public JTextField getCantHoras() {
+		return CantHoras;
+	}
+
+	public void setCantHoras(JTextField cantHoras) {
+		CantHoras = cantHoras;
+	}
+
+	@Override
+    public void actionPerformed(ActionEvent arg0) {  
+    	
+		ocultarErrores(lblErrorHs,CantHoras);
+    	 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     // Accede a la instancia activa de VentanaSeleccionMultiple
                     if (padre.isVentanaHijaActiva()) {
                         VentanaSeleccionMultiple ventanaSeleccion = (VentanaSeleccionMultiple) padre.getVentanaHija(); // Suponiendo que tienes acceso a la ventana hija activa
-
+                    
+                        //Valido que haya ingresado cantidad de horas correctas
+                        try {
+                            validarHoras(getCantHoras(), getLblErrorHs());
+                        
                         // Obtener las opciones seleccionadas
                         String opElegidas = ventanaSeleccion.obtenerOpcionesSeleccionadas();
 
                         // Crear una nueva instancia de VentanaMensaje con las opciones
                         VentanaMensaje frame = new VentanaMensaje(padre, opElegidas);
                         frame.setVisible(true);
+                        
+                        } catch (FueraDeRangoException | NumberFormatException ex) {
+                            ex.printStackTrace();
+                        }
                     } else {
                         System.err.println("No hay una ventana hija activa o la referencia no está definida.");
                     }
@@ -199,4 +237,29 @@ class eBtnAceptar implements ActionListener {
             }
         });
     }
+    
+    private float validarHoras(JTextField campo, JLabel errorLabel) throws FueraDeRangoException, NumberFormatException {
+		try {
+			float valor = Float.parseFloat(campo.getText());
+			if (valor < 0 || valor > 24) {
+				mostrarError(campo, errorLabel, "Debe estar entre 0 y 24");
+				throw new FueraDeRangoException("Horas por día fuera de rango");
+			}
+			return valor;
+		} catch (NumberFormatException e) {
+			mostrarError(campo, errorLabel, "Ingrese un número válido");
+			throw new NumberFormatException();
+		}
+	}
+    
+	private void mostrarError(JTextField campo, JLabel label, String error) {
+		campo.setBackground(Color.PINK);
+		label.setText(error);
+		label.setVisible(true);
+	}
+	
+	private void ocultarErrores(JLabel lblErrorHoras, JTextField TxtCantHsPC) {
+		lblErrorHoras.setVisible(false);
+		TxtCantHsPC.setBackground(Color.WHITE);
+	}	
 }
