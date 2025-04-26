@@ -1,11 +1,16 @@
 package validaciones;
 
 import javax.swing.JTextField;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Validar {
+	private static String errorMsg = "";
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
 	public boolean campoVacio(JTextField txt) {
 		return txt.getText().trim().isEmpty();
 	}
@@ -20,23 +25,32 @@ public class Validar {
 		return false;
 	}
 
-	public boolean fechaInvalida(JTextField txt, String formato) {
-		String auxTxt = txt.getText().trim();
+	// Parsear la fecha con los formatos admitidos
+	private static java.util.Date parseFecha(String fechaStr) {
+		String[] formatos = { "dd.MM.yyyy", "ddMMyyyy", "dd/MM/yyyy" };
 
-		if (!auxTxt.matches("\\d{8}")) {
-			return true;
+		for (String formato : formatos) {
+
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat(formato);
+				return sdf.parse(fechaStr);
+			} catch (ParseException e) { // Si el formato es correcto pero la fecha es inválida
+				if (fechaStr.length() == formato.length()) {
+					errorMsg = "Fecha inexistente";
+				} else {
+					errorMsg = TipoErrores.getMSJ_FORMATO_DATE();
+				}
+			}
+
 		}
+		return null; // Si ningún formato fue válido queda en null
+	}
 
-		DateTimeFormatter TipoFecha = DateTimeFormatter.ofPattern(formato);
-
-		try {
-			LocalDate fechaTxt = LocalDate.parse(
-					auxTxt.substring(0, 2) + "/" + auxTxt.substring(2, 4) + "/" + auxTxt.substring(4), TipoFecha);
-			int anioActual = LocalDate.now().getYear();
-			return fechaTxt.getYear() > anioActual;
-		} catch (DateTimeParseException e) {
-			return true;
-		}
+	public boolean fechaInvalida(JTextField fechaJtext) {
+		// eliminamos espacios
+		String texto = fechaJtext.getText().trim();
+		java.util.Date fecha = parseFecha(texto);
+		return fecha == null;
 	}
 
 	public boolean contieneNumeros(JTextField txt) {
@@ -53,23 +67,25 @@ public class Validar {
 		String numero = txt.getText().trim();
 		return !numero.matches("\\d{9,10}");
 	}
-	
+
 	public static boolean esDecimalValido(String texto) {
-		
-	     if (texto == null || texto.trim().isEmpty()) return false;
-	     
-	     try {
-	    	 Double.parseDouble(texto);
-	    	 return true;
-	     } catch (NumberFormatException e) {
-	    	 return false;
-	     }
+
+		if (texto == null || texto.trim().isEmpty())
+			return false;
+
+		try {
+			Double.parseDouble(texto);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 	public static boolean estaEnRango(String texto, double minimo, double maximo) {
-	    if (!esDecimalValido(texto)) return false;
-	    	double valor = Double.parseDouble(texto);
-	        return valor >= minimo && valor <= maximo;
+		if (!esDecimalValido(texto))
+			return false;
+		double valor = Double.parseDouble(texto);
+		return valor >= minimo && valor <= maximo;
 	}
-	
+
 }

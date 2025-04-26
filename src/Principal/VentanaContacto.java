@@ -17,16 +17,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class VentanaContacto extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
 
 	// Defino los TextField
-	private JTextField txtNombre = new JTextField();;
-	private JTextField txtApellido = new JTextField();;
-	private JTextField txtTelefono = new JTextField();;
-	private JTextField txtFechaNac = new JTextField();;
+	private JTextField txtNombre = new JTextField();
+	private JTextField txtApellido = new JTextField();
+	private JTextField txtTelefono = new JTextField();
+	private JTextField txtFechaNac = new JTextField();
+	private ArrayList<JTextField> txts = new ArrayList<JTextField>();
+	public ArrayList<JTextField> getTexts() {
+		return txts;
+	}
 
 	// Defino los Label
 	private JLabel lblNombre = new JLabel();
@@ -82,6 +87,10 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
 		setearTxt(txtTelefono, new int[] { 109, 122, 248, 30 });
 		setearTxt(txtFechaNac, new int[] { 109, 175, 248, 30 });
+		txts.add(txtNombre);
+		txts.add(txtFechaNac);
+		txts.add(txtTelefono);
+		txts.add(txtFechaNac);
 
 		setLabel(lblNombre, Nombre, new int[] { 10, 11, 89, 41 }, true);
 		setLabel(lblApellido, Apellido, new int[] { 10, 65, 89, 41 }, true);
@@ -142,7 +151,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 			existeError = true;
 		} else if (validar.contieneNumeros(txtNombre)) {
 			setError(lblNombreError, TipoErrores.getMSJ_CONTIENE_NRO());
-			txtNombre.setBackground(Color.RED);
 			existeError = true;
 		}
 
@@ -152,7 +160,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 			existeError= true;
 		} else if (validar.contieneNumeros(txtApellido)) {
 			setError(lblApellidoError, TipoErrores.getMSJ_CONTIENE_NRO());
-			txtApellido.setBackground(Color.RED);
 			existeError= true;
 		}
 
@@ -162,11 +169,9 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 			existeError = true;
 		} else if (validar.contieneLetras(txtTelefono)) {
 			setError(lblTelefonoError, TipoErrores.getMSJ_CONTIENE_LETRAS());
-			txtTelefono.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.telefonoInvalido(txtTelefono)) {
 			setError(lblTelefonoError, TipoErrores.getMSJ_TEL_LONGITUD_INCORRECTA());
-			txtTelefono.setBackground(Color.RED);
 			existeError = true;
 		}
 
@@ -175,9 +180,9 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 			txtFechaNac.setBackground(Color.RED);
 			existeError = true;
 		}
-		if (validar.fechaInvalida(txtFechaNac, "dd/MM/yyyy")) {
-			setError(lblFNacError, TipoErrores.getMSJ_FORMATO_DATE());
-			txtFechaNac.setBackground(Color.RED);
+		if (validar.fechaInvalida(txtFechaNac)) {	
+			
+			setError(lblFNacError, validar.getErrorMsg());
 			existeError = true;
 		}
 
@@ -271,6 +276,9 @@ class eBtnMostrar implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 
 		ventana.ocultarErrores();
+		for(JTextField text : ventana.getTexts()) {
+			text.setBackground(Color.WHITE);
+		};
 
 		if (!(ventana.hayErrorEnCampos()))
 			ventana.mostrarDatosContacto();

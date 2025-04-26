@@ -2,7 +2,6 @@ package Principal;
 
 import java.util.ArrayList;
 import javax.swing.JTextField;
-
 import validaciones.TipoErrores;
 import validaciones.Validar;
 
@@ -82,7 +81,7 @@ public class DatosFormularioEj1 {
 		if (validar.campoVacio(fechaNac)) {
 			errores.add(TipoErrores.getMSJ_CAMPO_VACIO());
 		}
-		if (validar.fechaInvalida(fechaNac, "dd/MM/yyyy")) {
+		if (validar.fechaInvalida(fechaNac)) {
 			errores.add(TipoErrores.getMSJ_FORMATO_DATE());
 		}
 

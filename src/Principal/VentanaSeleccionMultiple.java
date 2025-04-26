@@ -35,9 +35,6 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 			}
 		});
 
-		//panel con borde para sist. op.
-		int panelWidth = 420;
-		int panelX = (520 - panelWidth) / 2;
 		
 		JPanel panelSO = new JPanel();
 		panelSO.setLayout(null);

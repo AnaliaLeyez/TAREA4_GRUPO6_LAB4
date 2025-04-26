@@ -275,7 +275,7 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 class eBtnCalcular implements ActionListener {
     private JTextField txtNota1, txtNota2, txtNota3;
     private JComboBox<String> cBoxTps;
-    private JLabel lblNota1Error, lblNota2Error, lblNota3Error, lblTpsError;
+    private JLabel lblNota1Error, lblNota2Error, lblNota3Error;
     private JTextField txtPromedio, txtCondicion;
 
     public eBtnCalcular(JTextField txtNota1, JTextField txtNota2, JTextField txtNota3,
@@ -289,7 +289,6 @@ class eBtnCalcular implements ActionListener {
         this.lblNota1Error = lblNota1Error;
         this.lblNota2Error = lblNota2Error;
         this.lblNota3Error = lblNota3Error;
-        this.lblTpsError = lblTpsError;
     }
 
     public void setCamposResultado(JTextField txtPromedio, JTextField txtCondicion) {
