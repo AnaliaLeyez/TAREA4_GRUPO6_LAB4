@@ -185,7 +185,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 			setError(lblFNacError, validar.getErrorMsg());
 			existeError = true;
 		}
-
 		return existeError;
 	}
 
