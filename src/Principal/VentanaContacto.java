@@ -139,35 +139,46 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 
 		if (validar.campoVacio(txtNombre)) {
 			setError(lblNombreError, tipoError.getMSJ_CAMPO_VACIO());
+			txtNombre.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.contieneNumeros(txtNombre)) {
 			setError(lblNombreError, tipoError.getMSJ_CONTIENE_NRO());
+			txtNombre.setBackground(Color.RED);
 			existeError = true;
 		}
 
 		if (validar.campoVacio(txtApellido)) {
 			setError(lblApellidoError, tipoError.getMSJ_CAMPO_VACIO());
+			txtApellido.setBackground(Color.RED);
+			existeError= true;
 		} else if (validar.contieneNumeros(txtApellido)) {
 			setError(lblApellidoError, tipoError.getMSJ_CONTIENE_NRO());
+			txtApellido.setBackground(Color.RED);
+			existeError= true;
 		}
 
 		if (validar.campoVacio(txtTelefono)) {
 			setError(lblTelefonoError, tipoError.getMSJ_CAMPO_VACIO());
+			txtTelefono.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.contieneLetras(txtTelefono)) {
 			setError(lblTelefonoError, tipoError.getMSJ_CONTIENE_LETRAS());
+			txtTelefono.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.telefonoInvalido(txtTelefono)) {
 			setError(lblTelefonoError, tipoError.getMSJ_TEL_LONGITUD_INCORRECTA());
+			txtTelefono.setBackground(Color.RED);
 			existeError = true;
 		}
 
 		if (validar.campoVacio(txtFechaNac)) {
 			setError(lblFNacError, tipoError.getMSJ_CAMPO_VACIO());
+			txtFechaNac.setBackground(Color.RED);
 			existeError = true;
 		}
 		if (validar.fechaInvalida(txtFechaNac, "dd/MM/yyyy")) {
 			setError(lblFNacError, tipoError.getMSJ_FORMATO_DATE());
+			txtFechaNac.setBackground(Color.RED);
 			existeError = true;
 		}
 
