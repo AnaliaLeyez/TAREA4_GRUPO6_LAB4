@@ -53,7 +53,7 @@ public class Validar {
 		String numero = txt.getText().trim();
 		return !numero.matches("\\d{9,10}");
 	}
-	
+	/*
 	public static boolean esDecimalValido(String texto) {
 		
 	     if (texto == null || texto.trim().isEmpty()) return false;
@@ -71,5 +71,5 @@ public class Validar {
 	    	double valor = Double.parseDouble(texto);
 	        return valor >= minimo && valor <= maximo;
 	}
-	
+	*/
 }
