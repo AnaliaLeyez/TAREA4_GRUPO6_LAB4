@@ -1,6 +1,7 @@
 package Principal;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
@@ -8,6 +9,8 @@ import javax.swing.border.LineBorder;
 import interfaces.VentanaConPadre;
 import utilidades.CerrarVentanaActionListener;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre {
 
@@ -22,6 +25,7 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
 		this.padre = padre;
 		padre.setVentanaHijaActiva(true);
+		padre.setVentanaHija(this);
 
 		setTitle("Selección Múltiple");
 		setBounds(500, 100, 436, 304);
@@ -83,6 +87,10 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		btnAceptar.setBounds(301, 228, 100, 30); // Esquina inferior derecha
 		getContentPane().add(btnAceptar);
 		
+		//evento btn Aceptar
+		
+		btnAceptar.addActionListener(new eBtnAceptar(this.getPadre())); // Pasamos el padre a eBtnAceptar
+		
 		jpanelEspecialidad = new JPanel();
 		jpanelEspecialidad.setLayout(null);
 		jpanelEspecialidad.setBounds(20, 89, 381, 86);
@@ -123,6 +131,34 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 	public void cambiarVisibilidad(boolean estado) {
 		setVisible(estado);
 	}
+	public String obtenerOpcionesSeleccionadas() {
+	    StringBuilder opciones = new StringBuilder();
+	    
+	    // Sistema Operativo
+	    if (rbWindows.isSelected()) {
+	        opciones.append("Windows");
+	    } else if (rbMac.isSelected()) {
+	        opciones.append("Mac");
+	    } else if (rbLinux.isSelected()) {
+	        opciones.append("Linux");
+	    }
+
+	    // Especialidades
+	    if (cbDesarrollo.isSelected()) {
+	        opciones.append("- Programación");
+	    }
+	    if (cbDiseno.isSelected()) {
+	        opciones.append("- Administración");
+	    }
+	    if (cbAdmin.isSelected()) {
+	        opciones.append("- Diseño Gráfico");
+	    }
+
+	    // Cantidad de horas en el computador
+	    opciones.append("-").append(txtCantHsPC.getText()).append("HS");
+
+	    return opciones.toString();
+	}
 
 	@Override
 	public VentanaPpal getPadre() {
@@ -134,6 +170,36 @@ public class VentanaSeleccionMultiple extends JFrame implements VentanaConPadre 
 		this.padre = padre;
 	}
 }
-	
-		
-		
+
+class eBtnAceptar implements ActionListener {
+    private VentanaPpal padre;
+
+    public eBtnAceptar(VentanaPpal padre) {
+        this.padre = padre;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    // Accede a la instancia activa de VentanaSeleccionMultiple
+                    if (padre.isVentanaHijaActiva()) {
+                        VentanaSeleccionMultiple ventanaSeleccion = (VentanaSeleccionMultiple) padre.getVentanaHija(); // Suponiendo que tienes acceso a la ventana hija activa
+
+                        // Obtener las opciones seleccionadas
+                        String opElegidas = ventanaSeleccion.obtenerOpcionesSeleccionadas();
+
+                        // Crear una nueva instancia de VentanaMensaje con las opciones
+                        VentanaMensaje frame = new VentanaMensaje(padre, opElegidas);
+                        frame.setVisible(true);
+                    } else {
+                        System.err.println("No hay una ventana hija activa o la referencia no está definida.");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+}
