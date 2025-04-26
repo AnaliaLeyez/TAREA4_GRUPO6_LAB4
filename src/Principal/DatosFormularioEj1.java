@@ -2,6 +2,7 @@ package Principal;
 
 import java.util.ArrayList;
 import javax.swing.JTextField;
+import validaciones.TipoErrores;
 import validaciones.Validar;
 
 public class DatosFormularioEj1 {
@@ -58,30 +59,30 @@ public class DatosFormularioEj1 {
 		Validar validar = new Validar();
 
 		if (validar.campoVacio(nombre)) {
-			errores.add("El nombre no puede estar vacío");
+			errores.add(TipoErrores.getMSJ_CAMPO_VACIO());
 		} else if (validar.contieneNumeros(nombre)) {
-			errores.add("El nombre no puede contener números");
+			errores.add(TipoErrores.getMSJ_CONTIENE_NRO());
 		}
 
 		if (validar.campoVacio(apellido)) {
-			errores.add("El apellido no puede estar vacío");
+			errores.add(TipoErrores.getMSJ_CAMPO_VACIO());
 		} else if (validar.contieneNumeros(apellido)) {
-			errores.add("El apellido no puede contener números");
+			errores.add(TipoErrores.getMSJ_CONTIENE_NRO());
 		}
 
 		if (validar.campoVacio(telefono)) {
-			errores.add("El teléfono no puede estar vacio");
+			errores.add(TipoErrores.getMSJ_CAMPO_VACIO());
 		} else if (validar.contieneLetras(telefono)) {
-			errores.add("El teléfono no puede contener letras");
+			errores.add(TipoErrores.getMSJ_CONTIENE_LETRAS());
 		} else if (validar.telefonoInvalido(telefono)) {
-			errores.add("El teléfono debe tener entre 9 y 10 dígitos");
+			errores.add(TipoErrores.getMSJ_TEL_LONGITUD_INCORRECTA());
 		}
 
 		if (validar.campoVacio(fechaNac)) {
-			errores.add("La fecha no puede estar vacía");
+			errores.add(TipoErrores.getMSJ_CAMPO_VACIO());
 		}
-		if (validar.fechaInvalida(fechaNac, "dd/MM/yyyy")) {
-			errores.add("fecha: dd/MM/yyyy sin espacios ni guiones");
+		if (validar.fechaInvalida(fechaNac)) {
+			errores.add(TipoErrores.getMSJ_FORMATO_DATE());
 		}
 
 		return new DatosValidados(errores.isEmpty(), errores);

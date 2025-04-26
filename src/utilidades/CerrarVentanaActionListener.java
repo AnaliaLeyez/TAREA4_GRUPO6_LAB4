@@ -1,8 +1,5 @@
 package utilidades;
-import Principal.VentanaContacto;
-import Principal.VentanaPromedio;
 import interfaces.VentanaConPadre;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

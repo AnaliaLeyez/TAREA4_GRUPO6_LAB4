@@ -17,16 +17,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class VentanaContacto extends JFrame implements VentanaConPadre {
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
 
 	// Defino los TextField
-	private JTextField txtNombre = new JTextField();;
-	private JTextField txtApellido = new JTextField();;
-	private JTextField txtTelefono = new JTextField();;
-	private JTextField txtFechaNac = new JTextField();;
+	private JTextField txtNombre = new JTextField();
+	private JTextField txtApellido = new JTextField();
+	private JTextField txtTelefono = new JTextField();
+	private JTextField txtFechaNac = new JTextField();
+	private ArrayList<JTextField> txts = new ArrayList<JTextField>();
+	public ArrayList<JTextField> getTexts() {
+		return txts;
+	}
 
 	// Defino los Label
 	private JLabel lblNombre = new JLabel();
@@ -60,7 +65,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		this.padre = padre;
 
 		padre.setVentanaHijaActiva(true);
-		System.out.println("Pasó por acá. padre.vAbierta: " + padre.isVentanaHijaActiva());
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
@@ -83,6 +87,10 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
 		setearTxt(txtTelefono, new int[] { 109, 122, 248, 30 });
 		setearTxt(txtFechaNac, new int[] { 109, 175, 248, 30 });
+		txts.add(txtNombre);
+		txts.add(txtFechaNac);
+		txts.add(txtTelefono);
+		txts.add(txtFechaNac);
 
 		setLabel(lblNombre, Nombre, new int[] { 10, 11, 89, 41 }, true);
 		setLabel(lblApellido, Apellido, new int[] { 10, 65, 89, 41 }, true);
@@ -127,17 +135,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		btnMostrar.addActionListener(new eBtnMostrar(this));
 
 		btnVolver.addActionListener(new CerrarVentanaActionListener(this));
-
-		// Asi estaba Antes, revisar:
-		/*
-		 * btnVolver.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { // cierro la ventana
-		 * actual de contactos dispose();
-		 * 
-		 * // muestro la ventana principal VentanaPpal ventanaPrincipal = new
-		 * VentanaPpal(); ventanaPrincipal.cambiarVisibilidad(true); } });
-		 */
 	}
 
 	public void cambiarVisibilidad(boolean estado) {
@@ -146,43 +143,48 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 
 	public boolean hayErrorEnCampos() {
 		Validar validar = new Validar();
-		TipoErrores tipoError = new TipoErrores();
 		boolean existeError = false;
 
 		if (validar.campoVacio(txtNombre)) {
-			setError(lblNombreError, tipoError.getMSJ_CAMPO_VACIO());
+			setError(lblNombreError, TipoErrores.getMSJ_CAMPO_VACIO());
+			txtNombre.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.contieneNumeros(txtNombre)) {
-			setError(lblNombreError, tipoError.getMSJ_CONTIENE_NRO());
+			setError(lblNombreError, TipoErrores.getMSJ_CONTIENE_NRO());
 			existeError = true;
 		}
 
 		if (validar.campoVacio(txtApellido)) {
-			setError(lblApellidoError, tipoError.getMSJ_CAMPO_VACIO());
+			setError(lblApellidoError, TipoErrores.getMSJ_CAMPO_VACIO());
+			txtApellido.setBackground(Color.RED);
+			existeError= true;
 		} else if (validar.contieneNumeros(txtApellido)) {
-			setError(lblApellidoError, tipoError.getMSJ_CONTIENE_NRO());
+			setError(lblApellidoError, TipoErrores.getMSJ_CONTIENE_NRO());
+			existeError= true;
 		}
 
 		if (validar.campoVacio(txtTelefono)) {
-			setError(lblTelefonoError, tipoError.getMSJ_CAMPO_VACIO());
+			setError(lblTelefonoError, TipoErrores.getMSJ_CAMPO_VACIO());
+			txtTelefono.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.contieneLetras(txtTelefono)) {
-			setError(lblTelefonoError, tipoError.getMSJ_CONTIENE_LETRAS());
+			setError(lblTelefonoError, TipoErrores.getMSJ_CONTIENE_LETRAS());
 			existeError = true;
 		} else if (validar.telefonoInvalido(txtTelefono)) {
-			setError(lblTelefonoError, tipoError.getMSJ_TEL_LONGITUD_INCORRECTA());
+			setError(lblTelefonoError, TipoErrores.getMSJ_TEL_LONGITUD_INCORRECTA());
 			existeError = true;
 		}
 
 		if (validar.campoVacio(txtFechaNac)) {
-			setError(lblFNacError, tipoError.getMSJ_CAMPO_VACIO());
+			setError(lblFNacError, TipoErrores.getMSJ_CAMPO_VACIO());
+			txtFechaNac.setBackground(Color.RED);
 			existeError = true;
 		}
-		if (validar.fechaInvalida(txtFechaNac, "dd/MM/yyyy")) {
-			setError(lblFNacError, tipoError.getMSJ_FORMATO_DATE());
+		if (validar.fechaInvalida(txtFechaNac)) {	
+			
+			setError(lblFNacError, validar.getErrorMsg());
 			existeError = true;
 		}
-
 		return existeError;
 	}
 
@@ -273,6 +275,9 @@ class eBtnMostrar implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 
 		ventana.ocultarErrores();
+		for(JTextField text : ventana.getTexts()) {
+			text.setBackground(Color.WHITE);
+		};
 
 		if (!(ventana.hayErrorEnCampos()))
 			ventana.mostrarDatosContacto();
