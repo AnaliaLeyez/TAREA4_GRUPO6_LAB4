@@ -14,6 +14,8 @@ public class VentanaPpal extends JFrame {
 	private JButton btnEj1, btnEj2, btnEj3;
 	private final String grupo = "GRUPO NRO: 6";
 	private boolean isVentanaHijaActiva = false;
+	private VentanaSeleccionMultiple ventanaHijaActiva;
+
 
 	public VentanaPpal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +88,14 @@ public class VentanaPpal extends JFrame {
 		this.btnEj3.setEnabled(!isVentanaHijaActiva);
 
 	}
+	public void setVentanaHija(VentanaSeleccionMultiple ventana) {
+	    this.ventanaHijaActiva = ventana;
+	}
+
+	public VentanaSeleccionMultiple getVentanaHija() {
+	    return ventanaHijaActiva;
+	}
+
 
 }
 
@@ -133,7 +143,7 @@ class eBtn2 implements ActionListener {
 		}
 	}
 		
-		class eBtn3 implements ActionListener {
+class eBtn3 implements ActionListener {
 			private VentanaPpal padre;
 			
 			public eBtn3(VentanaPpal padre) {
