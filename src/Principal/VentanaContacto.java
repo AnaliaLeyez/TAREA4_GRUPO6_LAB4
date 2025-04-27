@@ -1,6 +1,6 @@
 package Principal;
 
-import java.awt.Color;
+import java.awt.Color;	
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import utilidades.FormatoLabel;
 import validaciones.Validar;
 import validaciones.TipoErrores;
 import java.awt.event.KeyAdapter;
@@ -53,11 +52,10 @@ public class VentanaContacto extends JFrame {
 	private JLabel lblMostrarTel = new JLabel();
 	private JLabel lblMostrarFecha = new JLabel();
 
-	private JLabel lblNombreError;
-	private JLabel lblApellidoError;
-
-	private JLabel lblTelefonoError;
-	private JLabel lblFNacError;
+	private JLabel lblNombreError = new JLabel();
+	private JLabel lblApellidoError = new JLabel();
+	private JLabel lblTelefonoError = new JLabel();
+	private JLabel lblFNacError = new JLabel();
 
 	public VentanaContacto(VentanaPpal padre) {
 
@@ -79,9 +77,6 @@ public class VentanaContacto extends JFrame {
 		setTitle("Contactos");
 		getContentPane().setLayout(null);
 
-		// Clase para manejar los formatos básicos de lbl
-		FormatoLabel modeloLabel = new FormatoLabel();
-
 		setearTxt(txtNombre, new int[] { 109, 16, 248, 30 });
 		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
 		setearTxt(txtTelefono, new int[] { 109, 122, 248, 30 });
@@ -91,22 +86,21 @@ public class VentanaContacto extends JFrame {
 		txts.add(txtTelefono);
 		txts.add(txtFechaNac);
 
-		setLabel(lblNombre, Nombre, new int[] { 10, 11, 89, 41 }, true);
-		setLabel(lblApellido, Apellido, new int[] { 10, 65, 89, 41 }, true);
-		setLabel(lblTelefono, Telefono, new int[] { 10, 117, 89, 41 }, true);
-		setLabel(lblFechaNac, FechaNac, new int[] { 10, 164, 89, 41 }, true);
+		setLabel(lblNombre, Nombre, new int[] { 10, 11, 89, 41 }, Color.BLACK, true);
+		setLabel(lblApellido, Apellido, new int[] { 10, 65, 89, 41 }, Color.BLACK, true);
+		setLabel(lblTelefono, Telefono, new int[] { 10, 117, 89, 41 }, Color.BLACK, true);
+		setLabel(lblFechaNac, FechaNac, new int[] { 10, 164, 89, 41 }, Color.BLACK, true);
 
 		// Label para mostrar los datos
-		setLabel(lblMostrarNombre, "", new int[] { 20, 325, 266, 14 }, false);
-		setLabel(lblMostrarApellido, "", new int[] { 20, 350, 266, 14 }, false);
-		setLabel(lblMostrarTel, "", new int[] { 20, 375, 266, 14 }, false);
-		setLabel(lblMostrarFecha, "", new int[] { 20, 400, 266, 14 }, false);
+		setLabel(lblMostrarNombre, "", new int[] { 20, 325, 266, 14 }, Color.BLACK, false);
+		setLabel(lblMostrarApellido, "", new int[] { 20, 350, 266, 14 }, Color.BLACK, false);
+		setLabel(lblMostrarTel, "", new int[] { 20, 375, 266, 14 }, Color.BLACK, false);
+		setLabel(lblMostrarFecha, "", new int[] { 20, 400, 266, 14 }, Color.BLACK, false);
 
 		// Configuro Botón Mostrar
 		btnMostrar = new JButton();
 		btnMostrar.setText("Mostrar");
 		btnMostrar.setBounds(264, 236, 89, 30);
-
 
 		// Agrego el boton al Panel
 		getContentPane().add(btnMostrar);
@@ -118,13 +112,20 @@ public class VentanaContacto extends JFrame {
 		getContentPane().add(lblDatosIng);
 
 		// Labels para errores.
-		lblNombreError = modeloLabel.crearLabelError(txtNombre, new int[] { 109, 45, 250, 14 });
+		setLabel(lblNombreError, "", new int[] { 109, 45, 250, 14 }, Color.red, false);
+		setTxtReferencia(lblNombreError, txtNombre);
 		getContentPane().add(lblNombreError);
-		lblApellidoError = modeloLabel.crearLabelError(txtApellido, new int[] { 109, 97, 250, 14 });
+
+		setLabel(lblApellidoError,"", new int[] { 109, 97, 250, 14 }, Color.red, false);
+		setTxtReferencia(lblApellidoError, txtApellido);
 		getContentPane().add(lblApellidoError);
-		lblTelefonoError = modeloLabel.crearLabelError(txtTelefono, new int[] { 109, 152, 250, 14 });
+
+		setLabel(lblTelefonoError, "", new int[] { 109, 152, 250, 14 }, Color.red, false);
+		setTxtReferencia(lblTelefonoError, txtTelefono);
 		getContentPane().add(lblTelefonoError);
-		lblFNacError = modeloLabel.crearLabelError(txtFechaNac, new int[] { 109, 205, 250, 14 });
+
+		setLabel(lblFNacError, "", new int[] { 109, 205, 250, 14 }, Color.red, false);
+		setTxtReferencia(lblFNacError, txtFechaNac);
 		getContentPane().add(lblFNacError);
 
 		btnMostrar.addActionListener(new eBtnMostrar(this));
@@ -238,13 +239,17 @@ public class VentanaContacto extends JFrame {
 		});
 	}
 
-	private void setLabel(JLabel label, String valor, int bounds[], boolean visible) {
+	private void setLabel(JLabel label, String valor, int bounds[], Color color , boolean visible) {
 		label.setText(valor);
 		label.setBackground(this.getBackground());
-		label.setForeground(Color.BLACK);
+		label.setForeground(color);
 		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		label.setVisible(visible);
 		getContentPane().add(label);
+	}
+
+	private void setTxtReferencia(JLabel label, JTextField txt) {
+		label.setLabelFor(txt);
 	}
 
 	// Para manejar el bloqueo de botones del principal
@@ -280,4 +285,3 @@ class eBtnMostrar implements ActionListener {
 
 	}
 }
-
