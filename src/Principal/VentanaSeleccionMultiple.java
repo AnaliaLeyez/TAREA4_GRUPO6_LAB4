@@ -134,27 +134,16 @@ public class VentanaSeleccionMultiple extends Ventana {
 	}
 
 	public boolean hayErrorEnRadioButton() {
-		if (!rbWindows.isSelected() && !rbMac.isSelected() && !rbLinux.isSelected()) {
-			lblErrorRadio.setText(TipoErrores.getMsjRadioBtn());
-			lblErrorRadio.setVisible(true);
+		if (!rbWindows.isSelected() && !rbMac.isSelected() && !rbLinux.isSelected())
 			return true;
-		} else {
-			lblErrorRadio.setText("");
-			lblErrorRadio.setVisible(false);
-			return false;
-		}
+		return false;
 	}
 
 	public boolean hayErrorEnCheckBox() {
-		if (!cbProgra.isSelected() && !cbDiseno.isSelected() && !cbAdmin.isSelected()) {
-			lblErrorCheck.setText(TipoErrores.getMsjChkBtn());
-			lblErrorCheck.setVisible(true);
+		if (!cbProgra.isSelected() && !cbDiseno.isSelected() && !cbAdmin.isSelected())
 			return true;
-		} else {
-			lblErrorCheck.setText("");
-			lblErrorCheck.setVisible(false);
-			return false;
-		}
+		return false;
+
 	}
 
 	public float validarHoras() throws FueraDeRangoException, NumberFormatException {
