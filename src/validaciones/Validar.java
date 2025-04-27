@@ -1,6 +1,10 @@
 package validaciones;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import Principal.FueraDeRangoException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -47,8 +51,7 @@ public class Validar {
 	}
 
 	public boolean fechaInvalida(JTextField fechaJtext) {
-		// eliminamos espacios
-		String texto = fechaJtext.getText().trim();
+		String texto = fechaJtext.getText().trim(); // eliminamos espacios
 		java.util.Date fecha = parseFecha(texto);
 		return fecha == null;
 	}
@@ -68,4 +71,18 @@ public class Validar {
 		return !numero.matches("\\d{9,10}");
 	}
 
+	
+//	public float validarNota(JTextField campo) throws FueraDeRangoException, NumberFormatException {
+//		try {
+//			float valor = Float.parseFloat(campo.getText());
+//			if (valor < 1 || valor > 10) {
+//				valor=0; //lo tomo como false
+//				throw new FueraDeRangoException("Nota fuera de rango");
+//			}
+//			return valor;
+//		} catch (NumberFormatException e) {
+//			throw new NumberFormatException();
+//		}
+//	}
+	
 }

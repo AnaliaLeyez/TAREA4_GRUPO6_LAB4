@@ -9,6 +9,7 @@ public abstract class TipoErrores {
 	static final String MSJ_FORMATO_DATE = "El formato debe ser dd/MM/yyyy";
 	static final String MSJ_RADIO_BTN = "Debe seleccionar una opción";
 	static final String MSJ_CHK_BTN = "Debe seleccionar al menos una opción";
+	static final String MSJ_NOTA_INVALIDA= "Ingresar nro entre 1 y 10";
 	
 	public static String getMSJ_CAMPO_VACIO() {
 		return MSJ_CAMPO_VACIO;
@@ -30,5 +31,8 @@ public abstract class TipoErrores {
 	}
 	public static String getMsjChkBtn() {
 		return MSJ_CHK_BTN;
+	}
+	public static String getMSJ_NOTA_INVALIDA() {
+		return MSJ_NOTA_INVALIDA;
 	}
 }

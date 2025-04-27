@@ -10,37 +10,64 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 
+import validaciones.TipoErrores;
+import validaciones.Validar;
+
 public class VentanaPromedio extends Ventana {
 	private static final long serialVersionUID = 1L;
 
 	// Defino los TextField
-	private JTextField txtNota1= new JTextField();
-	private JTextField txtNota2= new JTextField();
-	private JTextField txtNota3= new JTextField();
-	private JTextField txtPromedio= new JTextField();
-	private JTextField txtCondicion= new JTextField();
-	
-	//ComboBox
-	private JComboBox<String> cBoxTps;
+	private JTextField txtNota1 = new JTextField();
+	private JTextField txtNota2 = new JTextField();
+
+	public JTextField getTxtNota1() {
+		return txtNota1;
+	}
+
+	public JTextField getTxtNota2() {
+		return txtNota2;
+	}
+
+	public JTextField getTxtNota3() {
+		return txtNota3;
+	}
+
+	private JTextField txtNota3 = new JTextField();
+	private JTextField txtPromedio = new JTextField();
+	private JTextField txtCondicion = new JTextField();
+
+	// ComboBox
+	private JComboBox<String> cBoxTps = new JComboBox<String>();
+
+	public JComboBox<String> getCBoxTps() {
+		return cBoxTps;
+	}
 
 	// Defino los Label
-	private JLabel lblNota1 = new JLabel(); 
+	private JLabel lblNota1 = new JLabel();
 	private JLabel lblNota2 = new JLabel();
 	private JLabel lblNota3 = new JLabel();
 	private JLabel lblTps = new JLabel();
-	
+
 	private JLabel lblNota1Error = new JLabel();
 	private JLabel lblNota2Error = new JLabel();
 	private JLabel lblNota3Error = new JLabel();
 
-	private JLabel lblMostrarNota1 = new JLabel();
-	private JLabel lblMostrarNota2 = new JLabel();
-	private JLabel lblMostrarNota3 = new JLabel();
-	private JLabel lblMostrarTps = new JLabel();
-	
+	public JLabel getLblNota1Error() {
+		return lblNota1Error;
+	}
+
+	public JLabel getLblNota2Error() {
+		return lblNota2Error;
+	}
+
+	public JLabel getLblNota3Error() {
+		return lblNota3Error;
+	}
+
 	private JLabel lblPromedio = new JLabel();
 	private JLabel lblCondicion = new JLabel();
-	
+
 	// Defino los textos constantes
 	private final String Nota1 = "Nota 1:";
 	private final String Nota2 = "Nota 2:";
@@ -51,12 +78,12 @@ public class VentanaPromedio extends Ventana {
 	private JButton btnCalcular = new JButton();
 	private JButton btnNuevo = new JButton();
 	private JButton btnSalir = new JButton();
-	
+
 	private JPanel JPPromedioDelEstudiante = new JPanel();
-	private JPanel JPNotasDelEstudiante= new JPanel();
+	private JPanel JPNotasDelEstudiante = new JPanel();
 
 	public VentanaPromedio(VentanaPpal padre) {
-		super(padre, new int[] {500, 100, 502, 537},"Promedio");
+		super(padre, new int[] { 500, 100, 502, 537 }, "Promedio");
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -68,121 +95,85 @@ public class VentanaPromedio extends Ventana {
 			}
 		});
 
-		// Configuro Botón Calcular
-		setButton(btnCalcular,"CALCULAR", new int[] {349, 69, 129, 43},!getIsVentanaHijaActiva());
+		setJPanel(JPPromedioDelEstudiante, "Promedio Del Estudiante", new int[] { 20, 293, 319, 147 });
 
-		setJPanel(JPPromedioDelEstudiante,"Promedio Del Estudiante",new int[] {20, 293, 319, 147});	
-		
-		setLblText(lblPromedio,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 48, 88, 14}, "Promedio:");
+		setLblText(lblPromedio, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 48, 88, 14 }, "Promedio:");
 		JPPromedioDelEstudiante.add(lblPromedio);
-		
-		setLblText(lblCondicion,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 89, 88, 14}, "Condición:");
+
+		setLblText(lblCondicion, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 89, 88, 14 }, "Condición:");
 		JPPromedioDelEstudiante.add(lblCondicion);
 
-		//Textos promedio y condicion que se muestran como resultado:
-		setearTxtNoEditable(txtPromedio, new int[] { 108, 45, 96, 20}, 10, JPPromedioDelEstudiante);
-		setearTxtNoEditable(txtCondicion, new int[] {108, 86, 96, 20}, 10, JPPromedioDelEstudiante);
-		
-		
-		setJPanel(JPNotasDelEstudiante,"Notas Del Estudiante",new int[] {20, 34, 319, 248});
+		// Textos promedio y condicion que se muestran como resultado:
+		setearTxtNoEditable(txtPromedio, new int[] { 108, 45, 96, 20 }, 10, JPPromedioDelEstudiante);
+		setearTxtNoEditable(txtCondicion, new int[] { 108, 86, 96, 20 }, 10, JPPromedioDelEstudiante);
 
+		setJPanel(JPNotasDelEstudiante, "Notas Del Estudiante", new int[] { 20, 34, 319, 248 });
 
 		// Nota1 Label y TextField
-		setLblText(lblNota1,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 28, 89, 41}, Nota1);
+		setLblText(lblNota1, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 28, 89, 41 }, Nota1);
 		JPNotasDelEstudiante.add(lblNota1);
-		
-		setearTxt(txtNota1, new int[] {109, 33, 160, 30});
+
+		setearTxt(txtNota1, new int[] { 109, 33, 160, 30 });
 		JPNotasDelEstudiante.add(txtNota1);
 		addEventoKeyTyped(txtNota1);
-		
 
 		// Nota2 label y TextField
-		setLblText(lblNota2,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 86, 89, 41}, Nota2);
+		setLblText(lblNota2, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 86, 89, 41 }, Nota2);
 		JPNotasDelEstudiante.add(lblNota2);
-		
-		setearTxt(txtNota2, new int[] {109, 91, 160, 30});
+
+		setearTxt(txtNota2, new int[] { 109, 91, 160, 30 });
 		JPNotasDelEstudiante.add(txtNota2);
 		addEventoKeyTyped(txtNota2);
 
 		// Nota3 label y TextField
-		setLblText(lblNota3,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 140, 89, 41}, Nota3);
+		setLblText(lblNota3, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 140, 89, 41 }, Nota3);
 		JPNotasDelEstudiante.add(lblNota3);
-				
-		setearTxt(txtNota3, new int[] {109, 145, 160, 30});
+
+		setearTxt(txtNota3, new int[] { 109, 145, 160, 30 });
 		JPNotasDelEstudiante.add(txtNota3);
 		addEventoKeyTyped(txtNota3);
 
 		// Labels para errores.
-		lblNota1Error = new JLabel("Error");
-		lblNota1Error.setBounds(109, 68, 160, 14);
+		setLblText(lblNota1Error, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 109, 68, 160, 14 }, "");
 		JPNotasDelEstudiante.add(lblNota1Error);
-		lblNota1Error.setForeground(new Color(255, 0, 0));
-		lblNota1Error.setVisible(false);
-		lblNota1Error.setLabelFor(txtNota1);
+		finalSetLblError(lblNota1Error, txtNota1);
 
-		lblNota2Error = new JLabel("Error");
-		lblNota2Error.setBounds(109, 120, 160, 14);
+		setLblText(lblNota2Error, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 109, 120, 160, 14 }, "");
 		JPNotasDelEstudiante.add(lblNota2Error);
-		lblNota2Error.setEnabled(true);
-		lblNota2Error.setForeground(Color.RED);
-		lblNota2Error.setVisible(false);
-		lblNota2Error.setLabelFor(lblNota2);
+		finalSetLblError(lblNota2Error, txtNota1);
 
-		lblNota3Error = new JLabel("Error");
-		lblNota3Error.setBounds(109, 172, 160, 14);
+		setLblText(lblNota3Error, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 109, 172, 160, 14 }, "");
 		JPNotasDelEstudiante.add(lblNota3Error);
-		lblNota3Error.setEnabled(true);
-		lblNota3Error.setForeground(Color.RED);
-		lblNota3Error.setVisible(false);
+		finalSetLblError(lblNota3Error, txtNota1);
 
-
-		// Tps label y TextField
-		lblTps = new JLabel(Tps);
-		lblTps.setBounds(10, 192, 89, 41);
+		// Tps label
+		setLblText(lblTps, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 192, 89, 41 }, Tps);
 		JPNotasDelEstudiante.add(lblTps);
-		lblTps.setBackground(this.getBackground());
-		lblTps.setForeground(Color.BLACK);
 
-		cBoxTps = new JComboBox<String>();
+		// CBox
 		cBoxTps.setBounds(109, 202, 108, 20);
 		JPNotasDelEstudiante.add(cBoxTps);
-		cBoxTps.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				cBoxTps.setBackground(Color.WHITE);
-			}
-		});
 		// Opciones del Cbox:
 		cBoxTps.addItem("Aprobado");
 		cBoxTps.addItem("Desaprobado");
-		JLabel lblTpsError = new JLabel("Error");
-		lblTpsError.setBounds(109, 219, 250, 14);
-		JPNotasDelEstudiante.add(lblTpsError);
-		lblTpsError.setEnabled(true);
-		lblTpsError.setForeground(Color.RED);
-		lblTpsError.setVisible(false);
-		lblTpsError.setLabelFor(lblTps);
 
-		// Evento del botón Calcular
-		eBtnCalcular eventoCalcular = new eBtnCalcular(txtNota1, txtNota2, txtNota3, cBoxTps, lblNota1Error,
-				lblNota2Error, lblNota3Error, lblTpsError, lblMostrarNota1, lblMostrarNota2, lblMostrarNota3,
-				lblMostrarTps);
+		// Botones
+		setButton(btnCalcular, "CALCULAR", new int[] { 349, 69, 129, 43 }, !getIsVentanaHijaActiva());
+		btnCalcular.addActionListener(new eBtnCalcular(this));
 
-		// Le pasamos los campos resultado
-		eventoCalcular.setCamposResultado(txtPromedio, txtCondicion);
-
-		// Asociamos el evento al botón
-		btnCalcular.addActionListener(eventoCalcular);
-
-		btnNuevo = new JButton("NUEVO");
-		btnNuevo.setBounds(349, 117, 129, 43);
-		getContentPane().add(btnNuevo);
-
-		btnSalir = new JButton("SALIR");
-		btnSalir.setBounds(349, 165, 129, 43);
+		setButton(btnSalir, "SALIR", new int[] { 349, 165, 129, 43 }, !getIsVentanaHijaActiva());
 		btnSalir.addActionListener(e -> System.exit(0));
-		getContentPane().add(btnSalir);
 
+		setButton(btnNuevo, "NUEVO", new int[] { 349, 117, 129, 43 }, !getIsVentanaHijaActiva());
 		btnNuevo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -190,7 +181,6 @@ public class VentanaPromedio extends Ventana {
 			}
 		});
 	}
-
 
 	private void limpiarCampos() {
 		ocultarErrores();
@@ -202,7 +192,7 @@ public class VentanaPromedio extends Ventana {
 		this.txtPromedio.setText("");
 	}
 
-	private void ocultarErrores() {
+	public void ocultarErrores() {
 		lblNota1Error.setVisible(false);
 		lblNota2Error.setVisible(false);
 		lblNota3Error.setVisible(false);
@@ -211,100 +201,84 @@ public class VentanaPromedio extends Ventana {
 		txtNota2.setBackground(Color.WHITE);
 		txtNota3.setBackground(Color.WHITE);
 	}
+
+	public void mostrarDatos(float prom, String cond) {
+		txtPromedio.setText(String.valueOf(prom));
+		txtCondicion.setText(cond);
+
+		txtPromedio.setVisible(true);
+		txtCondicion.setVisible(true);
+	}
+
 }
 
 class eBtnCalcular implements ActionListener {
-	private JTextField txtNota1, txtNota2, txtNota3;
-	private JComboBox<String> cBoxTps;
-	private JLabel lblNota1Error, lblNota2Error, lblNota3Error;
-	private JTextField txtPromedio, txtCondicion;
+	private VentanaPromedio ventana;
+	private float promedio;
+	private String tp, condicion;
+	Validar validar = new Validar();
 
-	public eBtnCalcular(JTextField txtNota1, JTextField txtNota2, JTextField txtNota3, JComboBox<String> cBoxTps,
-			JLabel lblNota1Error, JLabel lblNota2Error, JLabel lblNota3Error, JLabel lblTpsError,
-			JLabel lblMostrarNota1, JLabel lblMostrarNota2, JLabel lblMostrarNota3, JLabel lblMostrarTps) {
-		this.txtNota1 = txtNota1;
-		this.txtNota2 = txtNota2;
-		this.txtNota3 = txtNota3;
-		this.cBoxTps = cBoxTps;
-		this.lblNota1Error = lblNota1Error;
-		this.lblNota2Error = lblNota2Error;
-		this.lblNota3Error = lblNota3Error;
-	}
-
-	public void setCamposResultado(JTextField txtPromedio, JTextField txtCondicion) {
-		this.txtPromedio = txtPromedio;
-		this.txtCondicion = txtCondicion;
+	public eBtnCalcular(VentanaPromedio ventana) {
+		this.ventana = ventana;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ocultarErrores();
+		ventana.ocultarErrores();
 
-		boolean tieneErrores = false;
-		float nota1 = 0, nota2 = 0, nota3 = 0;
 
-		try {
-			nota1 = validarNota(txtNota1, lblNota1Error);
+					try {
+						float nota1 = 0, nota2 = 0, nota3 = 0;
+						
+						nota1 = validarNota(ventana.getTxtNota1(), ventana.getLblNota1Error());
+						nota2 = validarNota(ventana.getTxtNota2(), ventana.getLblNota2Error());
+						nota3 = validarNota(ventana.getTxtNota3(), ventana.getLblNota3Error());
 
-		} catch (Exception ex) {
-			tieneErrores = true;
-		}
+						if(nota1!=0 && nota2!=0 && nota3!=0 ) {
+							
+								promedio = (nota1 + nota2 + nota3) / 3;
+								
+								tp = (String) ventana.getCBoxTps().getSelectedItem();
 
-		try {
-			nota2 = validarNota(txtNota2, lblNota2Error);
-		} catch (Exception ex) {
-			tieneErrores = true;
-		}
 
-		try {
-			nota3 = validarNota(txtNota3, lblNota3Error);
-		} catch (Exception ex) {
-			tieneErrores = true;
-		}
-
-		if (tieneErrores) {
-			return;
-		}
-
-		String tp = (String) cBoxTps.getSelectedItem();
-
-		float promedio = (nota1 + nota2 + nota3) / 3;
-		String condicion;
-
-		if (tp.equals("Desaprobado") || nota1 < 6 || nota2 < 6 || nota3 < 6) {
-			condicion = "Libre";
-		} else if (nota1 >= 8 && nota2 >= 8 && nota3 >= 8) {
-			condicion = "Promocionado";
-		} else {
-			condicion = "Regular";
-		}
-
-		txtPromedio.setText(String.format("%.2f", promedio));
-		txtCondicion.setText(condicion);
+								if (tp.equals("Desaprobado") || nota1 < 6 || nota2 < 6 || nota3 < 6) {
+									condicion = "Libre";
+								} else if (nota1 >= 8 && nota2 >= 8 && nota3 >= 8) {
+									condicion = "Promocionado";
+								} else {
+									condicion = "Regular";
+								}
+								
+								ventana.mostrarDatos(promedio, condicion);
+							}
+										
+					}catch(Exception ex){}
+					
 	}
 
 	private float validarNota(JTextField campo, JLabel errorLabel) throws FueraDeRangoException, NumberFormatException {
+
+		String texto = campo.getText().trim();
+		
+		if (texto.isEmpty()) {
+	        campo.setBackground(Color.RED);
+	        errorLabel.setVisible(false);
+	        return 0;
+	    }
+		
+		float valor = 0;
 		try {
-			float valor = Float.parseFloat(campo.getText());
-			if (valor < 1 || valor > 10) {
+			valor = Float.parseFloat(texto);
+
+			if (valor < 0 || valor > 10) {
 				mostrarError(campo, errorLabel, "Debe estar entre 1 y 10");
-				throw new FueraDeRangoException("Nota fuera de rango");
+				valor = 0;
 			}
-			return valor;
+
 		} catch (NumberFormatException e) {
 			mostrarError(campo, errorLabel, "Ingrese un número válido");
-			throw new NumberFormatException();
 		}
-	}
-
-	private void ocultarErrores() {
-		lblNota1Error.setVisible(false);
-		lblNota2Error.setVisible(false);
-		lblNota3Error.setVisible(false);
-
-		txtNota1.setBackground(Color.WHITE);
-		txtNota2.setBackground(Color.WHITE);
-		txtNota3.setBackground(Color.WHITE);
+		return valor;
 	}
 
 	private void mostrarError(JTextField campo, JLabel label, String error) {

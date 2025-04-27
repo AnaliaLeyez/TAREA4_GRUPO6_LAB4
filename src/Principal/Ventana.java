@@ -60,6 +60,13 @@ public abstract class Ventana extends JFrame {
 		getContentPane().add(txt);
 	}
 	
+	public void finalSetLblError(JLabel lbl, JTextField lblFor) {
+		lbl.setEnabled(true);
+		lbl.setForeground(Color.RED);
+		lbl.setVisible(false);
+		lbl.setLabelFor(lblFor);
+	}
+	
 	public void setJPanel(JPanel panel, String txtBorde,int bounds[]) {
 		panel.setBorder(BorderFactory.createTitledBorder(txtBorde));
 		panel.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
