@@ -71,12 +71,11 @@ public class VentanaPromedio extends Ventana {
 		// Configuro Botón Calcular
 		setButton(btnCalcular,"CALCULAR", new int[] {349, 69, 129, 43},!getIsVentanaHijaActiva());
 
-		setJPanel(JPPromedioDelEstudiante,"Promedio Del Estudiante",new int[] {20, 293, 319, 147});
-
-
+		setJPanel(JPPromedioDelEstudiante,"Promedio Del Estudiante",new int[] {20, 293, 319, 147});	
+		
 		setLblText(lblPromedio,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 48, 88, 14}, "Promedio:");
 		JPPromedioDelEstudiante.add(lblPromedio);
-
+		
 		setLblText(lblCondicion,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 89, 88, 14}, "Condición:");
 		JPPromedioDelEstudiante.add(lblCondicion);
 
@@ -88,43 +87,30 @@ public class VentanaPromedio extends Ventana {
 		setJPanel(JPNotasDelEstudiante,"Notas Del Estudiante",new int[] {20, 34, 319, 248});
 
 
-// Nota1 Label y TextField
-		lblNota1 = new JLabel(Nota1);
-		lblNota1.setBounds(10, 28, 89, 41);
+		// Nota1 Label y TextField
+		setLblText(lblNota1,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 28, 89, 41}, Nota1);
 		JPNotasDelEstudiante.add(lblNota1);
-		lblNota1.setBackground(this.getBackground());
-		lblNota1.setForeground(Color.BLACK);
-
-		txtNota1 = new JTextField();
-		txtNota1.setBounds(109, 33, 160, 30);
+		
+		setearTxt(txtNota1, new int[] {109, 33, 160, 30});
 		JPNotasDelEstudiante.add(txtNota1);
-		txtNota1.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				txtNota1.setBackground(Color.WHITE);
-			}
-		});
-		txtNota1.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtNota1.setBackground(Color.white);
+		addEventoKeyTyped(txtNota1);
+		
 
 		// Nota2 label y TextField
-		lblNota2 = new JLabel(Nota2);
-		lblNota2.setBounds(10, 86, 89, 41);
+		setLblText(lblNota2,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 86, 89, 41}, Nota2);
 		JPNotasDelEstudiante.add(lblNota2);
-		lblNota2.setBackground(this.getBackground());
-		lblNota2.setForeground(Color.BLACK);
-
-		txtNota2 = new JTextField();
-		txtNota2.setBounds(109, 91, 160, 30);
+		
+		setearTxt(txtNota2, new int[] {109, 91, 160, 30});
 		JPNotasDelEstudiante.add(txtNota2);
-		txtNota2.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				txtNota2.setBackground(Color.WHITE);
-			}
-		});
-		txtNota2.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtNota2.setBackground(Color.white);
+		addEventoKeyTyped(txtNota2);
+
+		// Nota3 label y TextField
+		setLblText(lblNota3,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 140, 89, 41}, Nota3);
+		JPNotasDelEstudiante.add(lblNota3);
+				
+		setearTxt(txtNota3, new int[] {109, 145, 160, 30});
+		JPNotasDelEstudiante.add(txtNota3);
+		addEventoKeyTyped(txtNota3);
 
 		// Labels para errores.
 		lblNota1Error = new JLabel("Error");
@@ -142,18 +128,6 @@ public class VentanaPromedio extends Ventana {
 		lblNota2Error.setVisible(false);
 		lblNota2Error.setLabelFor(lblNota2);
 
-		txtNota3 = new JTextField();
-		txtNota3.setBounds(109, 145, 160, 30);
-		JPNotasDelEstudiante.add(txtNota3);
-		txtNota3.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				txtNota3.setBackground(Color.WHITE);
-			}
-		});
-		txtNota3.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txtNota3.setBackground(Color.white);
-
 		lblNota3Error = new JLabel("Error");
 		lblNota3Error.setBounds(109, 172, 160, 14);
 		JPNotasDelEstudiante.add(lblNota3Error);
@@ -161,13 +135,6 @@ public class VentanaPromedio extends Ventana {
 		lblNota3Error.setForeground(Color.RED);
 		lblNota3Error.setVisible(false);
 
-		// nota3 label y TextField
-		lblNota3 = new JLabel(Nota3);
-		lblNota3.setBounds(10, 140, 89, 41);
-		JPNotasDelEstudiante.add(lblNota3);
-		lblNota3.setBackground(this.getBackground());
-		lblNota3.setForeground(Color.BLACK);
-		lblNota3Error.setLabelFor(lblNota3);
 
 		// Tps label y TextField
 		lblTps = new JLabel(Tps);

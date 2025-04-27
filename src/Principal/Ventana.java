@@ -84,12 +84,11 @@ public abstract class Ventana extends JFrame {
 		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		txt.setEditable(false);
 		txt.setColumns(col);
-
-		//getContentPane().add(txt);
+		getContentPane().add(txt);
 		panel.add(txt);
 	}
 	
-	private void addEventoKeyTyped(JTextField txt) {
+	public void addEventoKeyTyped(JTextField txt) {
 		txt.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
