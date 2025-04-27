@@ -44,8 +44,10 @@ public class VentanaSeleccionMultiple extends Ventana {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				padre.ventanaHijaActiva(false);
+			public void windowClosing(WindowEvent e) {			
+				if (padre != null) {
+				    padre.ventanaHijaActiva(false);
+				}
 				setVentanaHijaActiva(false);
 				dispose();
 			}
