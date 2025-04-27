@@ -9,10 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
-import interfaces.VentanaConPadre;
-import utilidades.CerrarVentanaActionListener;
 
-public class VentanaPromedio extends JFrame implements VentanaConPadre {
+public class VentanaPromedio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
 
@@ -31,7 +29,7 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 	private final String Tps = "TPS:";
 
 	// BOTON Calcular
-	private JButton btnCalcular;
+	private JButton btnCalcular, btnNuevo, btnSalir;
 	private JPanel JPPromedioDelEstudiante;
 	private JTextField txtPromedio;
 	private JTextField txtCondicion;
@@ -222,11 +220,11 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		// Asociamos el evento al botón
 		btnCalcular.addActionListener(eventoCalcular);
 
-		JButton btnNuevo = new JButton("NUEVO");
+		btnNuevo = new JButton("NUEVO");
 		btnNuevo.setBounds(349, 117, 129, 43);
 		getContentPane().add(btnNuevo);
 
-		JButton btnSalir = new JButton("SALIR");
+		btnSalir = new JButton("SALIR");
 		btnSalir.setBounds(349, 165, 129, 43);
 		btnSalir.addActionListener(e -> System.exit(0));
 		getContentPane().add(btnSalir);
@@ -243,7 +241,6 @@ public class VentanaPromedio extends JFrame implements VentanaConPadre {
 		setVisible(estado);
 	}
 
-	@Override
 	public VentanaPpal getPadre() {
 		return this.padre;
 	}

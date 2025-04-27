@@ -8,8 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import interfaces.VentanaConPadre;
-import utilidades.CerrarVentanaActionListener;
 import utilidades.FormatoLabel;
 import validaciones.Validar;
 import validaciones.TipoErrores;
@@ -19,7 +17,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-public class VentanaContacto extends JFrame implements VentanaConPadre {
+public class VentanaContacto extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
 
@@ -29,6 +27,7 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 	private JTextField txtTelefono = new JTextField();
 	private JTextField txtFechaNac = new JTextField();
 	private ArrayList<JTextField> txts = new ArrayList<JTextField>();
+
 	public ArrayList<JTextField> getTexts() {
 		return txts;
 	}
@@ -67,15 +66,15 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		padre.setVentanaHijaActiva(true);
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
+
 		addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                padre.setVentanaHijaActiva(false);
-                dispose();
-            }
-        });
-		
+			@Override
+			public void windowClosing(WindowEvent e) {
+				padre.setVentanaHijaActiva(false);
+				dispose();
+			}
+		});
+
 		setBounds(500, 100, 406, 537);
 		setTitle("Contactos");
 		getContentPane().setLayout(null);
@@ -108,10 +107,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		btnMostrar.setText("Mostrar");
 		btnMostrar.setBounds(264, 236, 89, 30);
 
-		// agreo un btn volver
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 450, 100, 30); // Ajusta la posición y tamaño
-		getContentPane().add(btnVolver);
 
 		// Agrego el boton al Panel
 		getContentPane().add(btnMostrar);
@@ -134,7 +129,6 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 
 		btnMostrar.addActionListener(new eBtnMostrar(this));
 
-		btnVolver.addActionListener(new CerrarVentanaActionListener(this));
 	}
 
 	public void cambiarVisibilidad(boolean estado) {
@@ -157,10 +151,10 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		if (validar.campoVacio(txtApellido)) {
 			setError(lblApellidoError, TipoErrores.getMSJ_CAMPO_VACIO());
 			txtApellido.setBackground(Color.RED);
-			existeError= true;
+			existeError = true;
 		} else if (validar.contieneNumeros(txtApellido)) {
 			setError(lblApellidoError, TipoErrores.getMSJ_CONTIENE_NRO());
-			existeError= true;
+			existeError = true;
 		}
 
 		if (validar.campoVacio(txtTelefono)) {
@@ -180,8 +174,8 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 			txtFechaNac.setBackground(Color.RED);
 			existeError = true;
 		}
-		if (validar.fechaInvalida(txtFechaNac)) {	
-			
+		if (validar.fechaInvalida(txtFechaNac)) {
+
 			setError(lblFNacError, validar.getErrorMsg());
 			existeError = true;
 		}
@@ -252,7 +246,8 @@ public class VentanaContacto extends JFrame implements VentanaConPadre {
 		label.setVisible(visible);
 		getContentPane().add(label);
 	}
-	//Para manejar el bloqueo de botones del principal
+
+	// Para manejar el bloqueo de botones del principal
 	public VentanaPpal getPadre() {
 		return padre;
 	}
@@ -275,12 +270,14 @@ class eBtnMostrar implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 
 		ventana.ocultarErrores();
-		for(JTextField text : ventana.getTexts()) {
+		for (JTextField text : ventana.getTexts()) {
 			text.setBackground(Color.WHITE);
-		};
+		}
+		;
 
 		if (!(ventana.hayErrorEnCampos()))
 			ventana.mostrarDatosContacto();
 
 	}
 }
+

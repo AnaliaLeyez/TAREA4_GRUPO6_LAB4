@@ -1,25 +1,19 @@
 package Principal;
 
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import interfaces.VentanaConPadre;
-import utilidades.CerrarVentanaActionListener;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaMensaje  extends JFrame implements VentanaConPadre {
+public class VentanaMensaje  extends JFrame {
 	
 		private static final long serialVersionUID = 1L;
-		private VentanaPpal padre;
+		private VentanaSeleccionMultiple padre;
 	    private JLabel lblOpciones;
 
 		
-		public VentanaMensaje(VentanaPpal padre,String opciones) {
+		public VentanaMensaje(VentanaSeleccionMultiple padre,String opciones) {
 			this.padre = padre;
 			padre.setVentanaHijaActiva(true);
 
@@ -53,6 +47,7 @@ public class VentanaMensaje  extends JFrame implements VentanaConPadre {
 			
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					padre.setControlesActivos(true);
 					cerrarVentana();
 				}
 			});
@@ -72,12 +67,12 @@ public class VentanaMensaje  extends JFrame implements VentanaConPadre {
 		    dispose(); 
 		}
 		
-		public VentanaPpal getPadre() {
+		public VentanaSeleccionMultiple getPadre() {
 			return padre;
 		}
 
 		
-		public void setPadre(VentanaPpal padre) {
+		public void setPadre(VentanaSeleccionMultiple padre) {
 			this.padre = padre;
 		}
 }

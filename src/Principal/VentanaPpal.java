@@ -86,7 +86,6 @@ public class VentanaPpal extends JFrame {
 		this.btnEj1.setEnabled(!isVentanaHijaActiva);
 		this.btnEj2.setEnabled(!isVentanaHijaActiva);
 		this.btnEj3.setEnabled(!isVentanaHijaActiva);
-
 	}
 	public void setVentanaHija(VentanaSeleccionMultiple ventana) {
 	    this.ventanaHijaActiva = ventana;
@@ -153,14 +152,15 @@ class eBtn3 implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							VentanaSeleccionMultiple frame = new VentanaSeleccionMultiple(padre);
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
+			        public void run() {
+			            try {
+			                VentanaSeleccionMultiple frame = new VentanaSeleccionMultiple(padre);
+			                frame.setVisible(true);
+			                padre.setVentanaHijaActiva(true);  // Desactiva los botones en VentanaPpal
+			            } catch (Exception e) {
+			                e.printStackTrace();
+			            }
+			        }
 				});
 	}
 }
