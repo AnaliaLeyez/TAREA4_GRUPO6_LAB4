@@ -93,6 +93,7 @@ public class VentanaPromedio extends Ventana {
 				padre.ventanaHijaActiva(false);
 				dispose();
 			}
+
 			public void windowActivated(WindowEvent e) {
 				padre.ventanaHijaActiva(true);
 			}
@@ -229,46 +230,45 @@ class eBtnCalcular implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		ventana.ocultarErrores();
 
+		try {
+			float nota1 = 0, nota2 = 0, nota3 = 0;
 
-					try {
-						float nota1 = 0, nota2 = 0, nota3 = 0;
-						
-						nota1 = validarNota(ventana.getTxtNota1(), ventana.getLblNota1Error());
-						nota2 = validarNota(ventana.getTxtNota2(), ventana.getLblNota2Error());
-						nota3 = validarNota(ventana.getTxtNota3(), ventana.getLblNota3Error());
+			nota1 = validarNota(ventana.getTxtNota1(), ventana.getLblNota1Error());
+			nota2 = validarNota(ventana.getTxtNota2(), ventana.getLblNota2Error());
+			nota3 = validarNota(ventana.getTxtNota3(), ventana.getLblNota3Error());
 
-						if(nota1!=0 && nota2!=0 && nota3!=0 ) {
-							
-								promedio = (nota1 + nota2 + nota3) / 3;
-								
-								tp = (String) ventana.getCBoxTps().getSelectedItem();
+			if (nota1 != 0 && nota2 != 0 && nota3 != 0) {
 
+				promedio = (nota1 + nota2 + nota3) / 3;
 
-								if (tp.equals("Desaprobado") || nota1 < 6 || nota2 < 6 || nota3 < 6) {
-									condicion = "Libre";
-								} else if (nota1 >= 8 && nota2 >= 8 && nota3 >= 8) {
-									condicion = "Promocionado";
-								} else {
-									condicion = "Regular";
-								}
-								
-								ventana.mostrarDatos(promedio, condicion);
-							}
-										
-					}catch(Exception ex){}
-					
+				tp = (String) ventana.getCBoxTps().getSelectedItem();
+
+				if (tp.equals("Desaprobado") || nota1 < 6 || nota2 < 6 || nota3 < 6) {
+					condicion = "Libre";
+				} else if (nota1 >= 8 && nota2 >= 8 && nota3 >= 8) {
+					condicion = "Promocionado";
+				} else {
+					condicion = "Regular";
+				}
+
+				ventana.mostrarDatos(promedio, condicion);
+			}
+
+		} catch (Exception ex) {
+		}
+
 	}
 
 	private float validarNota(JTextField campo, JLabel errorLabel) throws FueraDeRangoException, NumberFormatException {
 
 		String texto = campo.getText().trim();
-		
+
 		if (texto.isEmpty()) {
-	        campo.setBackground(Color.RED);
-	        errorLabel.setVisible(false);
-	        return 0;
-	    }
-		
+			campo.setBackground(Color.RED);
+			errorLabel.setVisible(false);
+			return 0;
+		}
+
 		float valor = 0;
 		try {
 			valor = Float.parseFloat(texto);

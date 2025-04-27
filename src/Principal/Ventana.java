@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -17,18 +18,19 @@ import javax.swing.JTextField;
 public abstract class Ventana extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private Ventana padre=null;
+	private Ventana padre = null;
 	private Ventana ventanaHija;
 	private boolean isVentanaHijaActiva = false;
-	
-	public Ventana(int bounds[], String titulo){ //este constructor es solo para Ventana Ppal que es la unica sin Padre
+
+	public Ventana(int bounds[], String titulo) { // este constructor es solo para Ventana Ppal que es la unica sin
+													// Padre
 		setResizable(false);
 		setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		setTitle(titulo);
 		getContentPane().setLayout(null);
 	}
-	
-	public Ventana(Ventana padre,int bounds[], String titulo){
+
+	public Ventana(Ventana padre, int bounds[], String titulo) {
 		setResizable(false);
 		this.setPadre(padre);
 		padre.setIsVentanaHijaActiva(true);
@@ -37,15 +39,15 @@ public abstract class Ventana extends JFrame {
 		getContentPane().setLayout(null);
 	}
 
-	public void setLabel(JLabel label, String valor, int bounds[], Color color , boolean visible) {
+	public void setLabel(JLabel label, String valor, int bounds[], Color color, boolean visible) {
 		label.setText(valor);
 		label.setBackground(this.getBackground());
 		label.setForeground(color);
 		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		label.setVisible(visible);
 		getContentPane().add(label);
-	}	
-	
+	}
+
 	public void setLblText(JLabel txt, Font fuente, Color color, int bounds[], String texto) {
 		txt.setFont(fuente);
 		txt.setBackground(color);
@@ -53,40 +55,44 @@ public abstract class Ventana extends JFrame {
 		txt.setText(texto);
 		getContentPane().add(txt);
 	}
-	
+
 	public void setButton(JButton btn, String nombre, int bounds[], boolean bool) {
 		btn.setText(nombre);
 		btn.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		btn.setEnabled(bool);
 		getContentPane().add(btn);
 	}
-	
+
 	public void finalSetLblError(JLabel lbl, JTextField lblFor) {
 		lbl.setEnabled(true);
 		lbl.setForeground(Color.RED);
 		lbl.setVisible(false);
 		lbl.setLabelFor(lblFor);
 	}
-	
-	public void setJPanel(JPanel panel, String txtBorde,int bounds[]) {
+
+	public void setJPanel(JPanel panel, String txtBorde, int bounds[]) {
 		panel.setBorder(BorderFactory.createTitledBorder(txtBorde));
 		panel.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 	}
-	
-	public void setJcBox(JCheckBox cBox, String texto, int bounds[], Font fuente) {
+
+	public void setJcBox(JCheckBox cBox, String texto, int bounds[], Font fuente, JPanel panel) {
 		cBox.setText(texto);
 		cBox.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		cBox.setFont(fuente);
+		panel.add(cBox);
 	}
-	
-	public void setJRadioBtn(JRadioButton rButton, String texto, int bounds[], Font fuente) {
+
+	public void setJRadioBtn(JRadioButton rButton, String texto, int bounds[], Font fuente, JPanel panel,
+			ButtonGroup grupo) {
 		rButton.setText(texto);
 		rButton.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		rButton.setFont(fuente);
+		panel.add(rButton);
+		grupo.add(rButton);
 	}
-	
+
 	public void setearTxt(JTextField txt, int[] bounds) {
 		addEventoKeyTyped(txt);
 		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -94,7 +100,7 @@ public abstract class Ventana extends JFrame {
 		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		getContentPane().add(txt);
 	}
-	
+
 	public void setearTxtNoEditable(JTextField txt, int[] bounds, int col, JPanel panel) {
 		addEventoKeyTyped(txt);
 		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -105,7 +111,7 @@ public abstract class Ventana extends JFrame {
 		getContentPane().add(txt);
 		panel.add(txt);
 	}
-	
+
 	public void addEventoKeyTyped(JTextField txt) {
 		txt.addKeyListener(new KeyAdapter() {
 			@Override
@@ -114,7 +120,7 @@ public abstract class Ventana extends JFrame {
 			}
 		});
 	}
-	
+
 	public Ventana getPadre() {
 		return padre;
 	}
@@ -122,24 +128,23 @@ public abstract class Ventana extends JFrame {
 	public void setPadre(Ventana padre) {
 		this.padre = padre;
 	}
-	
-	
+
 	public boolean getIsVentanaHijaActiva() {
 		return isVentanaHijaActiva;
 	}
 
 	public void setIsVentanaHijaActiva(boolean activa) {
-		isVentanaHijaActiva=activa;
+		isVentanaHijaActiva = activa;
 	}
-	
+
 	public void setVentanaHija(Ventana ventana) {
-	    this.ventanaHija = ventana;
+		this.ventanaHija = ventana;
 	}
 
 	public Ventana getVentanaHija() {
-	    return ventanaHija;
+		return ventanaHija;
 	}
-	
+
 	public void setError(JLabel label, String msjError) {
 		label.setText(msjError);
 		label.setVisible(true);
@@ -149,8 +154,8 @@ public abstract class Ventana extends JFrame {
 		label.setVisible(false);
 		label.setText("");
 	}
-	
+
 	public void cambiarVisibilidad(boolean estado) {
-	setVisible(estado);
+		setVisible(estado);
 	}
 }

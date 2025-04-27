@@ -1,6 +1,6 @@
 package Principal;
 
-import java.awt.Color;	
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +50,7 @@ public class VentanaContacto extends Ventana {
 	private JLabel lblFNacError = new JLabel();
 
 	public VentanaContacto(VentanaPpal padre) {
-		super(padre, new int[] { 500, 100, 406, 537},"Contactos");
+		super(padre, new int[] { 500, 100, 406, 537 }, "Contactos");
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -60,12 +60,12 @@ public class VentanaContacto extends Ventana {
 				padre.ventanaHijaActiva(false);
 				dispose();
 			}
+
 			public void windowActivated(WindowEvent e) {
 				padre.ventanaHijaActiva(true);
 			}
 		});
 
-		
 		setearTxt(txtNombre, new int[] { 109, 16, 248, 30 });
 		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
 		setearTxt(txtTelefono, new int[] { 109, 122, 248, 30 });
@@ -95,15 +95,15 @@ public class VentanaContacto extends Ventana {
 		getContentPane().add(btnMostrar);
 
 		// Datos Ingresados label
-		setLblText(lblDatosIng,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 261, 183, 41}, DatosIng);
-
+		setLblText(lblDatosIng, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
+				new int[] { 10, 261, 183, 41 }, DatosIng);
 
 		// Labels para errores.
 		setLabel(lblNombreError, "", new int[] { 109, 45, 250, 14 }, Color.red, false);
 		setTxtReferencia(lblNombreError, txtNombre);
 		getContentPane().add(lblNombreError);
 
-		setLabel(lblApellidoError,"", new int[] { 109, 97, 250, 14 }, Color.red, false);
+		setLabel(lblApellidoError, "", new int[] { 109, 97, 250, 14 }, Color.red, false);
 		setTxtReferencia(lblApellidoError, txtApellido);
 		getContentPane().add(lblApellidoError);
 
@@ -202,7 +202,6 @@ public class VentanaContacto extends Ventana {
 	private void setTxtReferencia(JLabel label, JTextField txt) {
 		label.setLabelFor(txt);
 	}
-
 
 }
 
