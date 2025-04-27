@@ -16,8 +16,6 @@ import java.awt.event.ActionEvent;
 public class VentanaSeleccionMultiple extends Ventana {
 
 	private static final long serialVersionUID = 1L;
-	private VentanaPpal padre;
-
 	JButton btnVolver, btnAceptar;
 	ButtonGroup grupoSO;
 
@@ -30,18 +28,19 @@ public class VentanaSeleccionMultiple extends Ventana {
 	private JLabel lblSO = new JLabel();
 	private JLabel lblErrorRadio;
 	private JLabel lblErrorCheck;
+	private VentanaPpal padre;
 
 
 	private JPanel panelSO, jpanelEspecialidad;
 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
 		super(padre, new int[] {500, 100, 459, 411},"Selección Múltiple");
-
+		this.padre=padre;
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				padre.setVentanaHijaActiva(false);
+				padre.ventanaHijaActiva(false);
 				setVentanaHijaActiva(false);
 				dispose();
 			}
@@ -260,6 +259,11 @@ public class VentanaSeleccionMultiple extends Ventana {
 		return existeError;
 	}
 
+	@Override
+	public VentanaPpal getPadre() {
+		return this.padre;
+	}
+
 	public void setVentanaHijaActiva(boolean isVentanaHijaActiva) {
 		setIsVentanaHijaActiva(isVentanaHijaActiva);
 		this.btnAceptar.setEnabled(!isVentanaHijaActiva);
@@ -333,8 +337,8 @@ class eBtnVolver implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Evento ejecutado");
-		ventana.getPadre().setIsVentanaHijaActiva(false);
+		ventana.getPadre().ventanaHijaActiva(false);
+		ventana.setVentanaHijaActiva(false);
 		((JFrame) ventana).dispose();
 	}
 }

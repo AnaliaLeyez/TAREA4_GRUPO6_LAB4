@@ -12,7 +12,6 @@ import javax.swing.*;
 
 public class VentanaPromedio extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private VentanaPpal padre;
 
 	// Defino los TextField
 	private JTextField txtNota1, txtNota2, txtNota3;
@@ -37,14 +36,14 @@ public class VentanaPromedio extends Ventana {
 
 	public VentanaPromedio(VentanaPpal padre) {
 		super(padre, new int[] {500, 100, 502, 537},"Promedio");
-		padre.setVentanaHijaActiva(true);
+//		padre.setVentanaHijaActiva(true);
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				padre.setVentanaHijaActiva(false);
+				padre.ventanaHijaActiva(false);
 				dispose();
 			}
 		});

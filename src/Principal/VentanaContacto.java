@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class VentanaContacto extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private VentanaPpal padre;
-
 	// Defino los TextField
 	private JTextField txtNombre = new JTextField();
 	private JTextField txtApellido = new JTextField();
@@ -60,14 +58,14 @@ public class VentanaContacto extends Ventana {
 	public VentanaContacto(VentanaPpal padre) {
 		super(padre, new int[] { 500, 100, 406, 537},"Contactos");
 
-		padre.setVentanaHijaActiva(true);
+//		padre.setVentanaHijaActiva(true);
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				padre.setVentanaHijaActiva(false);
+				padre.ventanaHijaActiva(false);
 				dispose();
 			}
 		});
@@ -223,26 +221,10 @@ public class VentanaContacto extends Ventana {
 		});
 	}
 
-	/*
-	 * private void setLabel(JLabel label, String valor, int bounds[], Color color ,
-	 * boolean visible) { label.setText(valor);
-	 * label.setBackground(this.getBackground()); label.setForeground(color);
-	 * label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
-	 * label.setVisible(visible); getContentPane().add(label); }
-	 */
-
 	private void setTxtReferencia(JLabel label, JTextField txt) {
 		label.setLabelFor(txt);
 	}
 
-	// Para manejar el bloqueo de botones del principal
-	public VentanaPpal getPadre() {
-		return padre;
-	}
-
-	public void setPadre(VentanaPpal padre) {
-		this.padre = padre;
-	}
 
 }
 

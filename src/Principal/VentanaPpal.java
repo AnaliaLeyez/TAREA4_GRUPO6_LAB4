@@ -69,7 +69,7 @@ public class VentanaPpal extends Ventana {
 
 	}
 
-	public void setVentanaHijaActiva(boolean isVentanaHijaActiva) {
+	public void ventanaHijaActiva(boolean isVentanaHijaActiva) {
 		setIsVentanaHijaActiva(isVentanaHijaActiva);
 		this.btnEj1.setEnabled(!isVentanaHijaActiva);
 		this.btnEj2.setEnabled(!isVentanaHijaActiva);
@@ -135,7 +135,7 @@ class eBtn3 implements ActionListener {
 			            try {
 			                VentanaSeleccionMultiple frame = new VentanaSeleccionMultiple(padre);
 			                frame.setVisible(true);
-			                padre.setVentanaHijaActiva(true);  // Desactiva los botones en VentanaPpal
+			                padre.ventanaHijaActiva(true);  // Desactiva los botones en VentanaPpal
 			            } catch (Exception e) {
 			                e.printStackTrace();
 			            }

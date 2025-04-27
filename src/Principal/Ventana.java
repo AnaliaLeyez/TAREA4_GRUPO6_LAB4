@@ -22,6 +22,7 @@ public abstract class Ventana extends JFrame {
 	public Ventana(Ventana padre,int bounds[], String titulo){
 		setResizable(false);
 		this.setPadre(padre);
+		padre.setIsVentanaHijaActiva(true);
 		setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		setTitle(titulo);
 		getContentPane().setLayout(null);
