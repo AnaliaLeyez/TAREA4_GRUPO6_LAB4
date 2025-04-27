@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 
-public class VentanaPromedio extends JFrame {
+public class VentanaPromedio extends Ventana {
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
 
@@ -36,9 +36,7 @@ public class VentanaPromedio extends JFrame {
 	private JPanel JPNotasDelEstudiante;
 
 	public VentanaPromedio(VentanaPpal padre) {
-		setResizable(false);
-
-		this.padre = padre;
+		super(padre, new int[] {500, 100, 502, 537},"Promedio");
 		padre.setVentanaHijaActiva(true);
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -50,9 +48,6 @@ public class VentanaPromedio extends JFrame {
 				dispose();
 			}
 		});
-
-		setBounds(500, 100, 502, 537);
-		setTitle("Promedio");
 
 		// Configuro Botón Calcular
 		btnCalcular = new JButton();
@@ -238,13 +233,6 @@ public class VentanaPromedio extends JFrame {
 		});
 	}
 
-	public void cambiarVisibilidad(boolean estado) {
-		setVisible(estado);
-	}
-
-	public VentanaPpal getPadre() {
-		return this.padre;
-	}
 
 	private void limpiarCampos() {
 		ocultarErrores();

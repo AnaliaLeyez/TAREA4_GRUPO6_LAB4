@@ -6,30 +6,20 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaMensaje  extends JFrame {
+public class VentanaMensaje extends Ventana {
 	
 		private static final long serialVersionUID = 1L;
-		private VentanaSeleccionMultiple padre;
 	    private JLabel lblOpciones;
+	    private JButton btnAceptar;
 
 		
 		public VentanaMensaje(VentanaSeleccionMultiple padre,String opciones) {
-			setResizable(false);
-			this.padre = padre;
+			super(padre, new int[] {300, 200, 450, 250},"Mensaje");
 			padre.setVentanaHijaActiva(true);
-
-			setTitle("Mensaje");
-			setBounds(500, 100, 438, 163);
-			getContentPane().setLayout(null);
-			
-			JPanel panel = new JPanel();
-			panel.setBounds(386, 25, 24, 10);
-			getContentPane().add(panel);
 			
 			// Mostrar las opciones seleccionadas
 			 lblOpciones = new JLabel("<html><b>" + opciones.replace("\n", "<br>") + "</b></html>");
-		     lblOpciones.setBounds(19, 11, 400, 120);
-		     getContentPane().add(lblOpciones);
+		     lblOpciones.setBounds(10, 0, 200, 100);
 		     lblOpciones.setHorizontalAlignment(SwingConstants.CENTER); 
 		     lblOpciones.setVerticalAlignment(SwingConstants.TOP);  
 
@@ -42,7 +32,7 @@ public class VentanaMensaje  extends JFrame {
 		        lblOpciones.setBounds(xPosition, yPosition, labelWidth, labelHeight);
 		        getContentPane().add(lblOpciones);
 		
-			JButton btnAceptar = new JButton("Aceptar");
+			btnAceptar = new JButton("Aceptar");
 			btnAceptar.setIcon(null);
 			btnAceptar.setBounds(157, 80, 110, 33);
 			
@@ -68,14 +58,6 @@ public class VentanaMensaje  extends JFrame {
 		    dispose(); 
 		}
 		
-		public VentanaSeleccionMultiple getPadre() {
-			return padre;
-		}
-
-		
-		public void setPadre(VentanaSeleccionMultiple padre) {
-			this.padre = padre;
-		}
 }
 
 

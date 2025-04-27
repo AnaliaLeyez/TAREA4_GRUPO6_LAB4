@@ -13,11 +13,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaSeleccionMultiple extends JFrame {
+public class VentanaSeleccionMultiple extends Ventana {
 
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
-	private boolean isVentanaHijaActiva = false;
 
 	JButton btnVolver, btnAceptar;
 	ButtonGroup grupoSO;
@@ -26,17 +25,17 @@ public class VentanaSeleccionMultiple extends JFrame {
 	private JCheckBox cbDesarrollo, cbDiseno, cbAdmin;
 	private JTextField txtCantHsPC;
 	private JLabel lblErrorHoras;
-	private JLabel lblEsp, lblNewLabel, lblSO;
+	private JLabel lblEsp= new JLabel();
+	private JLabel lblNewLabel= new JLabel();
+	private JLabel lblSO = new JLabel();
 	private JLabel lblErrorRadio;
 	private JLabel lblErrorCheck;
 
 
 	private JPanel panelSO, jpanelEspecialidad;
-	private JLabel lblErrorChck;
 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
-		setResizable(false);
-		this.padre = padre;
+		super(padre, new int[] {500, 100, 459, 411},"Selección Múltiple");
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -47,10 +46,6 @@ public class VentanaSeleccionMultiple extends JFrame {
 				dispose();
 			}
 		});
-
-		setBounds(500, 100, 459, 411);
-		setTitle("Selección Múltiple");
-		getContentPane().setLayout(null);
 
 		panelSO = new JPanel();
 		panelSO.setLayout(null);
@@ -104,8 +99,8 @@ public class VentanaSeleccionMultiple extends JFrame {
 		getContentPane().add(lblErrorHoras);
 
 		// especialidades
-		lblEsp = new JLabel("Elije una especialidad:");
-		lblEsp.setBounds(10, 32, 136, 20);
+		//lblEsp = new JLabel("Elije una especialidad:");
+		//lblEsp.setBounds(10, 32, 136, 20);
 		jpanelEspecialidad = new JPanel();
 
 		jpanelEspecialidad.setLayout(null);
@@ -113,8 +108,9 @@ public class VentanaSeleccionMultiple extends JFrame {
 		jpanelEspecialidad.setBorder(new LineBorder(Color.BLACK, 2));
 		getContentPane().add(jpanelEspecialidad);
 
+		padre.setLabel(lblEsp, "Elije una especialidad:", new int[] { 10, 32, 136, 20 }, Color.BLACK, true);
 		jpanelEspecialidad.add(lblEsp);
-		lblEsp.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		//lblEsp.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		cbAdmin = new JCheckBox("Diseño Gráfico");
 		cbAdmin.setBounds(221, 57, 150, 20);
 		jpanelEspecialidad.add(cbAdmin);
@@ -162,9 +158,6 @@ public class VentanaSeleccionMultiple extends JFrame {
 		this.setVentanaHijaActiva(false);
 	}
 
-	public void cambiarVisibilidad(boolean estado) {
-		setVisible(estado);
-	}
 
 	public String obtenerOpcionesSeleccionadas() {
 		StringBuilder opciones = new StringBuilder();
@@ -194,10 +187,6 @@ public class VentanaSeleccionMultiple extends JFrame {
 		return opciones.toString();
 	}
 
-	private void setError(JLabel label, String msjError) {
-		label.setText(msjError);
-		label.setVisible(true);
-	}
 	
 	public boolean hayErrorEnRadioButton() {
 	    if (!rbWindows.isSelected() && !rbMac.isSelected() && !rbLinux.isSelected()) {
@@ -271,20 +260,8 @@ public class VentanaSeleccionMultiple extends JFrame {
 		return existeError;
 	}
 
-	public VentanaPpal getPadre() {
-		return padre;
-	}
-
-	public void setPadre(VentanaPpal padre) {
-		this.padre = padre;
-	}
-
-	public boolean isVentanaHijaActiva() {
-		return isVentanaHijaActiva;
-	}
-
 	public void setVentanaHijaActiva(boolean isVentanaHijaActiva) {
-		this.isVentanaHijaActiva = isVentanaHijaActiva;
+		setIsVentanaHijaActiva(isVentanaHijaActiva);
 		this.btnAceptar.setEnabled(!isVentanaHijaActiva);
 		this.btnVolver.setEnabled(!isVentanaHijaActiva);
 	}
@@ -324,11 +301,6 @@ class eBtnAceptar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 	    padre.ocultarErrores();
-	    
-        boolean errorCampos = padre.hayErrorEnCampos();
-        boolean errorRadio = padre.hayErrorEnRadioButton();
-        boolean errorCheck = padre.hayErrorEnCheckBox();
-
 	    EventQueue.invokeLater(new Runnable() {
 	        public void run() {
 	            try {
@@ -362,7 +334,7 @@ class eBtnVolver implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Evento ejecutado");
-		ventana.getPadre().setVentanaHijaActiva(false);
+		ventana.getPadre().setIsVentanaHijaActiva(false);
 		((JFrame) ventana).dispose();
 	}
 }

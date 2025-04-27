@@ -16,7 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-public class VentanaContacto extends JFrame {
+public class VentanaContacto extends Ventana {
 	private static final long serialVersionUID = 1L;
 	private VentanaPpal padre;
 
@@ -58,9 +58,7 @@ public class VentanaContacto extends JFrame {
 	private JLabel lblFNacError = new JLabel();
 
 	public VentanaContacto(VentanaPpal padre) {
-		setResizable(false);
-
-		this.padre = padre;
+		super(padre, new int[] { 500, 100, 406, 537},"Contactos");
 
 		padre.setVentanaHijaActiva(true);
 
@@ -74,9 +72,7 @@ public class VentanaContacto extends JFrame {
 			}
 		});
 
-		setBounds(500, 100, 406, 537);
-		setTitle("Contactos");
-		getContentPane().setLayout(null);
+		
 
 		setearTxt(txtNombre, new int[] { 109, 16, 248, 30 });
 		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
@@ -133,9 +129,6 @@ public class VentanaContacto extends JFrame {
 
 	}
 
-	public void cambiarVisibilidad(boolean estado) {
-		setVisible(estado);
-	}
 
 	public boolean hayErrorEnCampos() {
 		Validar validar = new Validar();
@@ -213,16 +206,6 @@ public class VentanaContacto extends JFrame {
 		ocultarLabel(lblFNacError);
 	}
 
-	private void setError(JLabel label, String msjError) {
-		label.setText(msjError);
-		label.setVisible(true);
-	}
-
-	private void ocultarLabel(JLabel label) {
-		label.setVisible(false);
-		label.setText("");
-	}
-
 	private void setearTxt(JTextField txt, int[] bounds) {
 		addEventoKeyTyped(txt);
 		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
@@ -240,14 +223,13 @@ public class VentanaContacto extends JFrame {
 		});
 	}
 
-	private void setLabel(JLabel label, String valor, int bounds[], Color color , boolean visible) {
-		label.setText(valor);
-		label.setBackground(this.getBackground());
-		label.setForeground(color);
-		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
-		label.setVisible(visible);
-		getContentPane().add(label);
-	}
+	/*
+	 * private void setLabel(JLabel label, String valor, int bounds[], Color color ,
+	 * boolean visible) { label.setText(valor);
+	 * label.setBackground(this.getBackground()); label.setForeground(color);
+	 * label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+	 * label.setVisible(visible); getContentPane().add(label); }
+	 */
 
 	private void setTxtReferencia(JLabel label, JTextField txt) {
 		label.setLabelFor(txt);
