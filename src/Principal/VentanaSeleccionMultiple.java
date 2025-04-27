@@ -194,13 +194,25 @@ public class VentanaSeleccionMultiple extends Ventana {
 		Validar validar = new Validar();
 		boolean existeError = false;
 
+		if (hayErrorEnRadioButton()) {
+			setError(lblErrorRadio, TipoErrores.getMsjRadioBtn());
+			existeError = true;
+		}
+
+		if (hayErrorEnCheckBox()) {
+			setError(lblErrorCheck, TipoErrores.getMsjChkBtn());
+			existeError = true;
+		}
+
 		if (validar.campoVacio(txtCantHsPC)) {
+			setError(lblErrorHoras, TipoErrores.getMSJ_CAMPO_VACIO());
 			txtCantHsPC.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.contieneLetras(txtCantHsPC)) {
 			setError(lblErrorHoras, TipoErrores.getMSJ_CONTIENE_NRO());
 			existeError = true;
 		}
+
 		return existeError;
 	}
 
