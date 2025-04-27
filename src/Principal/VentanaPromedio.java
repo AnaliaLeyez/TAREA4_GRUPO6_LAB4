@@ -93,6 +93,9 @@ public class VentanaPromedio extends Ventana {
 				padre.ventanaHijaActiva(false);
 				dispose();
 			}
+			public void windowActivated(WindowEvent e) {
+				padre.ventanaHijaActiva(true);
+			}
 		});
 
 		setJPanel(JPPromedioDelEstudiante, "Promedio Del Estudiante", new int[] { 20, 293, 319, 147 });

@@ -57,25 +57,19 @@ public class VentanaSeleccionMultiple extends Ventana {
 		setLblText(lblSO, new Font("Tahoma", Font.BOLD, 12), this.getBackground(), new int[] {10, 17, 160, 20}, "Elije un sistema operativo:");
 		panelSO.add(lblSO);
 
-		rbWindows = new JRadioButton("Windows");
-		rbWindows.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rbMac = new JRadioButton("Mac");
-		rbMac.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rbLinux = new JRadioButton("Linux");
-		rbLinux.setFont(new Font("Tahoma", Font.PLAIN, 13));
-
-		grupoSO = new ButtonGroup();
-		grupoSO.add(rbWindows);
-		grupoSO.add(rbMac);
-		grupoSO.add(rbLinux);
-
-		rbWindows.setBounds(180, 17, 80, 20);
-		rbMac.setBounds(260, 17, 60, 20);
-		rbLinux.setBounds(317, 17, 60, 20);
-
+		//RadioButtons
+		setJRadioBtn(rbWindows, "Windows", new int[] {180, 17, 80, 20}, new Font("Tahoma", Font.PLAIN, 13));		
 		panelSO.add(rbWindows);
+		grupoSO.add(rbWindows);
+		
+		setJRadioBtn(rbMac, "Mac", new int[] {260, 17, 60, 20}, new Font("Tahoma", Font.PLAIN, 13));		
 		panelSO.add(rbMac);
+		grupoSO.add(rbMac);
+		
+		setJRadioBtn(rbLinux, "Linux", new int[] {317, 17, 60, 20}, new Font("Tahoma", Font.PLAIN, 13));		
 		panelSO.add(rbLinux);
+		grupoSO.add(rbLinux);
+		
 
 		setearTxt(txtCantHsPC, new int[] {258, 230, 86, 20});
 		txtCantHsPC.setColumns(10);

@@ -11,6 +11,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public abstract class Ventana extends JFrame {
@@ -78,6 +79,12 @@ public abstract class Ventana extends JFrame {
 		cBox.setText(texto);
 		cBox.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		cBox.setFont(fuente);
+	}
+	
+	public void setJRadioBtn(JRadioButton rButton, String texto, int bounds[], Font fuente) {
+		rButton.setText(texto);
+		rButton.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		rButton.setFont(fuente);
 	}
 	
 	public void setearTxt(JTextField txt, int[] bounds) {

@@ -60,6 +60,9 @@ public class VentanaContacto extends Ventana {
 				padre.ventanaHijaActiva(false);
 				dispose();
 			}
+			public void windowActivated(WindowEvent e) {
+				padre.ventanaHijaActiva(true);
+			}
 		});
 
 		
