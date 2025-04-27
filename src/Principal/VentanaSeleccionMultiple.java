@@ -16,22 +16,27 @@ import java.awt.event.ActionEvent;
 public class VentanaSeleccionMultiple extends Ventana {
 
 	private static final long serialVersionUID = 1L;
-	JButton btnVolver, btnAceptar;
-	ButtonGroup grupoSO;
+	private JButton btnVolver= new JButton();
+	private JButton	btnAceptar= new JButton();;
+	private ButtonGroup grupoSO= new ButtonGroup();
 
-	private JRadioButton rbWindows, rbMac, rbLinux;
-	private JCheckBox cbDesarrollo, cbDiseno, cbAdmin;
-	private JTextField txtCantHsPC;
-	private JLabel lblErrorHoras;
+	private JRadioButton rbWindows=new JRadioButton();
+	private JRadioButton rbMac=new JRadioButton();
+	private JRadioButton rbLinux=new JRadioButton();
+	private JCheckBox cbProgra = new JCheckBox();
+	private JCheckBox cbDiseno = new JCheckBox();
+	private JCheckBox cbAdmin = new JCheckBox();
+	private JTextField txtCantHsPC= new JTextField();
+	private JLabel lblErrorHoras= new JLabel();
 	private JLabel lblEsp= new JLabel();
 	private JLabel lblNewLabel= new JLabel();
 	private JLabel lblSO = new JLabel();
-	private JLabel lblErrorRadio;
-	private JLabel lblErrorCheck;
+	private JLabel lblErrorRadio= new JLabel();
+	private JLabel lblErrorCheck= new JLabel();
 	private VentanaPpal padre;
 
-
-	private JPanel panelSO, jpanelEspecialidad;
+	private JPanel panelSO = new JPanel();
+	private JPanel jpanelEspecialidad= new JPanel();
 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
 		super(padre, new int[] {500, 100, 459, 411},"Selección Múltiple");
@@ -46,15 +51,10 @@ public class VentanaSeleccionMultiple extends Ventana {
 			}
 		});
 
-		panelSO = new JPanel();
-		panelSO.setLayout(null);
-		panelSO.setBounds(20, 20, 381, 58);
+		setJPanel(panelSO, "", new int[] {20, 20, 381, 58});
 		panelSO.setBorder(new LineBorder(Color.BLACK, 2));
-		getContentPane().add(panelSO);
 
-		lblSO = new JLabel("Elije un sistema operativo:");
-		lblSO.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblSO.setBounds(10, 17, 160, 20);
+		setLblText(lblSO, new Font("Tahoma", Font.BOLD, 12), this.getBackground(), new int[] {10, 17, 160, 20}, "Elije un sistema operativo:");
 		panelSO.add(lblSO);
 
 		rbWindows = new JRadioButton("Windows");
@@ -77,82 +77,43 @@ public class VentanaSeleccionMultiple extends Ventana {
 		panelSO.add(rbMac);
 		panelSO.add(rbLinux);
 
-		// btn volver
-		btnVolver = new JButton();
-		btnVolver.setText("Volver");
-		btnVolver.setBounds(20, 294, 100, 30);
-
-		// btn aceptar
-		btnAceptar = new JButton();
-		btnAceptar.setText("Aceptar");
-		btnAceptar.setBounds(301, 294, 100, 30); // Esquina inferior derecha
-
-		txtCantHsPC = new JTextField();
-		txtCantHsPC.setBounds(258, 230, 86, 20);
-		getContentPane().add(txtCantHsPC);
+		setearTxt(txtCantHsPC, new int[] {258, 230, 86, 20});
 		txtCantHsPC.setColumns(10);
 
-		lblErrorHoras = new JLabel();
-		lblErrorHoras.setForeground(Color.RED);
-		lblErrorHoras.setBounds(258, 253, 143, 14);
-		getContentPane().add(lblErrorHoras);
+		setLabel(lblErrorHoras, "", new int[] {258, 253, 143, 14}, Color.RED, false);
 
 		// especialidades
-		//lblEsp = new JLabel("Elije una especialidad:");
-		//lblEsp.setBounds(10, 32, 136, 20);
-		jpanelEspecialidad = new JPanel();
-
-		jpanelEspecialidad.setLayout(null);
-		jpanelEspecialidad.setBounds(20, 114, 381, 86);
+		setJPanel(jpanelEspecialidad, "", new int[] {20, 114, 381, 86});
 		jpanelEspecialidad.setBorder(new LineBorder(Color.BLACK, 2));
-		getContentPane().add(jpanelEspecialidad);
 
 		padre.setLabel(lblEsp, "Elije una especialidad:", new int[] { 10, 32, 136, 20 }, Color.BLACK, true);
 		jpanelEspecialidad.add(lblEsp);
-		//lblEsp.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		cbAdmin = new JCheckBox("Diseño Gráfico");
-		cbAdmin.setBounds(221, 57, 150, 20);
-		jpanelEspecialidad.add(cbAdmin);
-		cbAdmin.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		cbDiseno = new JCheckBox("Administración");
-		cbDiseno.setBounds(221, 32, 150, 20);
+
+		setJcBox(cbDiseno, "Diseño Gráfico", new int[] {221, 32, 150, 20}, new Font("Tahoma", Font.PLAIN, 13));	
 		jpanelEspecialidad.add(cbDiseno);
-		cbDiseno.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
+		setJcBox(cbAdmin, "Administración", new int[] {221, 57, 150, 20}, new Font("Tahoma", Font.PLAIN, 13));		
+		jpanelEspecialidad.add(cbAdmin);		
+		
+		setJcBox(cbProgra, "Programación", new int[] {221, 7, 150, 20}, new Font("Tahoma", Font.PLAIN, 13));	
+		jpanelEspecialidad.add(cbProgra);
 
-		cbDesarrollo = new JCheckBox("Programación");
-		cbDesarrollo.setBounds(221, 7, 150, 20);
-		jpanelEspecialidad.add(cbDesarrollo);
-		cbDesarrollo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		setLblText(lblNewLabel, new Font("Tahoma", Font.PLAIN, 13), this.getBackground(), new int[] {20, 232, 221, 14}, "Cantidad de horas en el computador:");
 
-		lblNewLabel = new JLabel("Cantidad de horas en el computador:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel.setBounds(20, 232, 221, 14);
-		getContentPane().add(lblNewLabel);
-
-		getContentPane().add(btnVolver);
-		getContentPane().add(btnAceptar);
+		// botones
+		setButton(btnVolver, "Volver", new int[] {20, 294, 100, 30}, !getIsVentanaHijaActiva());
+		setButton(btnAceptar, "Aceptar", new int[] {301, 294, 100, 30}, !getIsVentanaHijaActiva());
 		btnVolver.addActionListener(new eBtnVolver(this));
-		// evento btn Aceptar
-		eBtnAceptar eventoAceptar = new eBtnAceptar(this);
-		eventoAceptar.setCantHoras(txtCantHsPC);
-		eventoAceptar.setLblErrorHs(lblErrorHoras);
+		btnAceptar.addActionListener(new eBtnAceptar(this));
 
 		// Label para error de RadioButton
-		lblErrorRadio = new JLabel();
-		lblErrorRadio.setForeground(Color.RED);
-		lblErrorRadio.setBounds(20, 78, 350, 14);
+		setLabel(lblErrorRadio, "", new int[] {20, 78, 350, 14}, Color.RED, false);
 		lblErrorRadio.setVisible(false);
-		getContentPane().add(lblErrorRadio);
-
-		// Label para error de CheckBox
-		lblErrorCheck = new JLabel();
-		lblErrorCheck.setForeground(Color.RED);
-		lblErrorCheck.setBounds(20, 205, 350, 14);
-		lblErrorCheck.setVisible(false);
-		getContentPane().add(lblErrorCheck);
-
 		
-		btnAceptar.addActionListener(eventoAceptar);
+		// Label para error de CheckBox
+		setLabel(lblErrorCheck, "", new int[] {20, 205, 350, 14}, Color.RED, false);
+		lblErrorCheck.setVisible(false);
+
 
 		this.setVentanaHijaActiva(false);
 	}
@@ -170,13 +131,13 @@ public class VentanaSeleccionMultiple extends Ventana {
 		}
 
 		// Especialidades
-		if (cbDesarrollo.isSelected()) {
+		if (cbProgra.isSelected()) {
 			opciones.append("- Programación");
 		}
-		if (cbDiseno.isSelected()) {
+		if (cbAdmin.isSelected()) {
 			opciones.append("- Administración");
 		}
-		if (cbAdmin.isSelected()) {
+		if (cbDiseno.isSelected()) {
 			opciones.append("- Diseño Gráfico");
 		}
 
@@ -200,7 +161,7 @@ public class VentanaSeleccionMultiple extends Ventana {
 	}
 
 	public boolean hayErrorEnCheckBox() {
-	    if (!cbDesarrollo.isSelected() && !cbDiseno.isSelected() && !cbAdmin.isSelected()) {
+	    if (!cbProgra.isSelected() && !cbDiseno.isSelected() && !cbAdmin.isSelected()) {
 	        lblErrorCheck.setText(TipoErrores.getMsjChkBtn());
 	        lblErrorCheck.setVisible(true);
 	        return true;

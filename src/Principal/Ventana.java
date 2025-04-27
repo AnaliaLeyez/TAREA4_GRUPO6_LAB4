@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,15 +43,7 @@ public abstract class Ventana extends JFrame {
 		label.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		label.setVisible(visible);
 		getContentPane().add(label);
-	}
-
-	
-	public void setButton(JButton btn, String nombre, int bounds[], boolean bool) {
-		btn.setText(nombre);
-		btn.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
-		btn.setEnabled(bool);
-		getContentPane().add(btn);
-	}
+	}	
 	
 	public void setLblText(JLabel txt, Font fuente, Color color, int bounds[], String texto) {
 		txt.setFont(fuente);
@@ -58,6 +51,13 @@ public abstract class Ventana extends JFrame {
 		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
 		txt.setText(texto);
 		getContentPane().add(txt);
+	}
+	
+	public void setButton(JButton btn, String nombre, int bounds[], boolean bool) {
+		btn.setText(nombre);
+		btn.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		btn.setEnabled(bool);
+		getContentPane().add(btn);
 	}
 	
 	public void finalSetLblError(JLabel lbl, JTextField lblFor) {
@@ -74,7 +74,11 @@ public abstract class Ventana extends JFrame {
 		panel.setLayout(null);
 	}
 	
-	
+	public void setJcBox(JCheckBox cBox, String texto, int bounds[], Font fuente) {
+		cBox.setText(texto);
+		cBox.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		cBox.setFont(fuente);
+	}
 	
 	public void setearTxt(JTextField txt, int[] bounds) {
 		addEventoKeyTyped(txt);
@@ -138,7 +142,6 @@ public abstract class Ventana extends JFrame {
 		label.setVisible(false);
 		label.setText("");
 	}
-	
 	
 	public void cambiarVisibilidad(boolean estado) {
 	setVisible(estado);
