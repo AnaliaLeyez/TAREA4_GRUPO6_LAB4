@@ -7,6 +7,8 @@ public abstract class TipoErrores {
 	static final String MSJ_CONTIENE_LETRAS = "El campo no puede contener letras";
 	static final String MSJ_TEL_LONGITUD_INCORRECTA = "El campo debe tener entre 9 y 10 dígitos";
 	static final String MSJ_FORMATO_DATE = "El formato debe ser dd/MM/yyyy";
+	static final String MSJ_RADIO_BTN = "Debe seleccionar una opción";
+	static final String MSJ_CHK_BTN = "Debe seleccionar al menos una opción";
 	
 	public static String getMSJ_CAMPO_VACIO() {
 		return MSJ_CAMPO_VACIO;
@@ -22,5 +24,11 @@ public abstract class TipoErrores {
 	}
 	public static String getMSJ_FORMATO_DATE() {
 		return MSJ_FORMATO_DATE;
+	}
+	public static String getMsjRadioBtn() {
+		return MSJ_RADIO_BTN;
+	}
+	public static String getMsjChkBtn() {
+		return MSJ_CHK_BTN;
 	}
 }

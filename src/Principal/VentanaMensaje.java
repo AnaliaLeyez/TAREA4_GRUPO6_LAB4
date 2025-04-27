@@ -14,6 +14,7 @@ public class VentanaMensaje  extends JFrame {
 
 		
 		public VentanaMensaje(VentanaSeleccionMultiple padre,String opciones) {
+			setResizable(false);
 			this.padre = padre;
 			padre.setVentanaHijaActiva(true);
 

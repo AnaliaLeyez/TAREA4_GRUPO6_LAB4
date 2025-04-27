@@ -27,12 +27,17 @@ public class VentanaSeleccionMultiple extends JFrame {
 	private JTextField txtCantHsPC;
 	private JLabel lblErrorHoras;
 	private JLabel lblEsp, lblNewLabel, lblSO;
+	private JLabel lblErrorRadio;
+	private JLabel lblErrorCheck;
+
 
 	private JPanel panelSO, jpanelEspecialidad;
+	private JLabel lblErrorChck;
 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
+		setResizable(false);
 		this.padre = padre;
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
@@ -43,10 +48,10 @@ public class VentanaSeleccionMultiple extends JFrame {
 			}
 		});
 
-		setBounds(500, 100, 436, 304);
+		setBounds(500, 100, 459, 411);
 		setTitle("Selección Múltiple");
 		getContentPane().setLayout(null);
-		
+
 		panelSO = new JPanel();
 		panelSO.setLayout(null);
 		panelSO.setBounds(20, 20, 381, 58);
@@ -81,21 +86,21 @@ public class VentanaSeleccionMultiple extends JFrame {
 		// btn volver
 		btnVolver = new JButton();
 		btnVolver.setText("Volver");
-		btnVolver.setBounds(20, 228, 100, 30);
+		btnVolver.setBounds(20, 294, 100, 30);
 
 		// btn aceptar
 		btnAceptar = new JButton();
 		btnAceptar.setText("Aceptar");
-		btnAceptar.setBounds(301, 228, 100, 30); // Esquina inferior derecha
+		btnAceptar.setBounds(301, 294, 100, 30); // Esquina inferior derecha
 
 		txtCantHsPC = new JTextField();
-		txtCantHsPC.setBounds(258, 186, 86, 20);
+		txtCantHsPC.setBounds(258, 230, 86, 20);
 		getContentPane().add(txtCantHsPC);
 		txtCantHsPC.setColumns(10);
 
 		lblErrorHoras = new JLabel();
 		lblErrorHoras.setForeground(Color.RED);
-		lblErrorHoras.setBounds(258, 206, 143, 14);
+		lblErrorHoras.setBounds(258, 253, 143, 14);
 		getContentPane().add(lblErrorHoras);
 
 		// especialidades
@@ -104,7 +109,7 @@ public class VentanaSeleccionMultiple extends JFrame {
 		jpanelEspecialidad = new JPanel();
 
 		jpanelEspecialidad.setLayout(null);
-		jpanelEspecialidad.setBounds(20, 89, 381, 86);
+		jpanelEspecialidad.setBounds(20, 114, 381, 86);
 		jpanelEspecialidad.setBorder(new LineBorder(Color.BLACK, 2));
 		getContentPane().add(jpanelEspecialidad);
 
@@ -126,7 +131,7 @@ public class VentanaSeleccionMultiple extends JFrame {
 
 		lblNewLabel = new JLabel("Cantidad de horas en el computador:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel.setBounds(20, 188, 221, 14);
+		lblNewLabel.setBounds(20, 232, 221, 14);
 		getContentPane().add(lblNewLabel);
 
 		getContentPane().add(btnVolver);
@@ -136,6 +141,22 @@ public class VentanaSeleccionMultiple extends JFrame {
 		eBtnAceptar eventoAceptar = new eBtnAceptar(this);
 		eventoAceptar.setCantHoras(txtCantHsPC);
 		eventoAceptar.setLblErrorHs(lblErrorHoras);
+
+		// Label para error de RadioButton
+		lblErrorRadio = new JLabel();
+		lblErrorRadio.setForeground(Color.RED);
+		lblErrorRadio.setBounds(20, 78, 350, 14);
+		lblErrorRadio.setVisible(false);
+		getContentPane().add(lblErrorRadio);
+
+		// Label para error de CheckBox
+		lblErrorCheck = new JLabel();
+		lblErrorCheck.setForeground(Color.RED);
+		lblErrorCheck.setBounds(20, 205, 350, 14);
+		lblErrorCheck.setVisible(false);
+		getContentPane().add(lblErrorCheck);
+
+		
 		btnAceptar.addActionListener(eventoAceptar);
 
 		this.setVentanaHijaActiva(false);
@@ -173,10 +194,33 @@ public class VentanaSeleccionMultiple extends JFrame {
 		return opciones.toString();
 	}
 
-
 	private void setError(JLabel label, String msjError) {
 		label.setText(msjError);
 		label.setVisible(true);
+	}
+	
+	public boolean hayErrorEnRadioButton() {
+	    if (!rbWindows.isSelected() && !rbMac.isSelected() && !rbLinux.isSelected()) {
+	        lblErrorRadio.setText(TipoErrores.getMsjRadioBtn());
+	        lblErrorRadio.setVisible(true);
+	        return true;
+	    } else {
+	        lblErrorRadio.setText("");
+	        lblErrorRadio.setVisible(false);
+	        return false;
+	    }
+	}
+
+	public boolean hayErrorEnCheckBox() {
+	    if (!cbDesarrollo.isSelected() && !cbDiseno.isSelected() && !cbAdmin.isSelected()) {
+	        lblErrorCheck.setText(TipoErrores.getMsjChkBtn());
+	        lblErrorCheck.setVisible(true);
+	        return true;
+	    } else {
+	        lblErrorCheck.setText("");
+	        lblErrorCheck.setVisible(false);
+	        return false;
+	    }
 	}
 
 	public float validarHoras() throws FueraDeRangoException, NumberFormatException {
@@ -195,14 +239,23 @@ public class VentanaSeleccionMultiple extends JFrame {
 
 	private void mostrarError(String msjError) {
 		txtCantHsPC.setBackground(Color.PINK);
-	    lblErrorHoras.setText(msjError);
-	    lblErrorHoras.setVisible(true);
+		lblErrorHoras.setText(msjError);
+		lblErrorHoras.setVisible(true);
 	}
 
 	public void ocultarErrores() {
-		lblErrorHoras.setVisible(false);
-		txtCantHsPC.setBackground(Color.WHITE);
+	    lblErrorHoras.setText("");
+	    lblErrorHoras.setVisible(false);
+
+	    lblErrorRadio.setText("");
+	    lblErrorRadio.setVisible(false);
+
+	    lblErrorCheck.setText("");
+	    lblErrorCheck.setVisible(false);
+	    
+	    txtCantHsPC.setBackground(Color.WHITE);
 	}
+
 
 	public boolean hayErrorEnCampos() {
 		Validar validar = new Validar();
@@ -235,25 +288,21 @@ public class VentanaSeleccionMultiple extends JFrame {
 		this.btnAceptar.setEnabled(!isVentanaHijaActiva);
 		this.btnVolver.setEnabled(!isVentanaHijaActiva);
 	}
-	
+
 	public void setControlesActivos(boolean activos) {
-	    btnAceptar.setEnabled(activos);
-	    btnVolver.setEnabled(activos);
+		btnAceptar.setEnabled(activos);
+		btnVolver.setEnabled(activos);
 	}
-
 }
-
 
 class eBtnAceptar implements ActionListener {
 	private VentanaSeleccionMultiple padre;
 	private JLabel lblErrorHs;
 	private JTextField CantHoras;
-	
+
 	public eBtnAceptar(VentanaSeleccionMultiple padre) {
 		this.padre = padre;
 	}
-
-	
 
 	public JLabel getLblErrorHs() {
 		return lblErrorHs;
@@ -274,33 +323,33 @@ class eBtnAceptar implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		padre.ocultarErrores();
+	    padre.ocultarErrores();
+	    
+        boolean errorCampos = padre.hayErrorEnCampos();
+        boolean errorRadio = padre.hayErrorEnRadioButton();
+        boolean errorCheck = padre.hayErrorEnCheckBox();
 
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					if (!padre.hayErrorEnCampos()) {
-						try {
-							padre.validarHoras();
-
-							// Obtiene las opciones actualizadas y luego crea la ventana
-							String opElegidas = padre.obtenerOpcionesSeleccionadas();
-							VentanaMensaje frame = new VentanaMensaje(padre, opElegidas);
-							padre.setControlesActivos(false);
-							frame.setVisible(true);
-
-						} catch (FueraDeRangoException | NumberFormatException ex) {
-							ex.printStackTrace();
-						}
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		});
+	    EventQueue.invokeLater(new Runnable() {
+	        public void run() {
+	            try {
+	                if (!padre.hayErrorEnCampos() && !padre.hayErrorEnRadioButton() && !padre.hayErrorEnCheckBox()) {
+	                    try {
+	                        padre.validarHoras();
+	                        String opElegidas = padre.obtenerOpcionesSeleccionadas();
+	                        VentanaMensaje frame = new VentanaMensaje(padre, opElegidas);
+	                        padre.setControlesActivos(false);
+	                        frame.setVisible(true);
+	                    } catch (FueraDeRangoException | NumberFormatException ex) {
+	                        ex.printStackTrace();
+	                    }
+	                }
+	            } catch (Exception ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	    });
 	}
 }
-
 
 class eBtnVolver implements ActionListener {
 

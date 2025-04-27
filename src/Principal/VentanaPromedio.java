@@ -36,6 +36,7 @@ public class VentanaPromedio extends JFrame {
 	private JPanel JPNotasDelEstudiante;
 
 	public VentanaPromedio(VentanaPpal padre) {
+		setResizable(false);
 
 		this.padre = padre;
 		padre.setVentanaHijaActiva(true);

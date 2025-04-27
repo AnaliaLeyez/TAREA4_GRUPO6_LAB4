@@ -60,6 +60,7 @@ public class VentanaContacto extends JFrame {
 	private JLabel lblFNacError;
 
 	public VentanaContacto(VentanaPpal padre) {
+		setResizable(false);
 
 		this.padre = padre;
 
