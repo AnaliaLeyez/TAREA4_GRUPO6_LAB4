@@ -1,9 +1,16 @@
 package Principal;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public abstract class Ventana extends JFrame {
 
@@ -37,6 +44,60 @@ public abstract class Ventana extends JFrame {
 		getContentPane().add(label);
 	}
 
+	
+	public void setButton(JButton btn, String nombre, int bounds[], boolean bool) {
+		btn.setText(nombre);
+		btn.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		btn.setEnabled(bool);
+		getContentPane().add(btn);
+	}
+	
+	public void setLblText(JLabel txt, Font fuente, Color color, int bounds[], String texto) {
+		txt.setFont(fuente);
+		txt.setBackground(color);
+		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		txt.setText(texto);
+		getContentPane().add(txt);
+	}
+	
+	public void setJPanel(JPanel panel, String txtBorde,int bounds[]) {
+		panel.setBorder(BorderFactory.createTitledBorder(txtBorde));
+		panel.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+	}
+	
+	
+	
+	public void setearTxt(JTextField txt, int[] bounds) {
+		addEventoKeyTyped(txt);
+		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		txt.setBackground(Color.white);
+		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		getContentPane().add(txt);
+	}
+	
+	public void setearTxtNoEditable(JTextField txt, int[] bounds, int col, JPanel panel) {
+		addEventoKeyTyped(txt);
+		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
+		txt.setBackground(Color.white);
+		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+		txt.setEditable(false);
+		txt.setColumns(col);
+
+		//getContentPane().add(txt);
+		panel.add(txt);
+	}
+	
+	private void addEventoKeyTyped(JTextField txt) {
+		txt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				txt.setBackground(Color.WHITE);
+			}
+		});
+	}
+	
 	public Ventana getPadre() {
 		return padre;
 	}

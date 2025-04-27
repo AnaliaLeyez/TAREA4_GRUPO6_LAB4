@@ -14,29 +14,49 @@ public class VentanaPromedio extends Ventana {
 	private static final long serialVersionUID = 1L;
 
 	// Defino los TextField
-	private JTextField txtNota1, txtNota2, txtNota3;
+	private JTextField txtNota1= new JTextField();
+	private JTextField txtNota2= new JTextField();
+	private JTextField txtNota3= new JTextField();
+	private JTextField txtPromedio= new JTextField();
+	private JTextField txtCondicion= new JTextField();
+	
+	//ComboBox
 	private JComboBox<String> cBoxTps;
 
 	// Defino los Label
-	private JLabel lblNota1, lblNota2, lblNota3, lblTps;
-	private JLabel lblNota1Error, lblNota2Error, lblNota3Error;
+	private JLabel lblNota1 = new JLabel(); 
+	private JLabel lblNota2 = new JLabel();
+	private JLabel lblNota3 = new JLabel();
+	private JLabel lblTps = new JLabel();
+	
+	private JLabel lblNota1Error = new JLabel();
+	private JLabel lblNota2Error = new JLabel();
+	private JLabel lblNota3Error = new JLabel();
 
+	private JLabel lblMostrarNota1 = new JLabel();
+	private JLabel lblMostrarNota2 = new JLabel();
+	private JLabel lblMostrarNota3 = new JLabel();
+	private JLabel lblMostrarTps = new JLabel();
+	
+	private JLabel lblPromedio = new JLabel();
+	private JLabel lblCondicion = new JLabel();
+	
 	// Defino los textos constantes
 	private final String Nota1 = "Nota 1:";
 	private final String Nota2 = "Nota 2:";
 	private final String Nota3 = "Nota 3:";
 	private final String Tps = "TPS:";
 
-	// BOTON Calcular
-	private JButton btnCalcular, btnNuevo, btnSalir;
-	private JPanel JPPromedioDelEstudiante;
-	private JTextField txtPromedio;
-	private JTextField txtCondicion;
-	private JPanel JPNotasDelEstudiante;
+	// Botones
+	private JButton btnCalcular = new JButton();
+	private JButton btnNuevo = new JButton();
+	private JButton btnSalir = new JButton();
+	
+	private JPanel JPPromedioDelEstudiante = new JPanel();
+	private JPanel JPNotasDelEstudiante= new JPanel();
 
 	public VentanaPromedio(VentanaPpal padre) {
 		super(padre, new int[] {500, 100, 502, 537},"Promedio");
-//		padre.setVentanaHijaActiva(true);
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -49,52 +69,24 @@ public class VentanaPromedio extends Ventana {
 		});
 
 		// Configuro Botón Calcular
-		btnCalcular = new JButton();
-		btnCalcular.setBounds(349, 69, 129, 43);
-		btnCalcular.setText("CALCULAR");
+		setButton(btnCalcular,"CALCULAR", new int[] {349, 69, 129, 43},!getIsVentanaHijaActiva());
 
-		JLabel lblMostrarNota1 = new JLabel();
-		JLabel lblMostrarNota2 = new JLabel();
-		JLabel lblMostrarNota3 = new JLabel();
-		JLabel lblMostrarTps = new JLabel();
-		getContentPane().setLayout(null);
-		getContentPane().add(btnCalcular);
+		setJPanel(JPPromedioDelEstudiante,"Promedio Del Estudiante",new int[] {20, 293, 319, 147});
 
-		JPPromedioDelEstudiante = new JPanel();
-		JPPromedioDelEstudiante.setBorder(BorderFactory.createTitledBorder("Notas Del Estudiante"));
-		JPPromedioDelEstudiante.setBounds(20, 293, 319, 147);
-		getContentPane().add(JPPromedioDelEstudiante);
-		JPPromedioDelEstudiante.setLayout(null);
 
-		JLabel lblPromedio = new JLabel("Promedio:");
-		lblPromedio.setBounds(10, 48, 88, 14);
+		setLblText(lblPromedio,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 48, 88, 14}, "Promedio:");
 		JPPromedioDelEstudiante.add(lblPromedio);
-		lblPromedio.setBackground(this.getBackground());
-		lblPromedio.setForeground(Color.BLACK);
 
-		JLabel lblCondicion = new JLabel("Condición:");
-		lblCondicion.setBounds(10, 89, 88, 14);
+		setLblText(lblCondicion,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 89, 88, 14}, "Condición:");
 		JPPromedioDelEstudiante.add(lblCondicion);
-		lblCondicion.setBackground(this.getBackground());
-		lblCondicion.setForeground(Color.BLACK);
 
-		txtPromedio = new JTextField();
-		txtPromedio.setBounds(108, 45, 96, 20);
-		txtPromedio.setEditable(false);
-		JPPromedioDelEstudiante.add(txtPromedio);
-		txtPromedio.setColumns(10);
+		//Textos promedio y condicion que se muestran como resultado:
+		setearTxtNoEditable(txtPromedio, new int[] { 108, 45, 96, 20}, 10, JPPromedioDelEstudiante);
+		setearTxtNoEditable(txtCondicion, new int[] {108, 86, 96, 20}, 10, JPPromedioDelEstudiante);
+		
+		
+		setJPanel(JPNotasDelEstudiante,"Notas Del Estudiante",new int[] {20, 34, 319, 248});
 
-		txtCondicion = new JTextField();
-		txtCondicion.setBounds(108, 86, 96, 20);
-		txtCondicion.setEditable(false);
-		JPPromedioDelEstudiante.add(txtCondicion);
-		txtCondicion.setColumns(10);
-
-		JPNotasDelEstudiante = new JPanel();
-		JPNotasDelEstudiante.setBorder(BorderFactory.createTitledBorder("Notas Del Estudiante"));
-		JPNotasDelEstudiante.setBounds(20, 34, 319, 248);
-		getContentPane().add(JPNotasDelEstudiante);
-		JPNotasDelEstudiante.setLayout(null);
 
 // Nota1 Label y TextField
 		lblNota1 = new JLabel(Nota1);

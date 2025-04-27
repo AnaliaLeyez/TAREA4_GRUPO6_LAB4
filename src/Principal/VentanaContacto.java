@@ -10,8 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import validaciones.Validar;
 import validaciones.TipoErrores;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -24,10 +22,6 @@ public class VentanaContacto extends Ventana {
 	private JTextField txtTelefono = new JTextField();
 	private JTextField txtFechaNac = new JTextField();
 	private ArrayList<JTextField> txts = new ArrayList<JTextField>();
-
-	public ArrayList<JTextField> getTexts() {
-		return txts;
-	}
 
 	// Defino los Label
 	private JLabel lblNombre = new JLabel();
@@ -44,7 +38,7 @@ public class VentanaContacto extends Ventana {
 	private final String DatosIng = "Los datos ingresados fueron:";
 
 	// BOTON mostrar
-	private JButton btnMostrar;
+	private JButton btnMostrar = new JButton();
 	private JLabel lblMostrarNombre = new JLabel();
 	private JLabel lblMostrarApellido = new JLabel();
 	private JLabel lblMostrarTel = new JLabel();
@@ -58,8 +52,6 @@ public class VentanaContacto extends Ventana {
 	public VentanaContacto(VentanaPpal padre) {
 		super(padre, new int[] { 500, 100, 406, 537},"Contactos");
 
-//		padre.setVentanaHijaActiva(true);
-
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
@@ -71,7 +63,6 @@ public class VentanaContacto extends Ventana {
 		});
 
 		
-
 		setearTxt(txtNombre, new int[] { 109, 16, 248, 30 });
 		setearTxt(txtApellido, new int[] { 109, 70, 248, 30 });
 		setearTxt(txtTelefono, new int[] { 109, 122, 248, 30 });
@@ -101,10 +92,8 @@ public class VentanaContacto extends Ventana {
 		getContentPane().add(btnMostrar);
 
 		// Datos Ingresados label
-		lblDatosIng = new JLabel(DatosIng);
-		lblDatosIng.setBounds(10, 261, 183, 41);
-		lblDatosIng.setFont(new Font("Lucida Sans Unicode", Font.BOLD, 11));
-		getContentPane().add(lblDatosIng);
+		setLblText(lblDatosIng,new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(), new int[]{10, 261, 183, 41}, DatosIng);
+
 
 		// Labels para errores.
 		setLabel(lblNombreError, "", new int[] { 109, 45, 250, 14 }, Color.red, false);
@@ -127,6 +116,9 @@ public class VentanaContacto extends Ventana {
 
 	}
 
+	public ArrayList<JTextField> getTexts() {
+		return txts;
+	}
 
 	public boolean hayErrorEnCampos() {
 		Validar validar = new Validar();
@@ -202,23 +194,6 @@ public class VentanaContacto extends Ventana {
 		ocultarLabel(lblApellidoError);
 		ocultarLabel(lblTelefonoError);
 		ocultarLabel(lblFNacError);
-	}
-
-	private void setearTxt(JTextField txt, int[] bounds) {
-		addEventoKeyTyped(txt);
-		txt.setFont(new Font("Lucida Sans Unicode", Font.PLAIN, 12));
-		txt.setBackground(Color.white);
-		txt.setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
-		getContentPane().add(txt);
-	}
-
-	private void addEventoKeyTyped(JTextField txt) {
-		txt.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				txt.setBackground(Color.WHITE);
-			}
-		});
 	}
 
 	private void setTxtReferencia(JLabel label, JTextField txt) {
