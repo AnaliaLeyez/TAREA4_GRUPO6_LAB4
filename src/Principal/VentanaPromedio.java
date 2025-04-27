@@ -270,7 +270,7 @@ class eBtnCalcular implements ActionListener {
 		try {
 			valor = Float.parseFloat(texto);
 
-			if (valor < 0 || valor > 10) {
+			if (valor < 1 || valor > 10) {
 				mostrarError(campo, errorLabel, "Debe estar entre 1 y 10");
 				valor = 0;
 			}
