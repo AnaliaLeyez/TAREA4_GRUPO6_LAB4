@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
+
+import validaciones.TipoErrores;
 import validaciones.Validar;
 
 public class VentanaPromedio extends Ventana {
@@ -140,17 +142,17 @@ public class VentanaPromedio extends Ventana {
 
 		// Labels para errores.
 		setLblText(lblNota1Error, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
-				new int[] { 109, 68, 160, 14 }, "");
+				new int[] { 109, 68, 220, 14 }, "");
 		JPNotasDelEstudiante.add(lblNota1Error);
 		finalSetLblError(lblNota1Error, txtNota1);
 
 		setLblText(lblNota2Error, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
-				new int[] { 109, 120, 160, 14 }, "");
+				new int[] { 109, 120, 220, 14 }, "");
 		JPNotasDelEstudiante.add(lblNota2Error);
 		finalSetLblError(lblNota2Error, txtNota1);
 
 		setLblText(lblNota3Error, new Font("Lucida Sans Unicode", Font.BOLD, 12), this.getBackground(),
-				new int[] { 109, 172, 160, 14 }, "");
+				new int[] { 109, 172, 220, 14 }, "");
 		JPNotasDelEstudiante.add(lblNota3Error);
 		finalSetLblError(lblNota3Error, txtNota1);
 
@@ -260,8 +262,9 @@ class eBtnCalcular implements ActionListener {
 		String texto = campo.getText().trim();
 
 		if (texto.isEmpty()) {
+			mostrarError(campo, errorLabel, TipoErrores.getMSJ_CAMPO_VACIO());
 			campo.setBackground(Color.RED);
-			errorLabel.setVisible(false);
+			errorLabel.setVisible(true);
 			return 0;
 		}
 
@@ -270,12 +273,15 @@ class eBtnCalcular implements ActionListener {
 			valor = Float.parseFloat(texto);
 
 			if (valor < 1 || valor > 10) {
-				mostrarError(campo, errorLabel, "Debe estar entre 1 y 10");
+				mostrarError(campo, errorLabel, TipoErrores.getMSJ_NOTA_INVALIDA());
+				errorLabel.setVisible(true);
 				valor = 0;
 			}
 
 		} catch (NumberFormatException e) {
-			mostrarError(campo, errorLabel, "Ingrese un número válido");
+			mostrarError(campo, errorLabel, TipoErrores.getMSJ_NOTA_INVALIDA());
+			errorLabel.setVisible(true);
+			e.printStackTrace();
 		}
 		return valor;
 	}
