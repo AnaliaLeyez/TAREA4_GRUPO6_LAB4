@@ -276,6 +276,7 @@ class eBtnCalcular implements ActionListener {
 
 		} catch (NumberFormatException e) {
 			mostrarError(campo, errorLabel, "Ingrese un número válido");
+			e.printStackTrace();
 		}
 		return valor;
 	}

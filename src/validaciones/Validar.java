@@ -70,19 +70,5 @@ public class Validar {
 		String numero = txt.getText().trim();
 		return !numero.matches("\\d{9,10}");
 	}
-
-	
-//	public float validarNota(JTextField campo) throws FueraDeRangoException, NumberFormatException {
-//		try {
-//			float valor = Float.parseFloat(campo.getText());
-//			if (valor < 1 || valor > 10) {
-//				valor=0; //lo tomo como false
-//				throw new FueraDeRangoException("Nota fuera de rango");
-//			}
-//			return valor;
-//		} catch (NumberFormatException e) {
-//			throw new NumberFormatException();
-//		}
-//	}
 	
 }
