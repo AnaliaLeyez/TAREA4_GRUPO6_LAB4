@@ -7,6 +7,8 @@ import Principal.FueraDeRangoException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Validar {
 	private static String errorMsg = "";
@@ -65,6 +67,22 @@ public class Validar {
 		}
 		return false;
 	}
+	
+    public boolean nombreApellidoValido(JTextField txt) {
+    		String nombre= txt.getText();
+	        // Expresión regular que permite letras, espacios y apóstrofes
+	        String regex = "^[A-Za-záéíóúÁÉÍÓÚüÜñÑ' ]+$";
+	        
+	        // Compilar el patrón
+	        Pattern patron = Pattern.compile(regex);
+	        
+	        // Crear un Matcher con el texto a validar
+	        Matcher matcher = patron.matcher(nombre);
+	        
+	        // Devuelve verdadero si la cadena es válida
+	        return matcher.matches();
+	}
+
 
 	public boolean telefonoInvalido(JTextField txt) {
 		String numero = txt.getText().trim();

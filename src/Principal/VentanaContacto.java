@@ -131,8 +131,8 @@ public class VentanaContacto extends Ventana {
 			setError(lblNombreError, TipoErrores.getMSJ_CAMPO_VACIO());
 			txtNombre.setBackground(Color.RED);
 			existeError = true;
-		} else if (validar.contieneNumeros(txtNombre)) {
-			setError(lblNombreError, TipoErrores.getMSJ_CONTIENE_NRO());
+		} else if (!validar.nombreApellidoValido(txtNombre)) {
+			setError(lblNombreError, TipoErrores.getMSJ_CONTIENE_SIMBOLOS());
 			existeError = true;
 		}
 
