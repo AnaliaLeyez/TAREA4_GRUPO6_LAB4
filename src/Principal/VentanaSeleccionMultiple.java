@@ -39,7 +39,7 @@ public class VentanaSeleccionMultiple extends Ventana {
 	private JPanel jpanelEspecialidad = new JPanel();
 
 	public VentanaSeleccionMultiple(VentanaPpal padre) {
-		super(padre, new int[] { 500, 100, 459, 411 }, "Selección Múltiple");
+		super(padre, new int[] { 500, 100, 510, 411 }, "Selección Múltiple");
 		this.padre = padre;
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -51,27 +51,27 @@ public class VentanaSeleccionMultiple extends Ventana {
 			}
 		});
 
-		setJPanel(panelSO, "", new int[] { 20, 20, 381, 58 });
+		setJPanel(panelSO, "", new int[] { 20, 20, 450, 58 });
 		panelSO.setBorder(new LineBorder(Color.BLACK, 2));
 
-		setLblText(lblSO, new Font("Tahoma", Font.BOLD, 12), this.getBackground(), new int[] { 10, 17, 160, 20 },
+		setLblText(lblSO, new Font("Tahoma", Font.BOLD, 12), this.getBackground(), new int[] { 10, 17, 190, 20 },
 				"Elije un sistema operativo:");
 		panelSO.add(lblSO);
 
 		// RadioButtons, los configura y agrega a panel y a BotonGroup
-		setJRadioBtn(rbWindows, "Windows", new int[] { 180, 17, 80, 20 }, new Font("Tahoma", Font.PLAIN, 13), panelSO,
+		setJRadioBtn(rbWindows, "Windows", new int[] { 200, 17, 80, 20 }, new Font("Tahoma", Font.PLAIN, 13), panelSO,
 				grupoSO);
-		setJRadioBtn(rbMac, "Mac", new int[] { 260, 17, 60, 20 }, new Font("Tahoma", Font.PLAIN, 13), panelSO, grupoSO);
-		setJRadioBtn(rbLinux, "Linux", new int[] { 317, 17, 60, 20 }, new Font("Tahoma", Font.PLAIN, 13), panelSO,
+		setJRadioBtn(rbMac, "Mac", new int[] { 280, 17, 60, 20 }, new Font("Tahoma", Font.PLAIN, 13), panelSO, grupoSO);
+		setJRadioBtn(rbLinux, "Linux", new int[] { 340, 17, 60, 20 }, new Font("Tahoma", Font.PLAIN, 13), panelSO,
 				grupoSO);
 
 		setearTxt(txtCantHsPC, new int[] { 258, 230, 86, 20 });
 		txtCantHsPC.setColumns(10);
 
-		setLabel(lblErrorHoras, "", new int[] { 258, 253, 143, 14 }, Color.RED, false);
+		setLabel(lblErrorHoras, "", new int[] { 258, 253, 200, 14 }, Color.RED, false);
 
 		// especialidades
-		setJPanel(jpanelEspecialidad, "", new int[] { 20, 114, 381, 86 });
+		setJPanel(jpanelEspecialidad, "", new int[] { 20, 114, 450, 86 });
 		jpanelEspecialidad.setBorder(new LineBorder(Color.BLACK, 2));
 
 		padre.setLabel(lblEsp, "Elije una especialidad:", new int[] { 10, 32, 136, 20 }, Color.BLACK, true);
@@ -90,7 +90,7 @@ public class VentanaSeleccionMultiple extends Ventana {
 
 		// botones
 		setButton(btnVolver, "Volver", new int[] { 20, 294, 100, 30 }, !getIsVentanaHijaActiva());
-		setButton(btnAceptar, "Aceptar", new int[] { 301, 294, 100, 30 }, !getIsVentanaHijaActiva());
+		setButton(btnAceptar, "Aceptar", new int[] { 370, 294, 100, 30 }, !getIsVentanaHijaActiva());
 		btnVolver.addActionListener(new eBtnVolver(this));
 		btnAceptar.addActionListener(new eBtnAceptar(this));
 
@@ -198,7 +198,7 @@ public class VentanaSeleccionMultiple extends Ventana {
 			txtCantHsPC.setBackground(Color.RED);
 			existeError = true;
 		} else if (validar.contieneLetras(txtCantHsPC)) {
-			setError(lblErrorHoras, TipoErrores.getMSJ_CONTIENE_NRO());
+			setError(lblErrorHoras, TipoErrores.getMSJ_CONTIENE_LETRAS());
 			existeError = true;
 		}
 
